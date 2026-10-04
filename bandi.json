@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "nome": "Marche per le imprese – Creazione nuove imprese Over 36",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-16",
+    "scadenzaTesto": "16 ottobre 2026 – prima finestra",
+    "profili": ["nuova"],
+    "settori": [
+      "commercio",
+      "turismo",
+      "agricoltura",
+      "artigianato",
+      "industria",
+      "servizi",
+      "digitale",
+      "altro"
+    ],
+    "descrizione": "Sostegno della Regione Marche alla creazione di nuove imprese.",
+    "requisiti": "Tra i requisiti previsti: età 36-65 anni, residenza nelle Marche e specifici requisiti relativi allo stato di disoccupazione.",
+    "dotazione": "€6.905.000 complessivi",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Regione-Utile/Lavoro-e-Formazione-Professionale/Creazione-d-impresa"
+  },
+
+  {
+    "id": 2,
+    "nome": "GAL Piceno – Smart Villages e inclusione sociale ed economica",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "2026-10-30",
+    "scadenzaTesto": "30 ottobre 2026",
+    "profili": ["altro"],
+    "settori": [
+      "turismo",
+      "agricoltura",
+      "servizi",
+      "altro"
+    ],
+    "descrizione": "Intervento SRG07 per iniziative realizzate attraverso Partenariati Pubblico Privati.",
+    "requisiti": "Occorre verificare territorio ammissibile, composizione del partenariato e condizioni previste dal bando.",
+    "dotazione": "€1.530.000 complessivi",
+    "territorio": "GAL Piceno",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1542?idb=28510"
+  },
+
+  {
+    "id": 3,
+    "nome": "Sostegno imprese zootecniche – Blue Tongue",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-13",
+    "scadenzaTesto": "13 ottobre 2026",
+    "profili": ["agricola"],
+    "settori": ["agricoltura"],
+    "descrizione": "Sostegno alle imprese zootecniche per interventi connessi alla Blue Tongue.",
+    "requisiti": "Riservato alle imprese che rispettano i requisiti specifici previsti dall'avviso.",
+    "dotazione": "€130.000",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1817?idb=26359"
+  },
+
+  {
+    "id": 4,
+    "nome": "FEAMPA – Acquacoltura sostenibile 2026",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-11-16",
+    "scadenzaTesto": "16 novembre 2026",
+    "profili": [
+      "acquacoltura",
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": ["pesca"],
+    "descrizione": "Sostegno alla competitività e sostenibilità delle attività di acquacoltura.",
+    "requisiti": "Intervento rivolto alle imprese che rispettano le condizioni previste dal PN FEAMPA 2021-2027.",
+    "dotazione": "Verificare nel bando",
+    "territorio": "Regione Marche",
+    "url": "https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
+  }
+]
