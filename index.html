@@ -1,135 +1,254 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BandiAP | Bandi e agevolazioni nelle Marche</title>
+<title>BandiAP | Trova bandi e agevolazioni</title>
 
 <style>
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f7fb;
-  color:#1f2937
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#1f2937;
 }
+
 header{
-  background:linear-gradient(135deg,#075985,#0284c7);
-  color:white;
-  padding:35px 20px;
-  text-align:center
+background:linear-gradient(135deg,#075985,#0284c7);
+color:white;
+padding:36px 20px;
+text-align:center;
 }
-header h1{margin:0;font-size:34px}
-header p{margin:8px 0 0}
-.container{max-width:900px;margin:auto;padding:20px}
+
+header h1{
+margin:0;
+font-size:36px;
+}
+
+header p{
+margin:8px 0 0;
+}
+
+.versione{
+font-size:12px;
+margin-top:10px;
+opacity:.8;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
 .card{
-  background:white;
-  padding:24px;
-  margin-top:20px;
-  border-radius:14px;
-  box-shadow:0 4px 16px rgba(0,0,0,.08)
+background:white;
+padding:24px;
+margin-top:20px;
+border-radius:14px;
+box-shadow:0 4px 16px rgba(0,0,0,.08);
 }
-h2{color:#075985}
+
+h2{
+color:#075985;
+}
+
 label{
-  display:block;
-  font-weight:bold;
-  margin:16px 0 6px
+display:block;
+font-weight:bold;
+margin:16px 0 6px;
 }
+
 select,input{
-  width:100%;
-  padding:13px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:16px
+width:100%;
+padding:13px;
+border:1px solid #cbd5e1;
+border-radius:8px;
+font-size:16px;
+background:white;
 }
+
 button{
-  width:100%;
-  margin-top:24px;
-  padding:15px;
-  border:0;
-  border-radius:8px;
-  background:#0284c7;
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer
+width:100%;
+margin-top:24px;
+padding:15px;
+border:0;
+border-radius:8px;
+background:#0284c7;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
 }
+
+button:hover{
+background:#0369a1;
+}
+
+#risultati{
+display:none;
+}
+
+.info{
+background:#e0f2fe;
+border-left:5px solid #0284c7;
+padding:15px;
+border-radius:8px;
+margin-bottom:20px;
+}
+
+.contatore{
+font-size:14px;
+margin:15px 0;
+color:#475569;
+}
+
 .bando{
-  border:1px solid #e2e8f0;
-  border-radius:12px;
-  padding:18px;
-  margin-top:16px
+border:1px solid #e2e8f0;
+border-radius:12px;
+padding:18px;
+margin-top:16px;
 }
+
 .bando h3{
-  color:#075985;
-  margin:8px 0
+color:#075985;
+margin:10px 0;
 }
+
+.ente{
+font-size:14px;
+color:#64748b;
+}
+
 .badge{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:bold
+display:inline-block;
+padding:6px 10px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin-right:5px;
 }
-.aperto{background:#dcfce7;color:#166534}
-.verifica{background:#fef3c7;color:#92400e}
-.speciale{background:#e0e7ff;color:#3730a3}
+
+.alta{
+background:#dcfce7;
+color:#166534;
+}
+
+.media{
+background:#fef3c7;
+color:#92400e;
+}
+
+.aperto{
+background:#dbeafe;
+color:#1e40af;
+}
 
 .scadenza{
-  margin:12px 0;
-  padding:10px;
-  background:#f8fafc;
-  border-radius:8px
+margin:12px 0;
+padding:11px;
+background:#f8fafc;
+border-radius:8px;
 }
+
+.requisiti{
+margin-top:12px;
+padding:12px;
+background:#fff7ed;
+border-radius:8px;
+font-size:14px;
+}
+
 .link{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  background:#075985;
-  color:white;
-  padding:12px;
-  border-radius:8px;
-  margin-top:15px;
-  font-weight:bold
+display:block;
+text-align:center;
+text-decoration:none;
+background:#075985;
+color:white;
+padding:12px;
+border-radius:8px;
+margin-top:15px;
+font-weight:bold;
 }
-.info{
-  background:#e0f2fe;
-  border-left:5px solid #0284c7;
-  padding:14px;
-  border-radius:8px
-}
-#risultati{display:none}
+
 .nota{
-  font-size:13px;
-  color:#64748b;
-  margin-top:20px
+font-size:13px;
+color:#64748b;
+margin-top:20px;
 }
+
 footer{
-  text-align:center;
-  padding:30px;
-  color:#64748b;
-  font-size:13px
+text-align:center;
+padding:30px;
+color:#64748b;
+font-size:13px;
 }
+
+.errore{
+padding:15px;
+background:#fee2e2;
+color:#991b1b;
+border-radius:8px;
+}
+
+@media(max-width:600px){
+
+.container{
+padding:12px;
+}
+
+.card{
+padding:18px;
+}
+
+header h1{
+font-size:30px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <h1>BandiAP</h1>
-<p>Trova bandi e agevolazioni per il territorio piceno</p>
+
+<p>
+Trova bandi e agevolazioni per imprese e territorio piceno
+</p>
+
+<div class="versione">
+Versione 4 • Database separato
+</div>
+
 </header>
+
 
 <div class="container">
 
 <div class="card">
 
-<h2>Trova le opportunità</h2>
+<h2>🔎 Cerca opportunità</h2>
 
-<label>Comune</label>
+
+<label for="comune">
+Comune
+</label>
+
 <select id="comune">
-<option value="">Seleziona Comune</option>
+
+<option value="">
+Seleziona Comune
+</option>
+
 <option>Ascoli Piceno</option>
 <option>Acquasanta Terme</option>
 <option>Arquata del Tronto</option>
@@ -161,23 +280,61 @@ footer{
 <option>San Benedetto del Tronto</option>
 <option>Spinetoli</option>
 <option>Venarotta</option>
+
 </select>
 
-<label>Profilo</label>
+
+<label for="profilo">
+Profilo
+</label>
+
 <select id="profilo">
-<option value="">Seleziona</option>
-<option value="nuova">Nuova impresa / aspirante imprenditore</option>
-<option value="micro">Microimpresa</option>
-<option value="piccola">Piccola impresa</option>
-<option value="media">Media impresa</option>
-<option value="agricola">Impresa agricola / zootecnica</option>
-<option value="acquacoltura">Impresa acquacoltura</option>
-<option value="altro">Altro soggetto</option>
+
+<option value="">
+Seleziona
+</option>
+
+<option value="nuova">
+Nuova impresa / aspirante imprenditore
+</option>
+
+<option value="micro">
+Microimpresa
+</option>
+
+<option value="piccola">
+Piccola impresa
+</option>
+
+<option value="media">
+Media impresa
+</option>
+
+<option value="agricola">
+Impresa agricola / zootecnica
+</option>
+
+<option value="acquacoltura">
+Impresa acquacoltura
+</option>
+
+<option value="altro">
+Altro soggetto
+</option>
+
 </select>
 
-<label>Settore</label>
+
+<label for="settore">
+Settore
+</label>
+
 <select id="settore">
-<option value="">Seleziona</option>
+
+<option value="">
+Seleziona
+</option>
+
 <option value="commercio">Commercio</option>
 <option value="turismo">Turismo</option>
 <option value="agricoltura">Agricoltura</option>
@@ -187,185 +344,492 @@ footer{
 <option value="digitale">Digitale / ICT</option>
 <option value="pesca">Pesca / acquacoltura</option>
 <option value="altro">Altro</option>
+
 </select>
 
-<label>Investimento previsto (€)</label>
-<input type="number" id="investimento" placeholder="Es. 50000">
 
-<button onclick="trovaBandi()">🔎 Cerca bandi reali</button>
+<label for="investimento">
+Investimento previsto (€)
+</label>
+
+<input
+type="number"
+id="investimento"
+placeholder="Es. 50000"
+min="0"
+>
+
+
+<button onclick="trovaBandi()">
+
+Cerca bandi
+
+</button>
 
 </div>
+
 
 <div class="card" id="risultati">
 
-<h2>Opportunità individuate</h2>
+<h2>
+Opportunità individuate
+</h2>
 
 <div id="riepilogo"></div>
+
+<div id="contatore"></div>
+
 <div id="lista"></div>
 
+
 <p class="nota">
+
 ⚠️ BandiAP è uno strumento informativo sperimentale.
-La compatibilità indicata non costituisce ammissione al contributo.
-Verifica sempre requisiti, allegati e scadenze sulla fonte ufficiale.
+La compatibilità è una pre-valutazione automatica e non
+costituisce ammissione al contributo.
+
+Verifica sempre requisiti, allegati, scadenze ed eventuali
+modifiche sulla fonte ufficiale.
+
 </p>
 
 </div>
 
 </div>
 
+
 <footer>
-BandiAP • Provincia di Ascoli Piceno • Versione 3
+
+BandiAP • Provincia di Ascoli Piceno • V4
+
 </footer>
+
 
 <script>
 
-const bandi = [
+let databaseBandi=[];
 
-{
-nome:"Marche per le imprese – Creazione nuove imprese Over 36",
-stato:"APERTO",
-scadenza:"16 ottobre 2026 – prima finestra",
-profili:["nuova"],
-settori:["commercio","turismo","agricoltura","artigianato","industria","servizi","digitale","altro"],
-descrizione:"Avviso della Regione Marche per sostenere la creazione di nuove imprese. Tra i requisiti principali: età 36-65 anni, residenza nelle Marche e stato di disoccupazione da almeno 180 giorni con Patto di Servizio.",
-nota:"Dotazione complessiva: €6.905.000. Prima finestra 2026: €3.500.000.",
-url:"https://www.regione.marche.it/Regione-Utile/Lavoro-e-Formazione-Professionale/Creazione-d-impresa"
-},
 
-{
-nome:"GAL Piceno – Smart Villages e inclusione sociale ed economica",
-stato:"APERTO",
-scadenza:"30 ottobre 2026",
-profili:["altro"],
-settori:["turismo","agricoltura","servizi","altro"],
-descrizione:"Intervento SRG07 del GAL Piceno per iniziative realizzate attraverso Partenariati Pubblico Privati nel territorio sub-GAL.",
-nota:"Bando territoriale particolarmente rilevante per il Piceno. È necessario verificare composizione del partenariato e territorio ammissibile.",
-url:"https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1542?idb=28510"
-},
+/* CARICAMENTO DATABASE */
 
-{
-nome:"Sostegno imprese zootecniche – Blue Tongue",
-stato:"APERTO",
-scadenza:"13 ottobre 2026",
-profili:["agricola"],
-settori:["agricoltura"],
-descrizione:"Contributo una tantum in regime de minimis destinato alle imprese zootecniche per vaccini e prodotti repellenti contro gli insetti vettori della Blue Tongue.",
-nota:"Dotazione indicata dalla Regione Marche: €130.000.",
-url:"https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1817?idb=26359"
-},
+async function caricaDatabase(){
 
-{
-nome:"FEAMPA – Acquacoltura sostenibile 2026",
-stato:"APERTO",
-scadenza:"16 novembre 2026",
-profili:["acquacoltura","micro","piccola","media"],
-settori:["pesca"],
-descrizione:"Sostegno alle Micro, Piccole e Medie Imprese del settore acquicolo per rafforzare competitività e sostenibilità delle attività di acquacoltura.",
-nota:"Intervento PN FEAMPA 2021-2027.",
-url:"https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
+try{
+
+const risposta=
+await fetch("./bandi.json?version="+Date.now());
+
+if(!risposta.ok){
+
+throw new Error(
+"Impossibile caricare il database."
+);
+
 }
 
-];
+databaseBandi=
+await risposta.json();
+
+console.log(
+"Bandi caricati:",
+databaseBandi.length
+);
+
+}
+
+catch(errore){
+
+console.error(errore);
+
+alert(
+"Errore nel caricamento di bandi.json"
+);
+
+}
+
+}
+
+
+/* AVVIO */
+
+caricaDatabase();
+
+
+/* RICERCA */
 
 function trovaBandi(){
 
-const comune=document.getElementById("comune").value;
-const profilo=document.getElementById("profilo").value;
-const settore=document.getElementById("settore").value;
-const investimento=Number(document.getElementById("investimento").value);
+const comune=
+document.getElementById("comune").value;
+
+const profilo=
+document.getElementById("profilo").value;
+
+const settore=
+document.getElementById("settore").value;
+
+const investimento=
+Number(
+document.getElementById("investimento").value
+);
+
 
 if(!comune || !profilo || !settore){
-alert("Seleziona Comune, profilo e settore.");
+
+alert(
+"Seleziona Comune, profilo e settore."
+);
+
 return;
+
 }
 
-document.getElementById("riepilogo").innerHTML=`
+
+if(databaseBandi.length===0){
+
+alert(
+"Il database dei bandi non è ancora disponibile. Riprova tra qualche secondo."
+);
+
+return;
+
+}
+
+
+const oggi=
+new Date();
+
+oggi.setHours(0,0,0,0);
+
+
+let risultati=[];
+
+
+databaseBandi.forEach(function(bando){
+
+
+/* ESCLUDE BANDI SCADUTI */
+
+const scadenza=
+new Date(
+bando.scadenza+"T23:59:59"
+);
+
+if(scadenza < oggi){
+
+return;
+
+}
+
+
+/* CALCOLO COMPATIBILITÀ */
+
+let punteggio=0;
+
+
+if(
+bando.profili.includes(profilo)
+){
+
+punteggio+=60;
+
+}
+
+
+if(
+bando.settori.includes(settore)
+){
+
+punteggio+=40;
+
+}
+
+
+if(punteggio>=40){
+
+risultati.push({
+
+...bando,
+
+punteggio:punteggio
+
+});
+
+}
+
+});
+
+
+/* ORDINA PER COMPATIBILITÀ */
+
+risultati.sort(function(a,b){
+
+if(
+b.punteggio !== a.punteggio
+){
+
+return b.punteggio-a.punteggio;
+
+}
+
+return new Date(a.scadenza)-
+new Date(b.scadenza);
+
+});
+
+
+mostraRisultati(
+risultati,
+comune,
+profilo,
+settore,
+investimento
+);
+
+}
+
+
+/* VISUALIZZAZIONE */
+
+function mostraRisultati(
+risultati,
+comune,
+profilo,
+settore,
+investimento
+){
+
+const area=
+document.getElementById("risultati");
+
+const lista=
+document.getElementById("lista");
+
+
+document.getElementById(
+"riepilogo"
+).innerHTML=`
+
 <div class="info">
-<strong>Ricerca effettuata</strong><br><br>
-📍 ${comune}<br>
-💼 ${document.getElementById("settore").selectedOptions[0].text}<br>
-🏢 ${document.getElementById("profilo").selectedOptions[0].text}
-${investimento>0 ? `<br>💰 Investimento previsto: ${investimento.toLocaleString("it-IT")} €` : ""}
+
+<strong>Profilo analizzato</strong>
+
+<br><br>
+
+📍 ${comune}
+
+<br>
+
+🏢 ${
+document.getElementById("profilo")
+.selectedOptions[0].text
+}
+
+<br>
+
+💼 ${
+document.getElementById("settore")
+.selectedOptions[0].text
+}
+
+${
+
+investimento>0
+
+?
+
+`<br>💰 Investimento:
+${investimento.toLocaleString("it-IT")} €`
+
+:
+
+""
+
+}
+
 </div>
+
 `;
 
-let compatibili=[];
-let daVerificare=[];
 
-bandi.forEach(bando=>{
+document.getElementById(
+"contatore"
+).innerHTML=`
 
-let profiloOk=bando.profili.includes(profilo);
-let settoreOk=bando.settori.includes(settore);
+<div class="contatore">
 
-if(profiloOk && settoreOk){
-compatibili.push({...bando,compatibilita:"Potenzialmente compatibile"});
-}
-else if(profiloOk || settoreOk){
-daVerificare.push({...bando,compatibilita:"Da verificare"});
-}
+<strong>
+${risultati.length}
+</strong>
 
-});
+opportunità potenzialmente rilevanti
 
-let html="";
+</div>
 
-compatibili.forEach(b=>{
-html+=creaScheda(b,"aperto");
-});
+`;
 
-daVerificare.forEach(b=>{
-html+=creaScheda(b,"verifica");
-});
 
-if(compatibili.length===0 && daVerificare.length===0){
-html=`
+lista.innerHTML="";
+
+
+if(risultati.length===0){
+
+lista.innerHTML=`
+
 <div class="bando">
-<h3>Nessuna corrispondenza nel database attuale</h3>
+
+<h3>
+Nessuna corrispondenza trovata
+</h3>
+
 <p>
-Questo non significa che non esistano agevolazioni.
-La banca dati BandiAP V3 è ancora in fase di ampliamento.
+
+Non significa necessariamente che
+non esistano agevolazioni.
+
+Il database BandiAP è in continuo
+ampliamento.
+
 </p>
+
 </div>
+
 `;
-}
-
-document.getElementById("lista").innerHTML=html;
-document.getElementById("risultati").style.display="block";
-
-document.getElementById("risultati").scrollIntoView({
-behavior:"smooth"
-});
 
 }
 
-function creaScheda(b,classe){
 
-return `
+risultati.forEach(function(bando){
+
+
+let compatibilita;
+
+let classe;
+
+
+if(bando.punteggio===100){
+
+compatibilita=
+"Compatibilità alta";
+
+classe="alta";
+
+}
+
+else{
+
+compatibilita=
+"Da verificare";
+
+classe="media";
+
+}
+
+
+lista.innerHTML+=`
+
 <div class="bando">
+
 
 <span class="badge ${classe}">
-${b.compatibilita}
+
+${compatibilita}
+
 </span>
 
-<h3>${b.nome}</h3>
 
-<p>${b.descrizione}</p>
+<span class="badge aperto">
+
+${bando.stato}
+
+</span>
+
+
+<h3>
+
+${bando.nome}
+
+</h3>
+
+
+<div class="ente">
+
+Ente:
+<strong>
+${bando.ente}
+</strong>
+
+</div>
+
+
+<p>
+
+${bando.descrizione}
+
+</p>
+
 
 <div class="scadenza">
-🟢 <strong>${b.stato}</strong><br>
-📅 <strong>Scadenza:</strong> ${b.scadenza}
+
+📅 <strong>Scadenza:</strong>
+
+${bando.scadenzaTesto}
+
+<br><br>
+
+📍 <strong>Territorio:</strong>
+
+${bando.territorio}
+
+<br>
+
+💶 <strong>Dotazione:</strong>
+
+${bando.dotazione}
+
 </div>
 
-<p>${b.nota}</p>
 
-<a class="link"
-href="${b.url}"
+<div class="requisiti">
+
+<strong>
+Requisiti principali
+</strong>
+
+<br><br>
+
+${bando.requisiti}
+
+</div>
+
+
+<a
+class="link"
+href="${bando.url}"
 target="_blank"
-rel="noopener noreferrer">
-Apri bando ufficiale ↗
+rel="noopener noreferrer"
+>
+
+Apri fonte ufficiale ↗
+
 </a>
 
+
 </div>
+
 `;
+
+});
+
+
+area.style.display="block";
+
+
+area.scrollIntoView({
+
+behavior:"smooth"
+
+});
 
 }
 
