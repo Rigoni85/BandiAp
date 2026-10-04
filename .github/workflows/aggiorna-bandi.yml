@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Aggiorna database BandiAP
-        run: python scripts/aggiorna_bandi.py
+        run: aggiorna_bandi.py
 
       - name: Verifica e salva eventuali modifiche
         run: |
