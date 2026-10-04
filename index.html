@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BandiAP | Bandi e agevolazioni per imprese</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: #123b66;
+      color: white;
+      padding: 22px;
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    header p {
+      margin-top: 5px;
+      opacity: 0.9;
+    }
+
+    .hero {
+      max-width: 1000px;
+      margin: 45px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      color: #123b66;
+      margin-bottom: 12px;
+    }
+
+    .hero > p {
+      font-size: 18px;
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 18px;
+      margin-bottom: 7px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      font-size: 16px;
+      background: white;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      background: #1677ff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d63d7;
+    }
+
+    .info {
+      max-width: 1000px;
+      margin: 20px auto 60px;
+      padding: 20px;
+    }
+
+    .info h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .card h4 {
+      color: #123b66;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <h1>BandiAP</h1>
+    <p>Bandi e agevolazioni per le imprese del territorio</p>
+  </div>
+</header>
+
+<section class="hero">
+
+  <h2>Trova i bandi adatti alla tua impresa</h2>
+
+  <p>
+    Scopri contributi e agevolazioni disponibili
+    per le imprese della provincia di Ascoli Piceno.
+  </p>
+
+  <div class="search-box">
+
+    <label for="comune">Comune dell'impresa</label>
+
+    <select id="comune">
+      <option>Ascoli Piceno</option>
+      <option>San Benedetto del Tronto</option>
+      <option>Grottammare</option>
+      <option>Monteprandone</option>
+      <option>Spinetoli</option>
+      <option>Castorano</option>
+      <option>Offida</option>
+      <option>Altro comune della provincia</option>
+    </select>
+
+
+    <label for="settore">Settore</label>
+
+    <select id="settore">
+      <option>Commercio</option>
+      <option>Art
