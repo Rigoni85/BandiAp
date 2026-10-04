@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BandiAP | Bandi e agevolazioni per imprese</title>
+  <title>BandiAP | Trova bandi e agevolazioni</title>
 
   <style>
     * {
@@ -20,57 +20,46 @@
     }
 
     header {
-      background: #123b66;
+      background: linear-gradient(135deg, #075985, #0284c7);
       color: white;
-      padding: 22px;
-    }
-
-    .header-content {
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    header h1 {
-      font-size: 30px;
-    }
-
-    header p {
-      margin-top: 5px;
-      opacity: 0.9;
-    }
-
-    .hero {
-      max-width: 1000px;
-      margin: 45px auto;
-      padding: 20px;
+      padding: 35px 20px;
       text-align: center;
     }
 
-    .hero h2 {
-      font-size: 36px;
-      color: #123b66;
-      margin-bottom: 12px;
+    header h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
     }
 
-    .hero > p {
-      font-size: 18px;
-      color: #64748b;
-      margin-bottom: 30px;
+    header p {
+      font-size: 16px;
+      opacity: 0.95;
     }
 
-    .search-box {
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
       background: white;
-      padding: 30px;
+      padding: 24px;
+      margin-top: 20px;
       border-radius: 14px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      text-align: left;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-bottom: 18px;
+      color: #075985;
     }
 
     label {
       display: block;
       font-weight: bold;
-      margin-top: 18px;
-      margin-bottom: 7px;
+      margin-top: 16px;
+      margin-bottom: 6px;
     }
 
     select,
@@ -78,18 +67,18 @@
       width: 100%;
       padding: 13px;
       border: 1px solid #cbd5e1;
-      border-radius: 7px;
+      border-radius: 8px;
       font-size: 16px;
       background: white;
     }
 
     button {
       width: 100%;
-      margin-top: 25px;
+      margin-top: 24px;
       padding: 15px;
-      background: #1677ff;
       border: none;
       border-radius: 8px;
+      background: #0284c7;
       color: white;
       font-size: 17px;
       font-weight: bold;
@@ -97,57 +86,89 @@
     }
 
     button:hover {
-      background: #0d63d7;
+      background: #0369a1;
     }
 
-    .info {
-      max-width: 1000px;
-      margin: 20px auto 60px;
-      padding: 20px;
+    #risultati {
+      display: none;
     }
 
-    .info h3 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 26px;
+    .riepilogo {
+      background: #e0f2fe;
+      border-left: 5px solid #0284c7;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
+    .bando {
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      padding: 18px;
+      margin-top: 15px;
     }
 
-    .card h4 {
-      color: #123b66;
+    .bando h3 {
+      color: #075985;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
       margin-bottom: 10px;
+    }
+
+    .alta {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .media {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .bassa {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .contributo {
+      margin-top: 12px;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .nota {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #64748b;
     }
 
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 30px 15px;
       color: #64748b;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    @media (max-width: 700px) {
-      .hero h2 {
-        font-size: 28px;
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 29px;
       }
 
-      .cards {
-        grid-template-columns: 1fr;
+      .container {
+        padding: 12px;
       }
 
-      .hero {
-        margin-top: 20px;
+      .card {
+        padding: 18px;
       }
     }
   </style>
@@ -156,39 +177,403 @@
 <body>
 
 <header>
-  <div class="header-content">
-    <h1>BandiAP</h1>
-    <p>Bandi e agevolazioni per le imprese del territorio</p>
-  </div>
+  <h1>BandiAP</h1>
+  <p>Trova agevolazioni e opportunità per la tua impresa</p>
 </header>
 
-<section class="hero">
+<div class="container">
 
-  <h2>Trova i bandi adatti alla tua impresa</h2>
+  <div class="card">
 
-  <p>
-    Scopri contributi e agevolazioni disponibili
-    per le imprese della provincia di Ascoli Piceno.
-  </p>
+    <h2>Analizza la tua impresa</h2>
 
-  <div class="search-box">
-
-    <label for="comune">Comune dell'impresa</label>
+    <label for="comune">Comune</label>
 
     <select id="comune">
+      <option value="">Seleziona il Comune</option>
       <option>Ascoli Piceno</option>
-      <option>San Benedetto del Tronto</option>
-      <option>Grottammare</option>
-      <option>Monteprandone</option>
-      <option>Spinetoli</option>
+      <option>Acquasanta Terme</option>
+      <option>Arquata del Tronto</option>
+      <option>Carassai</option>
+      <option>Castel di Lama</option>
+      <option>Castignano</option>
       <option>Castorano</option>
+      <option>Colli del Tronto</option>
+      <option>Comunanza</option>
+      <option>Cossignano</option>
+      <option>Cupra Marittima</option>
+      <option>Folignano</option>
+      <option>Force</option>
+      <option>Grottammare</option>
+      <option>Maltignano</option>
+      <option>Massignano</option>
+      <option>Monsampolo del Tronto</option>
+      <option>Montalto delle Marche</option>
+      <option>Montedinove</option>
+      <option>Montefiore dell'Aso</option>
+      <option>Montegallo</option>
+      <option>Montemonaco</option>
+      <option>Monteprandone</option>
       <option>Offida</option>
-      <option>Altro comune della provincia</option>
+      <option>Palmiano</option>
+      <option>Ripatransone</option>
+      <option>Roccafluvione</option>
+      <option>Rotella</option>
+      <option>San Benedetto del Tronto</option>
+      <option>Spinetoli</option>
+      <option>Venarotta</option>
     </select>
 
+    <label for="impresa">Dimensione impresa</label>
+
+    <select id="impresa">
+      <option value="">Seleziona</option>
+      <option value="micro">Microimpresa</option>
+      <option value="piccola">Piccola impresa</option>
+      <option value="media">Media impresa</option>
+      <option value="grande">Grande impresa</option>
+      <option value="startup">Startup / nuova impresa</option>
+    </select>
 
     <label for="settore">Settore</label>
 
     <select id="settore">
-      <option>Commercio</option>
-      <option>Art
+      <option value="">Seleziona</option>
+      <option value="commercio">Commercio</option>
+      <option value="turismo">Turismo</option>
+      <option value="agricoltura">Agricoltura</option>
+      <option value="artigianato">Artigianato</option>
+      <option value="industria">Industria</option>
+      <option value="servizi">Servizi</option>
+      <option value="digitale">Digitale / ICT</option>
+      <option value="energia">Energia</option>
+    </select>
+
+    <label for="investimento">Investimento previsto (€)</label>
+
+    <input
+      type="number"
+      id="investimento"
+      placeholder="Es. 50000"
+      min="0"
+    >
+
+    <button onclick="trovaBandi()">
+      🔎 Trova i bandi
+    </button>
+
+  </div>
+
+
+  <div class="card" id="risultati">
+
+    <h2>Opportunità individuate</h2>
+
+    <div id="riepilogo"></div>
+
+    <div id="listaBandi"></div>
+
+    <p class="nota">
+      ⚠️ Le informazioni e le simulazioni hanno finalità
+      orientativa. Prima di presentare una domanda è necessario
+      verificare il testo ufficiale del bando.
+    </p>
+
+  </div>
+
+</div>
+
+
+<footer>
+  BandiAP • Motore sperimentale per le imprese della provincia di Ascoli Piceno
+</footer>
+
+
+<script>
+
+const bandi = [
+
+  {
+    nome: "Digitalizzazione PMI",
+    settori: ["commercio","artigianato","industria","servizi","digitale"],
+    imprese: ["micro","piccola","media"],
+    percentuale: 50,
+    massimo: 40000,
+    descrizione:
+      "Investimenti in software, hardware, e-commerce, cybersecurity e digitalizzazione dei processi."
+  },
+
+  {
+    nome: "Efficienza energetica imprese",
+    settori: ["commercio","turismo","artigianato","industria","servizi","energia"],
+    imprese: ["micro","piccola","media","grande"],
+    percentuale: 40,
+    massimo: 100000,
+    descrizione:
+      "Interventi destinati alla riduzione dei consumi energetici e all'efficientamento delle strutture aziendali."
+  },
+
+  {
+    nome: "Sostegno nuove imprese",
+    settori: ["commercio","turismo","artigianato","servizi","digitale"],
+    imprese: ["startup","micro"],
+    percentuale: 60,
+    massimo: 30000,
+    descrizione:
+      "Agevolazioni per la nascita e lo sviluppo di nuove attività imprenditoriali."
+  },
+
+  {
+    nome: "Innovazione e competitività PMI",
+    settori: ["industria","artigianato","servizi","digitale"],
+    imprese: ["micro","piccola","media"],
+    percentuale: 45,
+    massimo: 75000,
+    descrizione:
+      "Sostegno agli investimenti innovativi, tecnologici e organizzativi delle PMI."
+  },
+
+  {
+    nome: "Turismo e strutture ricettive",
+    settori: ["turismo"],
+    imprese: ["micro","piccola","media"],
+    percentuale: 50,
+    massimo: 80000,
+    descrizione:
+      "Contributi per riqualificazione, innovazione e miglioramento dell'offerta turistica."
+  }
+
+];
+
+
+function trovaBandi() {
+
+  const comune =
+    document.getElementById("comune").value;
+
+  const impresa =
+    document.getElementById("impresa").value;
+
+  const settore =
+    document.getElementById("settore").value;
+
+  const investimento =
+    Number(document.getElementById("investimento").value);
+
+
+  if (!comune || !impresa || !settore || investimento <= 0) {
+
+    alert("Compila tutti i campi prima di avviare la ricerca.");
+
+    return;
+  }
+
+
+  const risultati =
+    document.getElementById("risultati");
+
+  const lista =
+    document.getElementById("listaBandi");
+
+  const riepilogo =
+    document.getElementById("riepilogo");
+
+
+  lista.innerHTML = "";
+
+
+  riepilogo.innerHTML = `
+
+    <div class="riepilogo">
+
+      <strong>Profilo analizzato</strong><br><br>
+
+      📍 ${comune}<br>
+
+      🏢 ${nomeImpresa(impresa)}<br>
+
+      💼 ${nomeSettore(settore)}<br>
+
+      💰 Investimento:
+      ${investimento.toLocaleString("it-IT")} €
+
+    </div>
+
+  `;
+
+
+  let trovati = 0;
+
+
+  bandi.forEach(function(bando) {
+
+    let punteggio = 0;
+
+
+    if (bando.settori.includes(settore)) {
+      punteggio += 50;
+    }
+
+
+    if (bando.imprese.includes(impresa)) {
+      punteggio += 50;
+    }
+
+
+    let compatibilita;
+    let classe;
+
+
+    if (punteggio >= 100) {
+
+      compatibilita = "Compatibilità alta";
+      classe = "alta";
+
+    } else if (punteggio >= 50) {
+
+      compatibilita = "Compatibilità media";
+      classe = "media";
+
+    } else {
+
+      compatibilita = "Compatibilità bassa";
+      classe = "bassa";
+
+    }
+
+
+    if (punteggio >= 50) {
+
+      trovati++;
+
+
+      let contributo =
+        investimento *
+        (bando.percentuale / 100);
+
+
+      if (contributo > bando.massimo) {
+        contributo = bando.massimo;
+      }
+
+
+      lista.innerHTML += `
+
+        <div class="bando">
+
+          <span class="badge ${classe}">
+            ${compatibilita}
+          </span>
+
+          <h3>${bando.nome}</h3>
+
+          <p>
+            ${bando.descrizione}
+          </p>
+
+          <div class="contributo">
+
+            Agevolazione indicativa:
+            ${bando.percentuale}%<br>
+
+            Contributo stimato:
+            ${contributo.toLocaleString(
+              "it-IT",
+              {
+                maximumFractionDigits: 0
+              }
+            )} €
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+  });
+
+
+  if (trovati === 0) {
+
+    lista.innerHTML = `
+
+      <div class="bando">
+
+        <h3>Nessun bando compatibile trovato</h3>
+
+        <p>
+          Al momento il database dimostrativo
+          non contiene opportunità adatte
+          al profilo selezionato.
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  risultati.style.display = "block";
+
+
+  risultati.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+
+function nomeImpresa(valore) {
+
+  const nomi = {
+
+    micro: "Microimpresa",
+
+    piccola: "Piccola impresa",
+
+    media: "Media impresa",
+
+    grande: "Grande impresa",
+
+    startup: "Startup / nuova impresa"
+
+  };
+
+  return nomi[valore];
+
+}
+
+
+function nomeSettore(valore) {
+
+  const nomi = {
+
+    commercio: "Commercio",
+
+    turismo: "Turismo",
+
+    agricoltura: "Agricoltura",
+
+    artigianato: "Artigianato",
+
+    industria: "Industria",
+
+    servizi: "Servizi",
+
+    digitale: "Digitale / ICT",
+
+    energia: "Energia"
+
+  };
+
+  return nomi[valore];
+
+}
+
+</script>
+
+</body>
+</html>
