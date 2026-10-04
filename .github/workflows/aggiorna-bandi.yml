@@ -1,0 +1,43 @@
+name: Aggiorna BandiAP
+
+on:
+  schedule:
+    # Ogni giorno alle 06:00 UTC
+    # In Italia corrisponde alle 07:00/08:00 a seconda dell'ora legale
+    - cron: "0 6 * * *"
+
+  # Permette anche di avviarlo manualmente per fare test
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  aggiorna-bandi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Scarica repository
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Aggiorna database BandiAP
+        run: python scripts/aggiorna_bandi.py
+
+      - name: Verifica e salva eventuali modifiche
+        run: |
+          if [[ -n "$(git status --porcelain bandi.json)" ]]; then
+            git config user.name "BandiAP Bot"
+            git config user.email "actions@github.com"
+            git add bandi.json
+            git commit -m "Aggiornamento automatico bandi"
+            git push
+          else
+            echo "Nessuna modifica al database."
+          fi
