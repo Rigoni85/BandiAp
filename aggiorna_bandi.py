@@ -10,7 +10,7 @@ from urllib.parse import urljoin, urlparse
 
 # ============================================================
 # BandiAP - Motore automatico bandi
-# Versione 9
+# Versione 9.1
 # ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -65,22 +65,6 @@ FONTI = [
 ]
 
 
-# ============================================================
-# PAROLE CHIAVE
-# ============================================================
-
-PAROLE_BANDO = (
-    "bando",
-    "avviso pubblico",
-    "contribut",
-    "voucher",
-    "incentiv",
-    "agevol",
-    "finanziamento",
-    "sostegno",
-)
-
-
 GAL_ESCLUSI = (
     "gal colli esini",
     "colli esini san vicino",
@@ -98,7 +82,7 @@ DOCUMENTI_ESCLUSI = (
     "fac simile",
     "facsimile",
     "istruzioni",
-    "informativa",
+    "informativa privacy",
     "schema domanda",
     "modello domanda",
     "graduatoria",
@@ -107,23 +91,8 @@ DOCUMENTI_ESCLUSI = (
 )
 
 
-TITOLI_GENERICI = (
-    "bandi e contributi",
-    "bandi di contributo e opportunita",
-    "archivio bandi contributi",
-    "i progetti finanziati",
-    "vai al contenuto",
-    "vai alla navigazione",
-    "avvia la tua impresa",
-    "gestisci la tua impresa",
-    "fai crescere la tua impresa",
-    "tutela impresa e consumatore",
-    "gestisci crisi impresa e insolvenza",
-)
-
-
 # ============================================================
-# UTILITY TESTO
+# TESTO
 # ============================================================
 
 def pulisci_testo(testo):
@@ -153,34 +122,27 @@ def pulisci_testo(testo):
 
     testo = html_lib.unescape(testo)
 
-    testo = re.sub(
+    return re.sub(
         r"\s+",
         " ",
         testo,
-    )
-
-    return testo.strip()
+    ).strip()
 
 
 def normalizza(testo):
 
     testo = pulisci_testo(testo).lower()
 
-    sostituzioni = {
+    for a, b in {
         "à": "a",
         "è": "e",
         "é": "e",
         "ì": "i",
         "ò": "o",
         "ù": "u",
-        "’": "'",
-    }
+    }.items():
 
-    for vecchio, nuovo in sostituzioni.items():
-        testo = testo.replace(
-            vecchio,
-            nuovo,
-        )
+        testo = testo.replace(a, b)
 
     testo = re.sub(
         r"[^a-z0-9]+",
@@ -202,11 +164,6 @@ def normalizza(testo):
 def carica_database():
 
     if not BANDI_FILE.exists():
-
-        print(
-            f"Database non trovato: {BANDI_FILE}"
-        )
-
         return []
 
     try:
@@ -222,11 +179,8 @@ def carica_database():
         if isinstance(dati, list):
             return dati
 
-        if (
-            isinstance(dati, dict)
-            and isinstance(dati.get("bandi"), list)
-        ):
-            return dati["bandi"]
+        if isinstance(dati, dict):
+            return dati.get("bandi", [])
 
     except Exception as e:
 
@@ -259,21 +213,18 @@ def salva_database(database):
 
 def scarica(url):
 
-    richiesta = Request(
+    req = Request(
         url,
         headers={
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(compatible; BandiAP/9.0)"
-            ),
-            "Accept-Language": (
-                "it-IT,it;q=0.9"
-            ),
+            "User-Agent":
+                "Mozilla/5.0 (compatible; BandiAP/9.1)",
+            "Accept-Language":
+                "it-IT,it;q=0.9",
         },
     )
 
     with urlopen(
-        richiesta,
+        req,
         timeout=30,
     ) as risposta:
 
@@ -284,13 +235,10 @@ def scarica(url):
 
 
 # ============================================================
-# DATE
+# DATE - CORREZIONE V9.1
 # ============================================================
 
 def converti_data(valore):
-
-    if not valore:
-        return ""
 
     for formato in (
         "%d/%m/%Y",
@@ -300,14 +248,10 @@ def converti_data(valore):
 
         try:
 
-            data = datetime.strptime(
+            return datetime.strptime(
                 valore.strip(),
                 formato,
-            )
-
-            return data.strftime(
-                "%Y-%m-%d"
-            )
+            ).strftime("%Y-%m-%d")
 
         except ValueError:
             pass
@@ -317,24 +261,36 @@ def converti_data(valore):
 
 def estrai_scadenza(testo):
 
-    testo_norm = normalizza(testo)
+    """
+    IMPORTANTE:
+    ricerca sul testo originale, NON normalizzato.
+    Così / e - delle date vengono conservati.
+    """
+
+    testo = pulisci_testo(testo)
 
     patterns = (
-        r"scadenza.{0,120}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"scadenza.{0,120}?([0-3]?\d-[01]?\d-20\d{2})",
-        r"entro.{0,120}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"entro.{0,120}?([0-3]?\d-[01]?\d-20\d{2})",
-        r"termine.{0,120}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"termine.{0,120}?([0-3]?\d-[01]?\d-20\d{2})",
-        r"fino al.{0,120}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"fino al.{0,120}?([0-3]?\d-[01]?\d-20\d{2})",
+        r"scadenza.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
+        r"scadenza.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
+
+        r"entro.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
+        r"entro.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
+
+        r"termine.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
+        r"termine.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
+
+        r"fino al.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
+        r"fino al.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
+
+        r"presentazione.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
+        r"presentazione.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
     )
 
     for pattern in patterns:
 
         match = re.search(
             pattern,
-            testo_norm,
+            testo,
             flags=re.I,
         )
 
@@ -389,14 +345,14 @@ def formatta_data(data):
 
 
 # ============================================================
-# STATO DEL BANDO
+# STATO
 # ============================================================
 
 def verifica_stato(testo, scadenza):
 
     t = normalizza(testo)
 
-    frasi_chiusura = (
+    chiusure = (
         "bando chiuso",
         "avviso chiuso",
         "procedura chiusa",
@@ -404,17 +360,17 @@ def verifica_stato(testo, scadenza):
         "domande chiuse",
         "termini chiusi",
         "chiusura anticipata",
-        "esaurimento risorse",
-        "esaurimento delle risorse",
         "risorse esaurite",
         "fondi esauriti",
+        "esaurimento delle risorse",
+        "esaurimento risorse",
         "non e piu possibile presentare",
         "non e possibile presentare",
     )
 
     if any(
         frase in t
-        for frase in frasi_chiusura
+        for frase in chiusure
     ):
         return "SCADUTO"
 
@@ -422,12 +378,12 @@ def verifica_stato(testo, scadenza):
 
         try:
 
-            data = datetime.strptime(
+            d = datetime.strptime(
                 scadenza,
                 "%Y-%m-%d",
             ).date()
 
-            if data < OGGI:
+            if d < OGGI:
                 return "SCADUTO"
 
             return "APERTO"
@@ -435,122 +391,224 @@ def verifica_stato(testo, scadenza):
         except ValueError:
             pass
 
-    # Nessuna prova positiva sufficiente
+    # Segnali positivi espliciti
+    aperture = (
+        "bando aperto",
+        "avviso aperto",
+        "sportello aperto",
+        "presentare domanda",
+        "presentazione delle domande",
+        "presentazione domanda",
+    )
+
+    if any(
+        frase in t
+        for frase in aperture
+    ):
+        return "APERTO"
+
     return "DA_VERIFICARE"
 
 
 # ============================================================
-# BENEFICIARI
+# ESTRATTO LOCALE DELLA PAGINA
 # ============================================================
 
-def classifica_beneficiario(testo):
+def estrai_contesto(titolo, testo):
 
-    t = normalizza(testo)
+    """
+    Evita di classificare un bando usando tutto
+    il footer/menu della pagina.
 
-    # Enti pubblici
-    if any(
-        x in t
-        for x in (
-            "contributi ai comuni",
-            "contributo ai comuni",
-            "comuni non capoluogo",
-            "riservato ai comuni",
-            "enti locali",
-            "unioni di comuni",
-            "pubbliche amministrazioni",
+    Cerca il titolo nella pagina e usa una
+    finestra circostante.
+    """
+
+    testo_pulito = pulisci_testo(testo)
+
+    titolo_breve = pulisci_testo(
+        titolo
+    )[:120]
+
+    posizione = testo_pulito.lower().find(
+        titolo_breve.lower()
+    )
+
+    if posizione >= 0:
+
+        inizio = max(
+            0,
+            posizione - 500,
         )
-    ):
-        return "ENTE_PUBBLICO"
 
-    # Intermediari / organismi
-    if any(
-        x in t
-        for x in (
-            "portatori di interessi collettivi",
-            "fondazioni its",
-            "its academy",
-            "organismi non imprenditoriali",
+        fine = min(
+            len(testo_pulito),
+            posizione + 8000,
         )
-    ):
-        return "INTERMEDIARIO_ORGANIZZAZIONE"
 
-    # Nuove imprese
+        return testo_pulito[
+            inizio:fine
+        ]
+
+    # Se il titolo non è individuabile,
+    # usiamo soltanto l'inizio della pagina.
+    return testo_pulito[:10000]
+
+
+# ============================================================
+# BENEFICIARIO
+# ============================================================
+
+def classifica_beneficiario(titolo, contesto):
+
+    titolo_n = normalizza(titolo)
+    contesto_n = normalizza(contesto)
+
+    # Il titolo ha priorità sul corpo pagina.
+    testo = (
+        titolo_n
+        + " "
+        + contesto_n[:12000]
+    )
+
+    # ----------------------------------------
+    # NUOVE IMPRESE
+    # ----------------------------------------
+
     if any(
-        x in t
+        x in testo
         for x in (
-            "creazione di nuove imprese",
             "creazione nuove imprese",
-            "nuova impresa",
+            "creazione di nuove imprese",
             "nuove imprese",
-            "avvio di impresa",
+            "nuova impresa",
             "avvio impresa",
+            "avvio di impresa",
             "startup",
             "start up",
         )
     ):
         return "NUOVA_IMPRESA"
 
-    # Professionisti
-    if any(
-        x in t
-        for x in (
-            "liberi professionisti",
-            "libero professionista",
-            "professionisti",
-            "lavoratori autonomi",
-        )
-    ):
-        return "PROFESSIONISTA"
+    # ----------------------------------------
+    # AGRICOLTURA
+    # ----------------------------------------
 
-    # Agricoltura
     if any(
-        x in t
+        x in testo
         for x in (
-            "imprenditori agricoli",
             "imprese agricole",
-            "azienda agricola",
+            "imprenditori agricoli",
             "aziende agricole",
+            "azienda agricola",
             "allevatori",
             "zootecn",
         )
     ):
         return "AGRICOLTURA"
 
-    # ETS / associazioni
+    # ----------------------------------------
+    # PROFESSIONISTI
+    # ----------------------------------------
+
     if any(
-        x in t
+        x in testo
+        for x in (
+            "liberi professionisti",
+            "libero professionista",
+            "lavoratori autonomi",
+        )
+    ):
+        return "PROFESSIONISTA"
+
+    # ----------------------------------------
+    # IMPRESE
+    # ----------------------------------------
+
+    if any(
+        x in testo
+        for x in (
+            "micro piccole e medie imprese",
+            "micro piccole medie imprese",
+            "microimprese",
+            "micro imprese",
+            "mpmi",
+            "pmi",
+            "imprese beneficiarie",
+            "imprese ammesse",
+            "imprese marchigiane",
+            "imprese della regione marche",
+            "imprese con sede",
+            "imprese aventi sede",
+            "operatori economici",
+        )
+    ):
+        return "IMPRESA"
+
+    # ----------------------------------------
+    # ENTI PUBBLICI
+    # ----------------------------------------
+
+    if any(
+        x in titolo_n
+        for x in (
+            "contributi ai comuni",
+            "contributo ai comuni",
+            "comuni non capoluogo",
+            "iscrizione al registro regionale dei comuni",
+        )
+    ):
+        return "ENTE_PUBBLICO"
+
+    # ----------------------------------------
+    # INTERMEDIARI
+    # ----------------------------------------
+
+    if any(
+        x in titolo_n
+        for x in (
+            "portatori di interessi collettivi",
+            "organismi non imprenditoriali",
+            "its academy",
+            "borse di studio its",
+        )
+    ):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
+
+    # ----------------------------------------
+    # TERZO SETTORE
+    # ----------------------------------------
+
+    if any(
+        x in testo
         for x in (
             "enti del terzo settore",
-            "terzo settore",
-            "associazioni",
-            "ets",
+            "organizzazioni di volontariato",
+            "associazioni di promozione sociale",
         )
     ):
         return "ASSOCIAZIONE_ETS"
 
-    # Imprese
-    if any(
-        x in t
-        for x in (
-            "imprese",
-            "impresa",
-            "pmi",
-            "mpmi",
-            "microimprese",
-            "micro imprese",
-            "operatori economici",
-        )
+    # ----------------------------------------
+    # Impresa generica
+    # ----------------------------------------
+
+    if (
+        "bando internazionalizzazione"
+        in titolo_n
+    ):
+        return "IMPRESA"
+
+    if (
+        "voucher"
+        in titolo_n
     ):
         return "IMPRESA"
 
     return "NON_DETERMINATO"
 
 
-# ============================================================
-# BENEFICIARI PUBBLICABILI
-# ============================================================
-
-def beneficiario_pubblicabile(tipo):
+def pubblicabile(tipo):
 
     return tipo in (
         "IMPRESA",
@@ -562,72 +620,12 @@ def beneficiario_pubblicabile(tipo):
 
 
 # ============================================================
-# SETTORI
+# PROFILI
 # ============================================================
 
-def classifica_settori(testo):
+def profili(tipo):
 
-    t = normalizza(testo)
-
-    settori = []
-
-    regole = {
-        "commercio": (
-            "commerc",
-            "retail",
-        ),
-        "turismo": (
-            "turism",
-            "ricettiv",
-            "ospitalita",
-        ),
-        "agricoltura": (
-            "agricol",
-            "zootec",
-            "allevator",
-            "rurale",
-        ),
-        "artigianato": (
-            "artigian",
-        ),
-        "industria": (
-            "industr",
-            "manifattur",
-        ),
-        "servizi": (
-            "servizi",
-            "profession",
-        ),
-        "digitale": (
-            "digital",
-            "ict",
-            "innovazione",
-            "transizione digitale",
-        ),
-        "pesca": (
-            "pesca",
-            "acquacoltura",
-            "feampa",
-        ),
-    }
-
-    for settore, parole in regole.items():
-
-        if any(
-            parola in t
-            for parola in parole
-        ):
-            settori.append(settore)
-
-    if not settori:
-        settori = ["altro"]
-
-    return settori
-
-
-def profili_da_beneficiario(tipo):
-
-    mappa = {
+    return {
         "IMPRESA": [
             "micro",
             "piccola",
@@ -645,58 +643,128 @@ def profili_da_beneficiario(tipo):
         "ASSOCIAZIONE_ETS": [
             "associazione",
         ],
-    }
-
-    return mappa.get(
+    }.get(
         tipo,
         ["altro"],
     )
 
 
 # ============================================================
-# FILTRI TERRITORIALI
+# SETTORI
+# ============================================================
+
+def settori(testo):
+
+    t = normalizza(testo)
+
+    risultato = []
+
+    regole = {
+        "commercio": (
+            "commerc",
+            "retail",
+        ),
+        "turismo": (
+            "turism",
+            "ricettiv",
+        ),
+        "agricoltura": (
+            "agricol",
+            "zootec",
+            "rurale",
+        ),
+        "artigianato": (
+            "artigian",
+        ),
+        "industria": (
+            "industr",
+            "manifattur",
+        ),
+        "servizi": (
+            "servizi",
+            "profession",
+        ),
+        "digitale": (
+            "digital",
+            "ict",
+            "innovazione",
+        ),
+        "pesca": (
+            "pesca",
+            "acquacoltura",
+            "feampa",
+        ),
+    }
+
+    for nome, parole in regole.items():
+
+        if any(
+            p in t
+            for p in parole
+        ):
+            risultato.append(nome)
+
+    return risultato or ["altro"]
+
+
+# ============================================================
+# TERRITORIO
 # ============================================================
 
 def territorio_valido(testo):
 
     t = normalizza(testo)
 
-    if any(
+    return not any(
         gal in t
         for gal in GAL_ESCLUSI
-    ):
-        return False
-
-    return True
+    )
 
 
 # ============================================================
-# FILTRI TITOLI
+# ANNO
 # ============================================================
 
-def titolo_generico(titolo):
+def anno_vecchio(titolo):
+
+    """
+    Esclude esplicitamente bandi 2022/2023/2024/2025
+    quando il titolo identifica chiaramente l'annualità.
+    """
 
     t = normalizza(titolo)
 
-    if not t:
-        return True
+    patterns = (
+        r"\banno\s+(20\d{2})\b",
+        r"\bsemestre\s+(20\d{2})\b",
+        r"\bmarche\s+(20\d{2})\b",
+        r"\bimpresa\s+(20\d{2})\b",
+        r"\bformazione lavoro\s+(20\d{2})\b",
+        r"\bpid\s+(20\d{2})\b",
+        r"\bagricole\s+(20\d{2})\b",
+    )
 
-    if len(t) < 10:
-        return True
+    for pattern in patterns:
 
-    if t in TITOLI_GENERICI:
-        return True
+        match = re.search(
+            pattern,
+            t,
+        )
 
-    if re.fullmatch(
-        r"(i|ii|iii|iv|v|vi|vii|viii|ix|x) pubblicazione.*",
-        t,
-    ):
-        return True
+        if (
+            match
+            and int(match.group(1)) < ANNO
+        ):
+            return True
 
     return False
 
 
-def documento_accessorio(titolo, url):
+# ============================================================
+# DOCUMENTI
+# ============================================================
+
+def documento_escluso(titolo):
 
     t = normalizza(titolo)
 
@@ -706,8 +774,6 @@ def documento_accessorio(titolo, url):
     ):
         return True
 
-    # Borse di studio ITS non sono
-    # opportunità standard BandiAP imprese
     if (
         "bors" in t
         and "studio" in t
@@ -715,50 +781,11 @@ def documento_accessorio(titolo, url):
     ):
         return True
 
-    if url.lower().split("?")[0].endswith(".pdf"):
-
-        # PDF ammesso solo se il titolo indica
-        # chiaramente il vero bando/avviso.
-        if not (
-            t.startswith("bando ")
-            or t.startswith("avviso pubblico ")
-        ):
-            return True
-
     return False
 
 
-def annualita_vecchia(titolo):
-
-    anni = re.findall(
-        r"\b(20\d{2})\b",
-        titolo,
-    )
-
-    if not anni:
-        return False
-
-    anni = [
-        int(x)
-        for x in anni
-    ]
-
-    # Non usiamo date normative 2021/2115 ecc.
-    # come prova che il bando sia vecchio.
-    anni_recenti = [
-        x
-        for x in anni
-        if x >= 2024
-    ]
-
-    if not anni_recenti:
-        return False
-
-    return max(anni_recenti) < ANNO
-
-
 # ============================================================
-# DOMINI
+# DOMINIO
 # ============================================================
 
 def dominio_valido(url, fonte):
@@ -768,16 +795,14 @@ def dominio_valido(url, fonte):
     ).netloc.lower()
 
     return any(
-        dominio == consentito
-        or dominio.endswith(
-            "." + consentito
-        )
-        for consentito in fonte["domini"]
+        dominio == d
+        or dominio.endswith("." + d)
+        for d in fonte["domini"]
     )
 
 
 # ============================================================
-# LINK STANDARD
+# ESTRAZIONE LINK STANDARD
 # ============================================================
 
 def estrai_link_standard(html, fonte):
@@ -796,19 +821,22 @@ def estrai_link_standard(html, fonte):
             contenuto
         )
 
-        url = urljoin(
-            fonte["url"],
-            html_lib.unescape(href),
-        )
-
-        if titolo_generico(titolo):
+        if len(titolo) < 10:
             continue
 
-        if annualita_vecchia(titolo):
+        if anno_vecchio(titolo):
+            continue
+
+        if documento_escluso(titolo):
             continue
 
         if not territorio_valido(titolo):
             continue
+
+        url = urljoin(
+            fonte["url"],
+            html_lib.unescape(href),
+        )
 
         if not dominio_valido(
             url,
@@ -816,22 +844,23 @@ def estrai_link_standard(html, fonte):
         ):
             continue
 
-        if documento_accessorio(
-            titolo,
-            url,
-        ):
-            continue
-
         t = normalizza(titolo)
 
-        if not any(
-            parola in t
-            for parola in PAROLE_BANDO
-        ):
+        interessante = any(
+            x in t
+            for x in (
+                "bando",
+                "avviso",
+                "voucher",
+                "contribut",
+            )
+        )
+
+        if not interessante:
             continue
 
         chiave = (
-            normalizza(titolo),
+            t,
             url.rstrip("/"),
         )
 
@@ -851,17 +880,18 @@ def estrai_link_standard(html, fonte):
 
 
 # ============================================================
-# LINK GAL PICENO
+# GAL PICENO
 # ============================================================
 
-def estrai_link_gal_piceno(html, fonte):
+def estrai_link_gal(html, fonte):
 
     """
-    GAL Piceno richiede una logica meno rigida.
+    Primo livello:
+    individua pagine INTERVENTO SRG/SRD.
 
-    Le pagine possono essere presentate come
-    INTERVENTO SRGxx e il vero bando può essere
-    raggiunto da link interni successivi.
+    Secondo livello:
+    entra nella pagina intervento e cerca
+    Bando / Avviso / documenti principali.
     """
 
     risultati = []
@@ -872,11 +902,15 @@ def estrai_link_gal_piceno(html, fonte):
         re.I | re.S,
     )
 
+    pagine_intervento = []
+
     for href, contenuto in pattern.findall(html):
 
         titolo = pulisci_testo(
             contenuto
         )
+
+        t = normalizza(titolo)
 
         url = urljoin(
             fonte["url"],
@@ -889,66 +923,146 @@ def estrai_link_gal_piceno(html, fonte):
         ):
             continue
 
-        if documento_accessorio(
-            titolo,
-            url,
+        if any(
+            codice in t
+            for codice in (
+                "srg",
+                "srd",
+                "srh",
+            )
         ):
+
+            pagine_intervento.append(
+                {
+                    "titolo": titolo,
+                    "url": url,
+                }
+            )
+
+    # Deduplica pagine intervento
+    pagine_uniche = []
+
+    urls_viste = set()
+
+    for pagina in pagine_intervento:
+
+        url = pagina["url"].rstrip("/")
+
+        if url in urls_viste:
             continue
 
-        t = normalizza(titolo)
+        urls_viste.add(url)
+        pagine_uniche.append(pagina)
 
-        # Eliminiamo vecchie misure 19.x
-        if (
-            "misura 19" in t
-            or "sottomisura 19" in t
+    # Secondo livello
+    for intervento in pagine_uniche[:20]:
+
+        try:
+
+            html_intervento = scarica(
+                intervento["url"]
+            )
+
+        except Exception as e:
+
+            print(
+                "  GAL: impossibile aprire "
+                f"{intervento['titolo']} ({e})"
+            )
+
+            continue
+
+        trovati_interni = 0
+
+        for href, contenuto in pattern.findall(
+            html_intervento
         ):
-            continue
 
-        # Cerchiamo programmazione CSR 2023-2027
-        # e interventi SRG/SRD attuali.
-        interessante = (
-            "bando" in t
-            or "avviso" in t
-            or "srg" in t
-            or "srd" in t
-            or "csr" in t
-        )
+            titolo = pulisci_testo(
+                contenuto
+            )
 
-        if not interessante:
-            continue
+            t = normalizza(titolo)
 
-        if annualita_vecchia(titolo):
-            continue
+            if len(t) < 8:
+                continue
 
-        chiave = (
-            normalizza(titolo),
-            url.rstrip("/"),
-        )
+            if documento_escluso(titolo):
+                continue
 
-        if chiave in visti:
-            continue
+            if anno_vecchio(titolo):
+                continue
 
-        visti.add(chiave)
+            interessante = (
+                "bando" in t
+                or "avviso" in t
+            )
 
-        risultati.append(
-            {
-                "titolo": titolo,
-                "url": url,
-            }
-        )
+            if not interessante:
+                continue
+
+            url = urljoin(
+                intervento["url"],
+                html_lib.unescape(href),
+            )
+
+            if not dominio_valido(
+                url,
+                fonte,
+            ):
+                continue
+
+            chiave = (
+                t,
+                url.rstrip("/"),
+            )
+
+            if chiave in visti:
+                continue
+
+            visti.add(chiave)
+
+            risultati.append(
+                {
+                    "titolo": titolo,
+                    "url": url,
+                }
+            )
+
+            trovati_interni += 1
+
+        # Se non troviamo un vero link Bando,
+        # conserviamo la pagina intervento
+        # come candidato da verificare.
+        if trovati_interni == 0:
+
+            titolo = intervento["titolo"]
+            url = intervento["url"]
+
+            chiave = (
+                normalizza(titolo),
+                url.rstrip("/"),
+            )
+
+            if chiave not in visti:
+
+                visti.add(chiave)
+
+                risultati.append(
+                    {
+                        "titolo": titolo,
+                        "url": url,
+                    }
+                )
 
     return risultati
 
-
-# ============================================================
-# ESTRAZIONE LINK
-# ============================================================
 
 def estrai_link(html, fonte):
 
     if fonte["tipo"] == "gal_piceno":
 
-        return estrai_link_gal_piceno(
+        return estrai_link_gal(
             html,
             fonte,
         )
@@ -966,7 +1080,7 @@ def estrai_link(html, fonte):
 def genera_id(ente, titolo):
 
     valore = (
-        ente.lower().strip()
+        ente.lower()
         + "|"
         + normalizza(titolo)
     )
@@ -977,10 +1091,10 @@ def genera_id(ente, titolo):
 
 
 # ============================================================
-# ANALISI CANDIDATO
+# ANALISI
 # ============================================================
 
-def analizza_candidato(link, fonte):
+def analizza(link, fonte):
 
     titolo = link["titolo"]
     url = link["url"]
@@ -992,7 +1106,6 @@ def analizza_candidato(link, fonte):
     try:
 
         html = scarica(url)
-        testo = pulisci_testo(html)
 
     except Exception as e:
 
@@ -1001,40 +1114,32 @@ def analizza_candidato(link, fonte):
         )
 
         return {
-            "esito": "DA_VERIFICARE",
-            "titolo": titolo,
+            "esito": "DA_VERIFICARE"
         }
 
-    testo_completo = (
-        titolo
-        + " "
-        + testo[:40000]
+    contesto = estrai_contesto(
+        titolo,
+        html,
     )
 
-    # ----------------------------------------
-    # Territorio
-    # ----------------------------------------
-
-    if not territorio_valido(titolo):
+    if not territorio_valido(
+        titolo
+    ):
 
         print(
-            "  ESCLUSO: territorio non pertinente"
+            "  ESCLUSO: territorio"
         )
 
         return {
-            "esito": "ESCLUSO",
-            "titolo": titolo,
+            "esito": "ESCLUSO"
         }
 
-    # ----------------------------------------
-    # Beneficiario
-    # ----------------------------------------
-
     beneficiario = classifica_beneficiario(
-        testo_completo
+        titolo,
+        contesto,
     )
 
-    if not beneficiario_pubblicabile(
+    if not pubblicabile(
         beneficiario
     ):
 
@@ -1044,27 +1149,22 @@ def analizza_candidato(link, fonte):
         )
 
         return {
-            "esito": "ESCLUSO",
-            "titolo": titolo,
+            "esito": "ESCLUSO"
         }
 
-    # ----------------------------------------
-    # Scadenza e stato
-    # ----------------------------------------
-
     scadenza = estrai_scadenza(
-        testo_completo
+        contesto
     )
 
     stato = verifica_stato(
-        testo_completo,
+        contesto,
         scadenza,
     )
 
     if stato == "SCADUTO":
 
         print(
-            "  ESCLUSO: bando chiuso/scaduto"
+            "  SCADUTO/CHIUSO"
         )
 
         return {
@@ -1077,7 +1177,7 @@ def analizza_candidato(link, fonte):
 
         print(
             "  DA VERIFICARE: "
-            "nessuna prova certa di apertura"
+            "apertura non certa"
         )
 
         return {
@@ -1086,73 +1186,68 @@ def analizza_candidato(link, fonte):
             "url": url,
         }
 
-    # ----------------------------------------
-    # Pubblicabile
-    # ----------------------------------------
-
-    bando = {
-        "id": genera_id(
-            fonte["nome"],
-            titolo,
-        ),
-        "nome": titolo,
-        "ente": fonte["nome"],
-        "stato": "APERTO",
-        "scadenza": scadenza,
-        "scadenzaTesto": formatta_data(
-            scadenza
-        ),
-        "profili": profili_da_beneficiario(
-            beneficiario
-        ),
-        "settori": classifica_settori(
-            testo_completo
-        ),
-        "beneficiarioTipo": beneficiario,
-        "descrizione": (
-            "Opportunità verificata automaticamente "
-            "da BandiAP su fonte ufficiale."
-        ),
-        "requisiti": (
-            "Consultare la fonte ufficiale per "
-            "requisiti e spese ammissibili."
-        ),
-        "dotazione": (
-            "Verificare sulla fonte ufficiale"
-        ),
-        "territorio": fonte["territorio"],
-        "url": url,
-        "fonteAutomatica": True,
-        "versioneMotore": 9,
-        "ultimoControllo": OGGI.strftime(
-            "%Y-%m-%d"
-        ),
-    }
-
     print(
         "  PUBBLICABILE: "
-        f"{beneficiario} - "
-        f"scadenza {scadenza}"
+        f"{beneficiario} | "
+        f"{scadenza or 'apertura esplicita'}"
     )
 
     return {
         "esito": "PUBBLICABILE",
-        "bando": bando,
+        "bando": {
+            "id": genera_id(
+                fonte["nome"],
+                titolo,
+            ),
+            "nome": titolo,
+            "ente": fonte["nome"],
+            "stato": "APERTO",
+            "scadenza": scadenza,
+            "scadenzaTesto": formatta_data(
+                scadenza
+            ),
+            "profili": profili(
+                beneficiario
+            ),
+            "settori": settori(
+                titolo + " " + contesto
+            ),
+            "beneficiarioTipo": beneficiario,
+            "descrizione": (
+                "Opportunità verificata automaticamente "
+                "da BandiAP su fonte ufficiale."
+            ),
+            "requisiti": (
+                "Consultare la fonte ufficiale "
+                "per requisiti e spese ammissibili."
+            ),
+            "dotazione":
+                "Verificare sulla fonte ufficiale",
+            "territorio":
+                fonte["territorio"],
+            "url": url,
+            "fonteAutomatica": True,
+            "versioneMotore": 9.1,
+            "ultimoControllo":
+                OGGI.strftime("%Y-%m-%d"),
+        },
     }
 
 
 # ============================================================
-# PRIMA MIGRAZIONE V9
+# PULIZIA V9 PRECEDENTE
 # ============================================================
 
-def migra_database(database):
+def prepara_database(database):
 
     """
-    Elimina soltanto record automatici
-    prodotti da versioni precedenti alla V9.
+    V9 non aveva pubblicato nuovi record.
+    Manteniamo:
+    - record manuali
+    - eventuali record già V9.1
 
-    I record V9, dalle esecuzioni successive,
-    vengono conservati.
+    Eliminiamo eventuali automatici
+    delle versioni precedenti.
     """
 
     risultato = []
@@ -1160,17 +1255,10 @@ def migra_database(database):
 
     for bando in database:
 
-        automatico = (
-            bando.get("fonteAutomatica")
-            is True
-        )
-
-        versione = bando.get(
-            "versioneMotore",
-            0,
-        )
-
-        if automatico and versione < 9:
+        if (
+            bando.get("fonteAutomatica") is True
+            and bando.get("versioneMotore") != 9.1
+        ):
 
             eliminati += 1
             continue
@@ -1183,18 +1271,18 @@ def migra_database(database):
 
 
 # ============================================================
-# TROVA BANDO ESISTENTE
+# DUPLICATI / AGGIORNAMENTO
 # ============================================================
 
 def trova_esistente(database, nuovo):
 
-    url_nuovo = (
+    url_n = (
         nuovo.get("url", "")
         .rstrip("/")
         .lower()
     )
 
-    nome_nuovo = normalizza(
+    nome_n = normalizza(
         nuovo.get("nome", "")
     )
 
@@ -1211,25 +1299,21 @@ def trova_esistente(database, nuovo):
         )
 
         if (
-            url_nuovo
+            url_n
             and url
-            and url_nuovo == url
+            and url_n == url
         ):
             return bando
 
         if (
-            nome_nuovo
+            nome_n
             and nome
-            and nome_nuovo == nome
+            and nome_n == nome
         ):
             return bando
 
     return None
 
-
-# ============================================================
-# INSERIMENTO / AGGIORNAMENTO
-# ============================================================
 
 def inserisci_o_aggiorna(
     database,
@@ -1275,37 +1359,36 @@ def inserisci_o_aggiorna(
 
             modificato = True
 
-    esistente["ultimoControllo"] = (
-        OGGI.strftime("%Y-%m-%d")
-    )
-
     if esistente.get(
         "fonteAutomatica"
     ) is True:
 
-        esistente["versioneMotore"] = 9
+        esistente["versioneMotore"] = 9.1
 
-    if modificato:
-        return "AGGIORNATO"
+    esistente["ultimoControllo"] = (
+        OGGI.strftime("%Y-%m-%d")
+    )
 
-    return "INVARIATO"
+    return (
+        "AGGIORNATO"
+        if modificato
+        else "INVARIATO"
+    )
 
 
 # ============================================================
-# CONTROLLO BANDO V9 ESISTENTE
+# RICONTROLLO AUTOMATICI
 # ============================================================
 
-def ricontrolla_bandi_v9(database):
+def ricontrolla_esistenti(database):
 
     chiusi = 0
-    aggiornati = 0
 
     for bando in database:
 
         if not (
-            bando.get("fonteAutomatica")
-            is True
-            and bando.get("versioneMotore") == 9
+            bando.get("fonteAutomatica") is True
+            and bando.get("versioneMotore") == 9.1
         ):
             continue
 
@@ -1317,63 +1400,54 @@ def ricontrolla_bandi_v9(database):
         try:
 
             html = scarica(url)
-            testo = pulisci_testo(html)
 
         except Exception:
-
             continue
 
+        contesto = estrai_contesto(
+            bando.get("nome", ""),
+            html,
+        )
+
         scadenza = estrai_scadenza(
-            testo
+            contesto
         )
 
         stato = verifica_stato(
-            testo,
+            contesto,
             scadenza,
         )
 
-        vecchio_stato = bando.get(
-            "stato"
-        )
-
-        if stato == "SCADUTO":
+        if (
+            stato == "SCADUTO"
+            and bando.get("stato") != "SCADUTO"
+        ):
 
             bando["stato"] = "SCADUTO"
 
-            if vecchio_stato != "SCADUTO":
+            chiusi += 1
 
-                chiusi += 1
-
-                print(
-                    "CHIUSO: "
-                    f"{bando.get('nome')}"
-                )
+            print(
+                "CHIUSO: "
+                f"{bando.get('nome')}"
+            )
 
         elif stato == "APERTO":
 
-            if (
-                scadenza
-                and scadenza
-                != bando.get("scadenza")
-            ):
+            bando["stato"] = "APERTO"
+
+            if scadenza:
 
                 bando["scadenza"] = scadenza
                 bando["scadenzaTesto"] = (
                     formatta_data(scadenza)
                 )
 
-                aggiornati += 1
-
-                print(
-                    "AGGIORNATO: "
-                    f"{bando.get('nome')}"
-                )
-
         bando["ultimoControllo"] = (
             OGGI.strftime("%Y-%m-%d")
         )
 
-    return aggiornati, chiusi
+    return chiusi
 
 
 # ============================================================
@@ -1400,7 +1474,7 @@ def controlla_fonte(fonte):
     except Exception as e:
 
         print(
-            f"Errore fonte: {e}"
+            f"ERRORE FONTE: {e}"
         )
 
         return []
@@ -1411,21 +1485,18 @@ def controlla_fonte(fonte):
     )
 
     print(
-        "Candidati trovati: "
-        f"{len(links)}"
+        f"Candidati V9.1: {len(links)}"
     )
 
     risultati = []
 
-    for link in links[:40]:
-
-        risultato = analizza_candidato(
-            link,
-            fonte,
-        )
+    for link in links[:50]:
 
         risultati.append(
-            risultato
+            analizza(
+                link,
+                fonte,
+            )
         )
 
     return risultati
@@ -1439,7 +1510,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V9"
+        "BandiAP - aggiornamento automatico V9.1"
     )
     print("=" * 60)
 
@@ -1449,17 +1520,13 @@ def main():
         f"Record iniziali: {len(database)}"
     )
 
-    # --------------------------------------------------------
-    # 1. MIGRAZIONE DA V8
-    # --------------------------------------------------------
-
-    database, vecchi_eliminati = (
-        migra_database(database)
+    database, eliminati = (
+        prepara_database(database)
     )
 
     print(
-        "Record automatici pre-V9 eliminati: "
-        f"{vecchi_eliminati}"
+        "Automatici precedenti eliminati: "
+        f"{eliminati}"
     )
 
     print(
@@ -1467,19 +1534,9 @@ def main():
         f"{len(database)}"
     )
 
-    # --------------------------------------------------------
-    # 2. RICONTROLLO BANDI V9 GIÀ PRESENTI
-    # --------------------------------------------------------
-
-    aggiornati_esistenti, chiusi = (
-        ricontrolla_bandi_v9(
-            database
-        )
+    chiusi = ricontrolla_esistenti(
+        database
     )
-
-    # --------------------------------------------------------
-    # 3. RICERCA NUOVI BANDI
-    # --------------------------------------------------------
 
     risultati = []
 
@@ -1489,15 +1546,12 @@ def main():
             controlla_fonte(fonte)
         )
 
-    # --------------------------------------------------------
-    # 4. ELABORAZIONE RISULTATI
-    # --------------------------------------------------------
-
     nuovi = 0
-    aggiornati = aggiornati_esistenti
-    da_verificare = 0
+    aggiornati = 0
+    invariati = 0
+    verificare = 0
     esclusi = 0
-    scaduti_rilevati = 0
+    scaduti = 0
 
     for risultato in risultati:
 
@@ -1522,24 +1576,19 @@ def main():
                 )
 
             elif operazione == "AGGIORNATO":
-
                 aggiornati += 1
 
-        elif esito == "DA_VERIFICARE":
+            else:
+                invariati += 1
 
-            da_verificare += 1
+        elif esito == "DA_VERIFICARE":
+            verificare += 1
 
         elif esito == "ESCLUSO":
-
             esclusi += 1
 
         elif esito == "SCADUTO":
-
-            scaduti_rilevati += 1
-
-    # --------------------------------------------------------
-    # 5. ORDINAMENTO
-    # --------------------------------------------------------
+            scaduti += 1
 
     database.sort(
         key=lambda b: (
@@ -1550,69 +1599,53 @@ def main():
         )
     )
 
-    # --------------------------------------------------------
-    # 6. SALVATAGGIO
-    # --------------------------------------------------------
-
     salva_database(
         database
     )
 
-    # --------------------------------------------------------
-    # 7. RIEPILOGO
-    # --------------------------------------------------------
-
     print()
     print("=" * 60)
-    print("RIEPILOGO V9")
+    print("RIEPILOGO V9.1")
     print("=" * 60)
 
     print(
-        "Pre-V9 eliminati: "
-        f"{vecchi_eliminati}"
+        f"Automatici vecchi eliminati: {eliminati}"
     )
 
     print(
-        "NUOVI PUBBLICATI: "
-        f"{nuovi}"
+        f"NUOVI PUBBLICATI: {nuovi}"
     )
 
     print(
-        "AGGIORNATI: "
-        f"{aggiornati}"
+        f"AGGIORNATI: {aggiornati}"
     )
 
     print(
-        "CHIUSI: "
-        f"{chiusi}"
+        f"INVARIATI: {invariati}"
     )
 
     print(
-        "SCADUTI trovati ma non pubblicati: "
-        f"{scaduti_rilevati}"
+        f"CHIUSI: {chiusi}"
     )
 
     print(
-        "DA VERIFICARE: "
-        f"{da_verificare}"
+        f"SCADUTI NON PUBBLICATI: {scaduti}"
     )
 
     print(
-        "ESCLUSI: "
-        f"{esclusi}"
+        f"DA VERIFICARE: {verificare}"
     )
 
     print(
-        "TOTALE DATABASE: "
-        f"{len(database)}"
+        f"ESCLUSI: {esclusi}"
+    )
+
+    print(
+        f"TOTALE DATABASE: {len(database)}"
     )
 
     print("=" * 60)
 
-
-# ============================================================
-# AVVIO
-# ============================================================
 
 if __name__ == "__main__":
     main()
