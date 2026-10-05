@@ -5,13 +5,15 @@ import hashlib
 from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, parse_qs
 
 
 # ============================================================
 # BandiAP - Motore automatico bandi
-# Versione 9.1
+# VERSIONE 10
 # ============================================================
+
+VERSIONE = 10
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -20,82 +22,24 @@ OGGI = datetime.now().date()
 ANNO = OGGI.year
 
 
-# ============================================================
-# FONTI
-# ============================================================
-
-FONTI = [
-    {
-        "nome": "Regione Marche",
-        "url": (
-            "https://www.regione.marche.it/Entra-in-Regione/"
-            "Bandi-e-opportunita/Bandi-attivi"
-        ),
-        "territorio": "Regione Marche",
-        "tipo": "regione",
-        "domini": (
-            "regione.marche.it",
-            "www.regione.marche.it",
-            "static.regione.marche.it",
-        ),
-    },
-    {
-        "nome": "Camera di Commercio delle Marche",
-        "url": (
-            "https://www.marche.camcom.it/"
-            "fai-crescere-la-tua-impresa/bandi-e-contributi"
-        ),
-        "territorio": "Regione Marche",
-        "tipo": "camera",
-        "domini": (
-            "marche.camcom.it",
-            "www.marche.camcom.it",
-        ),
-    },
-    {
-        "nome": "GAL Piceno",
-        "url": "https://galpiceno.it/bandi/",
-        "territorio": "GAL Piceno",
-        "tipo": "gal_piceno",
-        "domini": (
-            "galpiceno.it",
-            "www.galpiceno.it",
-        ),
-    },
-]
-
-
-GAL_ESCLUSI = (
-    "gal colli esini",
-    "colli esini san vicino",
-    "gal montefeltro",
-    "montefeltro sviluppo",
-    "gal fermano",
-    "fermano leader",
-    "gal sibilla",
+REGIONE_URL = (
+    "https://www.regione.marche.it/"
+    "Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi"
 )
 
-
-DOCUMENTI_ESCLUSI = (
-    "manuale",
-    "modulistica",
-    "fac simile",
-    "facsimile",
-    "istruzioni",
-    "informativa privacy",
-    "schema domanda",
-    "modello domanda",
-    "graduatoria",
-    "liquidazione",
-    "faq",
+CAMERA_URL = (
+    "https://www.marche.camcom.it/"
+    "fai-crescere-la-tua-impresa/bandi-e-contributi"
 )
+
+GAL_URL = "https://galpiceno.it/bandi/"
 
 
 # ============================================================
 # TESTO
 # ============================================================
 
-def pulisci_testo(testo):
+def pulisci_html(testo):
 
     if not testo:
         return ""
@@ -131,17 +75,19 @@ def pulisci_testo(testo):
 
 def normalizza(testo):
 
-    testo = pulisci_testo(testo).lower()
+    testo = pulisci_html(testo).lower()
 
-    for a, b in {
+    sostituzioni = {
         "à": "a",
         "è": "e",
         "é": "e",
         "ì": "i",
         "ò": "o",
         "ù": "u",
-    }.items():
+        "’": "'",
+    }
 
+    for a, b in sostituzioni.items():
         testo = testo.replace(a, b)
 
     testo = re.sub(
@@ -155,6 +101,33 @@ def normalizza(testo):
         " ",
         testo,
     ).strip()
+
+
+# ============================================================
+# DOWNLOAD
+# ============================================================
+
+def scarica(url):
+
+    req = Request(
+        url,
+        headers={
+            "User-Agent":
+                "Mozilla/5.0 (compatible; BandiAP/10.0)",
+            "Accept-Language":
+                "it-IT,it;q=0.9",
+        },
+    )
+
+    with urlopen(
+        req,
+        timeout=30,
+    ) as risposta:
+
+        return risposta.read().decode(
+            "utf-8",
+            errors="ignore",
+        )
 
 
 # ============================================================
@@ -184,9 +157,7 @@ def carica_database():
 
     except Exception as e:
 
-        print(
-            f"Errore database: {e}"
-        )
+        print(f"Errore database: {e}")
 
     return []
 
@@ -208,50 +179,77 @@ def salva_database(database):
 
 
 # ============================================================
-# DOWNLOAD
+# DATE
 # ============================================================
 
-def scarica(url):
+MESI = {
+    "gennaio": 1,
+    "febbraio": 2,
+    "marzo": 3,
+    "aprile": 4,
+    "maggio": 5,
+    "giugno": 6,
+    "luglio": 7,
+    "agosto": 8,
+    "settembre": 9,
+    "ottobre": 10,
+    "novembre": 11,
+    "dicembre": 12,
+}
 
-    req = Request(
-        url,
-        headers={
-            "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/9.1)",
-            "Accept-Language":
-                "it-IT,it;q=0.9",
-        },
+
+def converti_data(testo):
+
+    if not testo:
+        return ""
+
+    testo = testo.strip().lower()
+
+    # gg/mm/aaaa
+    match = re.search(
+        r"([0-3]?\d)[/-]([01]?\d)[/-](20\d{2})",
+        testo,
     )
 
-    with urlopen(
-        req,
-        timeout=30,
-    ) as risposta:
-
-        return risposta.read().decode(
-            "utf-8",
-            errors="ignore",
-        )
-
-
-# ============================================================
-# DATE - CORREZIONE V9.1
-# ============================================================
-
-def converti_data(valore):
-
-    for formato in (
-        "%d/%m/%Y",
-        "%d-%m-%Y",
-        "%Y-%m-%d",
-    ):
+    if match:
 
         try:
 
-            return datetime.strptime(
-                valore.strip(),
-                formato,
-            ).strftime("%Y-%m-%d")
+            d = datetime(
+                int(match.group(3)),
+                int(match.group(2)),
+                int(match.group(1)),
+            ).date()
+
+            return d.isoformat()
+
+        except ValueError:
+            pass
+
+    # gg mese aaaa
+    pattern_mesi = (
+        r"([0-3]?\d)\s+("
+        + "|".join(MESI.keys())
+        + r")\s+(20\d{2})"
+    )
+
+    match = re.search(
+        pattern_mesi,
+        testo,
+        flags=re.I,
+    )
+
+    if match:
+
+        try:
+
+            d = datetime(
+                int(match.group(3)),
+                MESI[match.group(2).lower()],
+                int(match.group(1)),
+            ).date()
+
+            return d.isoformat()
 
         except ValueError:
             pass
@@ -259,69 +257,26 @@ def converti_data(valore):
     return ""
 
 
-def estrai_scadenza(testo):
+def data_obj(data):
 
-    """
-    IMPORTANTE:
-    ricerca sul testo originale, NON normalizzato.
-    Così / e - delle date vengono conservati.
-    """
+    try:
+        return datetime.strptime(
+            data,
+            "%Y-%m-%d",
+        ).date()
 
-    testo = pulisci_testo(testo)
-
-    patterns = (
-        r"scadenza.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"scadenza.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
-
-        r"entro.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"entro.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
-
-        r"termine.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"termine.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
-
-        r"fino al.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"fino al.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
-
-        r"presentazione.{0,150}?([0-3]?\d/[01]?\d/20\d{2})",
-        r"presentazione.{0,150}?([0-3]?\d-[01]?\d-20\d{2})",
-    )
-
-    for pattern in patterns:
-
-        match = re.search(
-            pattern,
-            testo,
-            flags=re.I,
-        )
-
-        if match:
-
-            data = converti_data(
-                match.group(1)
-            )
-
-            if data:
-                return data
-
-    return ""
+    except Exception:
+        return None
 
 
 def formatta_data(data):
 
-    if not data:
+    d = data_obj(data)
+
+    if not d:
         return "Verificare sulla fonte ufficiale"
 
-    try:
-
-        d = datetime.strptime(
-            data,
-            "%Y-%m-%d",
-        )
-
-    except ValueError:
-        return data
-
-    mesi = [
+    nomi = [
         "",
         "gennaio",
         "febbraio",
@@ -339,180 +294,194 @@ def formatta_data(data):
 
     return (
         f"{d.day} "
-        f"{mesi[d.month]} "
+        f"{nomi[d.month]} "
         f"{d.year}"
     )
 
 
 # ============================================================
-# STATO
+# FINESTRE DI PRESENTAZIONE
 # ============================================================
 
-def verifica_stato(testo, scadenza):
+def estrai_finestre(testo):
+
+    """
+    Cerca intervalli tipo:
+
+    dal 16/09/2026 al 16/10/2026
+    dal 01/09/2027 al 30/09/2027
+    """
+
+    risultati = []
+
+    pattern = re.compile(
+        r"(?:dal|d\s*al)\s*"
+        r"([0-3]?\d[/-][01]?\d[/-]20\d{2})"
+        r".{0,80}?"
+        r"(?:al|fino al)\s*"
+        r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+        flags=re.I,
+    )
+
+    for inizio, fine in pattern.findall(testo):
+
+        data_inizio = converti_data(inizio)
+        data_fine = converti_data(fine)
+
+        if data_inizio and data_fine:
+
+            risultati.append(
+                (
+                    data_inizio,
+                    data_fine,
+                )
+            )
+
+    return risultati
+
+
+def finestra_attuale(testo):
+
+    finestre = estrai_finestre(testo)
+
+    for inizio, fine in finestre:
+
+        di = data_obj(inizio)
+        df = data_obj(fine)
+
+        if (
+            di
+            and df
+            and di <= OGGI <= df
+        ):
+            return {
+                "stato": "APERTO",
+                "scadenza": fine,
+                "prossimaApertura": "",
+            }
+
+    # Nessuna finestra attuale.
+    # Cerchiamo la prossima.
+    future = []
+
+    for inizio, fine in finestre:
+
+        di = data_obj(inizio)
+
+        if di and di > OGGI:
+            future.append(
+                (inizio, fine)
+            )
+
+    if future:
+
+        future.sort()
+
+        return {
+            "stato": "PROGRAMMATO",
+            "scadenza": future[0][1],
+            "prossimaApertura": future[0][0],
+        }
+
+    return None
+
+
+# ============================================================
+# CHIUSURE / SOSPENSIONI
+# ============================================================
+
+def chiusura_esplicita(testo):
 
     t = normalizza(testo)
 
-    chiusure = (
+    frasi = (
+        "chiusura anticipata",
+        "sportello chiuso",
         "bando chiuso",
         "avviso chiuso",
-        "procedura chiusa",
-        "sportello chiuso",
         "domande chiuse",
         "termini chiusi",
-        "chiusura anticipata",
+        "risorse terminate",
         "risorse esaurite",
         "fondi esauriti",
         "esaurimento delle risorse",
-        "esaurimento risorse",
+        "sospesa la possibilita di inviare nuove domande",
+        "sospesa la presentazione delle domande",
         "non e piu possibile presentare",
-        "non e possibile presentare",
     )
 
-    if any(
+    return any(
         frase in t
-        for frase in chiusure
-    ):
-        return "SCADUTO"
-
-    if scadenza:
-
-        try:
-
-            d = datetime.strptime(
-                scadenza,
-                "%Y-%m-%d",
-            ).date()
-
-            if d < OGGI:
-                return "SCADUTO"
-
-            return "APERTO"
-
-        except ValueError:
-            pass
-
-    # Segnali positivi espliciti
-    aperture = (
-        "bando aperto",
-        "avviso aperto",
-        "sportello aperto",
-        "presentare domanda",
-        "presentazione delle domande",
-        "presentazione domanda",
+        for frase in frasi
     )
-
-    if any(
-        frase in t
-        for frase in aperture
-    ):
-        return "APERTO"
-
-    return "DA_VERIFICARE"
 
 
 # ============================================================
-# ESTRATTO LOCALE DELLA PAGINA
+# CLASSIFICAZIONE BENEFICIARIO
 # ============================================================
 
-def estrai_contesto(titolo, testo):
+def classifica_beneficiario(
+    titolo,
+    beneficiari,
+    note="",
+):
 
-    """
-    Evita di classificare un bando usando tutto
-    il footer/menu della pagina.
-
-    Cerca il titolo nella pagina e usa una
-    finestra circostante.
-    """
-
-    testo_pulito = pulisci_testo(testo)
-
-    titolo_breve = pulisci_testo(
+    t = normalizza(
         titolo
-    )[:120]
-
-    posizione = testo_pulito.lower().find(
-        titolo_breve.lower()
-    )
-
-    if posizione >= 0:
-
-        inizio = max(
-            0,
-            posizione - 500,
-        )
-
-        fine = min(
-            len(testo_pulito),
-            posizione + 8000,
-        )
-
-        return testo_pulito[
-            inizio:fine
-        ]
-
-    # Se il titolo non è individuabile,
-    # usiamo soltanto l'inizio della pagina.
-    return testo_pulito[:10000]
-
-
-# ============================================================
-# BENEFICIARIO
-# ============================================================
-
-def classifica_beneficiario(titolo, contesto):
-
-    titolo_n = normalizza(titolo)
-    contesto_n = normalizza(contesto)
-
-    # Il titolo ha priorità sul corpo pagina.
-    testo = (
-        titolo_n
         + " "
-        + contesto_n[:12000]
+        + beneficiari
+        + " "
+        + note[:3000]
     )
 
-    # ----------------------------------------
-    # NUOVE IMPRESE
-    # ----------------------------------------
-
+    # ENTI PUBBLICI
     if any(
-        x in testo
+        x in t
         for x in (
-            "creazione nuove imprese",
+            "beneficiari comuni",
+            "contributi ai comuni",
+            "contributo ai comuni",
+            "comuni non capoluogo",
+            "unioni di comuni",
+            "egato",
+            "enti locali",
+        )
+    ):
+        return "ENTE_PUBBLICO"
+
+    # NUOVE IMPRESE
+    if any(
+        x in t
+        for x in (
             "creazione di nuove imprese",
-            "nuove imprese",
-            "nuova impresa",
-            "avvio impresa",
+            "creazione nuove imprese",
             "avvio di impresa",
+            "avvio impresa",
+            "nuova impresa",
+            "nuove imprese",
             "startup",
             "start up",
         )
     ):
         return "NUOVA_IMPRESA"
 
-    # ----------------------------------------
     # AGRICOLTURA
-    # ----------------------------------------
-
     if any(
-        x in testo
+        x in t
         for x in (
-            "imprese agricole",
             "imprenditori agricoli",
+            "imprese agricole",
             "aziende agricole",
             "azienda agricola",
             "allevatori",
-            "zootecn",
+            "zootec",
         )
     ):
         return "AGRICOLTURA"
 
-    # ----------------------------------------
     # PROFESSIONISTI
-    # ----------------------------------------
-
     if any(
-        x in testo
+        x in t
         for x in (
             "liberi professionisti",
             "libero professionista",
@@ -521,66 +490,9 @@ def classifica_beneficiario(titolo, contesto):
     ):
         return "PROFESSIONISTA"
 
-    # ----------------------------------------
-    # IMPRESE
-    # ----------------------------------------
-
+    # ETS
     if any(
-        x in testo
-        for x in (
-            "micro piccole e medie imprese",
-            "micro piccole medie imprese",
-            "microimprese",
-            "micro imprese",
-            "mpmi",
-            "pmi",
-            "imprese beneficiarie",
-            "imprese ammesse",
-            "imprese marchigiane",
-            "imprese della regione marche",
-            "imprese con sede",
-            "imprese aventi sede",
-            "operatori economici",
-        )
-    ):
-        return "IMPRESA"
-
-    # ----------------------------------------
-    # ENTI PUBBLICI
-    # ----------------------------------------
-
-    if any(
-        x in titolo_n
-        for x in (
-            "contributi ai comuni",
-            "contributo ai comuni",
-            "comuni non capoluogo",
-            "iscrizione al registro regionale dei comuni",
-        )
-    ):
-        return "ENTE_PUBBLICO"
-
-    # ----------------------------------------
-    # INTERMEDIARI
-    # ----------------------------------------
-
-    if any(
-        x in titolo_n
-        for x in (
-            "portatori di interessi collettivi",
-            "organismi non imprenditoriali",
-            "its academy",
-            "borse di studio its",
-        )
-    ):
-        return "INTERMEDIARIO_ORGANIZZAZIONE"
-
-    # ----------------------------------------
-    # TERZO SETTORE
-    # ----------------------------------------
-
-    if any(
-        x in testo
+        x in t
         for x in (
             "enti del terzo settore",
             "organizzazioni di volontariato",
@@ -589,24 +501,49 @@ def classifica_beneficiario(titolo, contesto):
     ):
         return "ASSOCIAZIONE_ETS"
 
-    # ----------------------------------------
-    # Impresa generica
-    # ----------------------------------------
+    # INTERMEDIARI
+    if any(
+        x in t
+        for x in (
+            "portatori di interessi collettivi",
+            "fondazioni its",
+            "its academy",
+        )
+    ):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
 
-    if (
-        "bando internazionalizzazione"
-        in titolo_n
+    # IMPRESE
+    if any(
+        x in t
+        for x in (
+            "micro piccole e medie imprese",
+            "micro piccole medie imprese",
+            "imprese attive",
+            "imprese beneficiarie",
+            "imprese marchigiane",
+            "imprese della regione marche",
+            "mpmi",
+            "pmi",
+            "operatori economici",
+        )
     ):
         return "IMPRESA"
 
-    if (
-        "voucher"
-        in titolo_n
-    ):
+    # Titoli fortemente indicativi
+    titolo_n = normalizza(titolo)
+
+    if "internazionalizzazione" in titolo_n:
+        return "IMPRESA"
+
+    if "voucher" in titolo_n:
         return "IMPRESA"
 
     return "NON_DETERMINATO"
 
+
+# ============================================================
+# PUBBLICABILITÀ
+# ============================================================
 
 def pubblicabile(tipo):
 
@@ -618,10 +555,6 @@ def pubblicabile(tipo):
         "ASSOCIAZIONE_ETS",
     )
 
-
-# ============================================================
-# PROFILI
-# ============================================================
 
 def profili(tipo):
 
@@ -653,7 +586,7 @@ def profili(tipo):
 # SETTORI
 # ============================================================
 
-def settori(testo):
+def classifica_settori(testo):
 
     t = normalizza(testo)
 
@@ -667,10 +600,12 @@ def settori(testo):
         "turismo": (
             "turism",
             "ricettiv",
+            "ospitalita",
         ),
         "agricoltura": (
             "agricol",
             "zootec",
+            "allevator",
             "rurale",
         ),
         "artigianato": (
@@ -688,6 +623,7 @@ def settori(testo):
             "digital",
             "ict",
             "innovazione",
+            "transizione digitale",
         ),
         "pesca": (
             "pesca",
@@ -696,173 +632,441 @@ def settori(testo):
         ),
     }
 
-    for nome, parole in regole.items():
+    for settore, parole in regole.items():
 
         if any(
-            p in t
-            for p in parole
+            parola in t
+            for parola in parole
         ):
-            risultato.append(nome)
+            risultato.append(settore)
 
     return risultato or ["altro"]
 
 
 # ============================================================
-# TERRITORIO
+# ID
 # ============================================================
 
-def territorio_valido(testo):
+def genera_id(fonte, chiave):
 
-    t = normalizza(testo)
-
-    return not any(
-        gal in t
-        for gal in GAL_ESCLUSI
+    valore = (
+        normalizza(fonte)
+        + "|"
+        + normalizza(str(chiave))
     )
 
+    return hashlib.sha256(
+        valore.encode("utf-8")
+    ).hexdigest()[:16]
+
 
 # ============================================================
-# ANNO
+# REGIONE MARCHE
 # ============================================================
 
-def anno_vecchio(titolo):
+def estrai_id_regione(html):
+
+    ids = set()
+
+    # idb=12345
+    for valore in re.findall(
+        r"[?&]idb=(\d+)",
+        html,
+        flags=re.I,
+    ):
+
+        ids.add(valore)
+
+    return sorted(ids)
+
+
+def campo_regione(testo, nome, prossimo=None):
 
     """
-    Esclude esplicitamente bandi 2022/2023/2024/2025
-    quando il titolo identifica chiaramente l'annualità.
+    Estrae campi dalla scheda Regione convertita in testo.
     """
 
-    t = normalizza(titolo)
+    if prossimo:
 
-    patterns = (
-        r"\banno\s+(20\d{2})\b",
-        r"\bsemestre\s+(20\d{2})\b",
-        r"\bmarche\s+(20\d{2})\b",
-        r"\bimpresa\s+(20\d{2})\b",
-        r"\bformazione lavoro\s+(20\d{2})\b",
-        r"\bpid\s+(20\d{2})\b",
-        r"\bagricole\s+(20\d{2})\b",
-    )
-
-    for pattern in patterns:
-
-        match = re.search(
-            pattern,
-            t,
+        pattern = (
+            re.escape(nome)
+            + r"\s*:\s*(.*?)\s*"
+            + re.escape(prossimo)
+            + r"\s*:"
         )
 
-        if (
-            match
-            and int(match.group(1)) < ANNO
-        ):
-            return True
+    else:
 
-    return False
+        pattern = (
+            re.escape(nome)
+            + r"\s*:\s*(.*)"
+        )
 
-
-# ============================================================
-# DOCUMENTI
-# ============================================================
-
-def documento_escluso(titolo):
-
-    t = normalizza(titolo)
-
-    if any(
-        parola in t
-        for parola in DOCUMENTI_ESCLUSI
-    ):
-        return True
-
-    if (
-        "bors" in t
-        and "studio" in t
-        and "its" in t
-    ):
-        return True
-
-    return False
-
-
-# ============================================================
-# DOMINIO
-# ============================================================
-
-def dominio_valido(url, fonte):
-
-    dominio = urlparse(
-        url
-    ).netloc.lower()
-
-    return any(
-        dominio == d
-        or dominio.endswith("." + d)
-        for d in fonte["domini"]
+    match = re.search(
+        pattern,
+        testo,
+        flags=re.I | re.S,
     )
 
+    if match:
+        return match.group(1).strip()
+
+    return ""
+
+
+def analizza_regione_id(idb):
+
+    url = (
+        REGIONE_URL
+        + "?idb="
+        + str(idb)
+    )
+
+    try:
+        html = scarica(url)
+
+    except Exception as e:
+
+        print(
+            f"  ERRORE Regione ID {idb}: {e}"
+        )
+        return None
+
+    testo = pulisci_html(html)
+
+    # Titolo: prendiamo il primo heading utile dopo Titolo
+    match_titolo = re.search(
+        r"Titolo\s*:\s*(.*?)"
+        r"(?:Area organizzativa|Struttura)\s*:",
+        testo,
+        flags=re.I | re.S,
+    )
+
+    if not match_titolo:
+        return None
+
+    titolo = match_titolo.group(1).strip()
+
+    # Elimina eventuali rumori
+    titolo = re.sub(
+        r"^[-|:\s]+",
+        "",
+        titolo,
+    ).strip()
+
+    if not titolo:
+        return None
+
+    beneficiari = campo_regione(
+        testo,
+        "Soggetti ammessi beneficiari",
+        "Note",
+    )
+
+    note = campo_regione(
+        testo,
+        "Note",
+        "Allegati",
+    )
+
+    # Scadenza nominale
+    match_scadenza = re.search(
+        r"Scadenza\s*:\s*(.*?)"
+        r"(?:Contatto|Email contatto)\s*:",
+        testo,
+        flags=re.I | re.S,
+    )
+
+    scadenza_nominale = ""
+
+    if match_scadenza:
+
+        scadenza_nominale = converti_data(
+            match_scadenza.group(1)
+        )
+
+    # ----------------------------------------
+    # 1. CHIUSURA / SOSPENSIONE
+    # ----------------------------------------
+
+    if chiusura_esplicita(note):
+
+        return {
+            "esito": "CHIUSO",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    # ----------------------------------------
+    # 2. FINESTRE SPECIFICHE
+    # ----------------------------------------
+
+    finestra = finestra_attuale(note)
+
+    if finestra:
+
+        if finestra["stato"] == "PROGRAMMATO":
+
+            return {
+                "esito": "PROGRAMMATO",
+                "titolo": titolo,
+                "url": url,
+                "prossimaApertura":
+                    finestra["prossimaApertura"],
+            }
+
+        scadenza_effettiva = (
+            finestra["scadenza"]
+        )
+
+    else:
+
+        scadenza_effettiva = (
+            scadenza_nominale
+        )
+
+    # ----------------------------------------
+    # 3. SCADENZA
+    # ----------------------------------------
+
+    d = data_obj(
+        scadenza_effettiva
+    )
+
+    if not d:
+
+        return {
+            "esito": "DA_VERIFICARE",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    if d < OGGI:
+
+        return {
+            "esito": "CHIUSO",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    # ----------------------------------------
+    # 4. BENEFICIARIO
+    # ----------------------------------------
+
+    categoria = classifica_beneficiario(
+        titolo,
+        beneficiari,
+        note,
+    )
+
+    if not pubblicabile(categoria):
+
+        return {
+            "esito": "ESCLUSO",
+            "titolo": titolo,
+            "categoria": categoria,
+            "url": url,
+        }
+
+    # ----------------------------------------
+    # PUBBLICABILE
+    # ----------------------------------------
+
+    return {
+        "esito": "PUBBLICABILE",
+        "bando": {
+            "id": genera_id(
+                "Regione Marche",
+                idb,
+            ),
+            "idFonte": str(idb),
+            "nome": titolo,
+            "ente": "Regione Marche",
+            "stato": "APERTO",
+            "scadenza": scadenza_effettiva,
+            "scadenzaTesto": formatta_data(
+                scadenza_effettiva
+            ),
+            "profili": profili(categoria),
+            "settori": classifica_settori(
+                titolo
+                + " "
+                + beneficiari
+                + " "
+                + note
+            ),
+            "beneficiarioTipo": categoria,
+            "beneficiari": beneficiari,
+            "descrizione": (
+                "Bando presente nella fonte "
+                "ufficiale Regione Marche."
+            ),
+            "requisiti": beneficiari or (
+                "Consultare la fonte ufficiale."
+            ),
+            "dotazione":
+                "Verificare sulla fonte ufficiale",
+            "territorio": "Regione Marche",
+            "url": url,
+            "fonteAutomatica": True,
+            "versioneMotore": VERSIONE,
+            "ultimoControllo":
+                OGGI.isoformat(),
+        },
+    }
+
+
+def controlla_regione():
+
+    print()
+    print("=" * 60)
+    print("REGIONE MARCHE")
+    print("=" * 60)
+
+    risultati = []
+
+    # La pagina è paginata.
+    # Controlliamo più pagine.
+    urls = [REGIONE_URL]
+
+    for pagina in range(2, 8):
+
+        urls.append(
+            f"{REGIONE_URL}/p/{pagina}"
+        )
+
+    ids = set()
+
+    for url in urls:
+
+        try:
+
+            html = scarica(url)
+
+            ids.update(
+                estrai_id_regione(html)
+            )
+
+        except Exception as e:
+
+            print(
+                f"Errore pagina Regione {url}: {e}"
+            )
+
+    print(
+        f"ID Regione trovati: {len(ids)}"
+    )
+
+    for idb in sorted(ids):
+
+        risultato = analizza_regione_id(
+            idb
+        )
+
+        if not risultato:
+            continue
+
+        esito = risultato["esito"]
+
+        titolo = (
+            risultato.get("titolo")
+            or risultato.get(
+                "bando", {}
+            ).get("nome", "")
+        )
+
+        print(
+            f"[{idb}] {esito}: {titolo}"
+        )
+
+        risultati.append(
+            risultato
+        )
+
+    return risultati
+
 
 # ============================================================
-# ESTRAZIONE LINK STANDARD
+# CAMERA DI COMMERCIO
 # ============================================================
 
-def estrai_link_standard(html, fonte):
+def estrai_link_camera(html):
 
     risultati = []
     visti = set()
 
     pattern = re.compile(
-        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
-        re.I | re.S,
+        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>'
+        r'(.*?)</a>',
+        flags=re.I | re.S,
     )
 
     for href, contenuto in pattern.findall(html):
 
-        titolo = pulisci_testo(
+        titolo = pulisci_html(
             contenuto
         )
 
-        if len(titolo) < 10:
-            continue
-
-        if anno_vecchio(titolo):
-            continue
-
-        if documento_escluso(titolo):
-            continue
-
-        if not territorio_valido(titolo):
-            continue
-
-        url = urljoin(
-            fonte["url"],
-            html_lib.unescape(href),
-        )
-
-        if not dominio_valido(
-            url,
-            fonte,
-        ):
-            continue
-
         t = normalizza(titolo)
 
-        interessante = any(
-            x in t
-            for x in (
+        if len(t) < 10:
+            continue
+
+        if not any(
+            parola in t
+            for parola in (
                 "bando",
                 "avviso",
                 "voucher",
-                "contribut",
             )
-        )
-
-        if not interessante:
+        ):
             continue
 
-        chiave = (
+        # vecchie annualità
+        anni = re.findall(
+            r"\b20\d{2}\b",
             t,
-            url.rstrip("/"),
         )
+
+        if anni:
+
+            anni_recenti = [
+                int(x)
+                for x in anni
+                if int(x) >= 2022
+            ]
+
+            if (
+                anni_recenti
+                and max(anni_recenti) < ANNO
+            ):
+                continue
+
+        url = urljoin(
+            CAMERA_URL,
+            html_lib.unescape(href),
+        )
+
+        dominio = urlparse(
+            url
+        ).netloc.lower()
+
+        if "marche.camcom.it" not in dominio:
+            continue
+
+        # niente documenti
+        if url.lower().split("?")[0].endswith(
+            (
+                ".pdf",
+                ".doc",
+                ".docx",
+                ".xls",
+                ".xlsx",
+            )
+        ):
+            continue
+
+        chiave = url.rstrip("/")
 
         if chiave in visti:
             continue
@@ -879,306 +1083,15 @@ def estrai_link_standard(html, fonte):
     return risultati
 
 
-# ============================================================
-# GAL PICENO
-# ============================================================
-
-def estrai_link_gal(html, fonte):
-
-    """
-    Primo livello:
-    individua pagine INTERVENTO SRG/SRD.
-
-    Secondo livello:
-    entra nella pagina intervento e cerca
-    Bando / Avviso / documenti principali.
-    """
-
-    risultati = []
-    visti = set()
-
-    pattern = re.compile(
-        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
-        re.I | re.S,
-    )
-
-    pagine_intervento = []
-
-    for href, contenuto in pattern.findall(html):
-
-        titolo = pulisci_testo(
-            contenuto
-        )
-
-        t = normalizza(titolo)
-
-        url = urljoin(
-            fonte["url"],
-            html_lib.unescape(href),
-        )
-
-        if not dominio_valido(
-            url,
-            fonte,
-        ):
-            continue
-
-        if any(
-            codice in t
-            for codice in (
-                "srg",
-                "srd",
-                "srh",
-            )
-        ):
-
-            pagine_intervento.append(
-                {
-                    "titolo": titolo,
-                    "url": url,
-                }
-            )
-
-    # Deduplica pagine intervento
-    pagine_uniche = []
-
-    urls_viste = set()
-
-    for pagina in pagine_intervento:
-
-        url = pagina["url"].rstrip("/")
-
-        if url in urls_viste:
-            continue
-
-        urls_viste.add(url)
-        pagine_uniche.append(pagina)
-
-    # Secondo livello
-    for intervento in pagine_uniche[:20]:
-
-        try:
-
-            html_intervento = scarica(
-                intervento["url"]
-            )
-
-        except Exception as e:
-
-            print(
-                "  GAL: impossibile aprire "
-                f"{intervento['titolo']} ({e})"
-            )
-
-            continue
-
-        trovati_interni = 0
-
-        for href, contenuto in pattern.findall(
-            html_intervento
-        ):
-
-            titolo = pulisci_testo(
-                contenuto
-            )
-
-            t = normalizza(titolo)
-
-            if len(t) < 8:
-                continue
-
-            if documento_escluso(titolo):
-                continue
-
-            if anno_vecchio(titolo):
-                continue
-
-            interessante = (
-                "bando" in t
-                or "avviso" in t
-            )
-
-            if not interessante:
-                continue
-
-            url = urljoin(
-                intervento["url"],
-                html_lib.unescape(href),
-            )
-
-            if not dominio_valido(
-                url,
-                fonte,
-            ):
-                continue
-
-            chiave = (
-                t,
-                url.rstrip("/"),
-            )
-
-            if chiave in visti:
-                continue
-
-            visti.add(chiave)
-
-            risultati.append(
-                {
-                    "titolo": titolo,
-                    "url": url,
-                }
-            )
-
-            trovati_interni += 1
-
-        # Se non troviamo un vero link Bando,
-        # conserviamo la pagina intervento
-        # come candidato da verificare.
-        if trovati_interni == 0:
-
-            titolo = intervento["titolo"]
-            url = intervento["url"]
-
-            chiave = (
-                normalizza(titolo),
-                url.rstrip("/"),
-            )
-
-            if chiave not in visti:
-
-                visti.add(chiave)
-
-                risultati.append(
-                    {
-                        "titolo": titolo,
-                        "url": url,
-                    }
-                )
-
-    return risultati
-
-
-def estrai_link(html, fonte):
-
-    if fonte["tipo"] == "gal_piceno":
-
-        return estrai_link_gal(
-            html,
-            fonte,
-        )
-
-    return estrai_link_standard(
-        html,
-        fonte,
-    )
-
-
-# ============================================================
-# ID
-# ============================================================
-
-def genera_id(ente, titolo):
-
-    valore = (
-        ente.lower()
-        + "|"
-        + normalizza(titolo)
-    )
-
-    return hashlib.sha256(
-        valore.encode("utf-8")
-    ).hexdigest()[:16]
-
-
-# ============================================================
-# ANALISI
-# ============================================================
-
-def analizza(link, fonte):
+def analizza_camera(link):
 
     titolo = link["titolo"]
     url = link["url"]
 
-    print(
-        f"Analizzo: {titolo}"
-    )
-
     try:
-
         html = scarica(url)
 
-    except Exception as e:
-
-        print(
-            f"  DA VERIFICARE: errore lettura ({e})"
-        )
-
-        return {
-            "esito": "DA_VERIFICARE"
-        }
-
-    contesto = estrai_contesto(
-        titolo,
-        html,
-    )
-
-    if not territorio_valido(
-        titolo
-    ):
-
-        print(
-            "  ESCLUSO: territorio"
-        )
-
-        return {
-            "esito": "ESCLUSO"
-        }
-
-    beneficiario = classifica_beneficiario(
-        titolo,
-        contesto,
-    )
-
-    if not pubblicabile(
-        beneficiario
-    ):
-
-        print(
-            "  ESCLUSO: beneficiario "
-            f"{beneficiario}"
-        )
-
-        return {
-            "esito": "ESCLUSO"
-        }
-
-    scadenza = estrai_scadenza(
-        contesto
-    )
-
-    stato = verifica_stato(
-        contesto,
-        scadenza,
-    )
-
-    if stato == "SCADUTO":
-
-        print(
-            "  SCADUTO/CHIUSO"
-        )
-
-        return {
-            "esito": "SCADUTO",
-            "titolo": titolo,
-            "url": url,
-        }
-
-    if stato == "DA_VERIFICARE":
-
-        print(
-            "  DA VERIFICARE: "
-            "apertura non certa"
-        )
+    except Exception:
 
         return {
             "esito": "DA_VERIFICARE",
@@ -1186,68 +1099,468 @@ def analizza(link, fonte):
             "url": url,
         }
 
-    print(
-        "  PUBBLICABILE: "
-        f"{beneficiario} | "
-        f"{scadenza or 'apertura esplicita'}"
+    testo = pulisci_html(html)
+
+    # Chiusura anticipata prevale su tutto
+    if chiusura_esplicita(testo):
+
+        return {
+            "esito": "CHIUSO",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    # Campo Camera:
+    # Scadenza termini partecipazione
+    match = re.search(
+        r"Scadenza termini partecipazione\s*:\s*"
+        r"(.{0,100})",
+        testo,
+        flags=re.I,
     )
+
+    scadenza = ""
+
+    if match:
+        scadenza = converti_data(
+            match.group(1)
+        )
+
+    # Altre formulazioni
+    if not scadenza:
+
+        patterns = (
+            r"entro il\s+"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+
+            r"entro il\s+"
+            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+
+            r"fino al\s+"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+        )
+
+        for pattern in patterns:
+
+            m = re.search(
+                pattern,
+                testo,
+                flags=re.I,
+            )
+
+            if m:
+
+                scadenza = converti_data(
+                    m.group(1)
+                )
+
+                if scadenza:
+                    break
+
+    d = data_obj(scadenza)
+
+    if not d:
+
+        return {
+            "esito": "DA_VERIFICARE",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    if d < OGGI:
+
+        return {
+            "esito": "CHIUSO",
+            "titolo": titolo,
+            "url": url,
+        }
+
+    categoria = classifica_beneficiario(
+        titolo,
+        testo[:5000],
+        "",
+    )
+
+    if not pubblicabile(categoria):
+
+        return {
+            "esito": "ESCLUSO",
+            "titolo": titolo,
+            "categoria": categoria,
+            "url": url,
+        }
 
     return {
         "esito": "PUBBLICABILE",
         "bando": {
             "id": genera_id(
-                fonte["nome"],
-                titolo,
+                "Camera Marche",
+                url,
             ),
             "nome": titolo,
-            "ente": fonte["nome"],
+            "ente":
+                "Camera di Commercio delle Marche",
             "stato": "APERTO",
             "scadenza": scadenza,
-            "scadenzaTesto": formatta_data(
-                scadenza
-            ),
-            "profili": profili(
-                beneficiario
-            ),
-            "settori": settori(
-                titolo + " " + contesto
-            ),
-            "beneficiarioTipo": beneficiario,
+            "scadenzaTesto":
+                formatta_data(scadenza),
+            "profili": profili(categoria),
+            "settori":
+                classifica_settori(
+                    titolo + " " + testo[:5000]
+                ),
+            "beneficiarioTipo": categoria,
             "descrizione": (
-                "Opportunità verificata automaticamente "
-                "da BandiAP su fonte ufficiale."
+                "Opportunità verificata sulla "
+                "fonte ufficiale della Camera "
+                "di Commercio delle Marche."
             ),
-            "requisiti": (
-                "Consultare la fonte ufficiale "
-                "per requisiti e spese ammissibili."
-            ),
+            "requisiti":
+                "Consultare la fonte ufficiale.",
             "dotazione":
                 "Verificare sulla fonte ufficiale",
-            "territorio":
-                fonte["territorio"],
+            "territorio": "Regione Marche",
             "url": url,
             "fonteAutomatica": True,
-            "versioneMotore": 9.1,
+            "versioneMotore": VERSIONE,
             "ultimoControllo":
-                OGGI.strftime("%Y-%m-%d"),
+                OGGI.isoformat(),
         },
     }
 
 
+def controlla_camera():
+
+    print()
+    print("=" * 60)
+    print("CAMERA DI COMMERCIO")
+    print("=" * 60)
+
+    try:
+        html = scarica(CAMERA_URL)
+
+    except Exception as e:
+
+        print(f"Errore Camera: {e}")
+        return []
+
+    links = estrai_link_camera(html)
+
+    print(
+        f"Candidati Camera: {len(links)}"
+    )
+
+    risultati = []
+
+    for link in links:
+
+        risultato = analizza_camera(
+            link
+        )
+
+        titolo = (
+            risultato.get("titolo")
+            or risultato.get(
+                "bando", {}
+            ).get("nome", "")
+        )
+
+        print(
+            f"{risultato['esito']}: {titolo}"
+        )
+
+        risultati.append(
+            risultato
+        )
+
+    return risultati
+
+
 # ============================================================
-# PULIZIA V9 PRECEDENTE
+# GAL PICENO
+# ============================================================
+
+def controlla_gal():
+
+    print()
+    print("=" * 60)
+    print("GAL PICENO")
+    print("=" * 60)
+
+    try:
+        html = scarica(GAL_URL)
+
+    except Exception as e:
+
+        print(f"Errore GAL: {e}")
+        return []
+
+    testo = pulisci_html(html)
+
+    risultati = []
+
+    # Cerchiamo blocchi SRG/SRD attuali.
+    pattern_link = re.compile(
+        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>'
+        r'(.*?)</a>',
+        flags=re.I | re.S,
+    )
+
+    visti = set()
+
+    for href, contenuto in pattern_link.findall(
+        html
+    ):
+
+        titolo = pulisci_html(
+            contenuto
+        )
+
+        t = normalizza(titolo)
+
+        if not any(
+            codice in t
+            for codice in (
+                "srg",
+                "srd",
+                "srh",
+            )
+        ):
+            continue
+
+        if not any(
+            parola in t
+            for parola in (
+                "bando",
+                "intervento",
+            )
+        ):
+            continue
+
+        url = urljoin(
+            GAL_URL,
+            html_lib.unescape(href),
+        )
+
+        if "galpiceno.it" not in urlparse(
+            url
+        ).netloc.lower():
+            continue
+
+        chiave = url.rstrip("/")
+
+        if chiave in visti:
+            continue
+
+        visti.add(chiave)
+
+        try:
+            dettaglio_html = scarica(url)
+
+        except Exception:
+            continue
+
+        dettaglio = pulisci_html(
+            dettaglio_html
+        )
+
+        # Cerca scadenze nel contesto
+        scadenze = []
+
+        patterns = (
+            r"scadenza.{0,100}?"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+
+            r"scadenza.{0,100}?"
+            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+
+            r"entro.{0,100}?"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+
+            r"entro.{0,100}?"
+            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+        )
+
+        for pattern in patterns:
+
+            for valore in re.findall(
+                pattern,
+                dettaglio,
+                flags=re.I,
+            ):
+
+                data = converti_data(
+                    valore
+                )
+
+                if data:
+                    scadenze.append(data)
+
+        # Preferiamo la prima scadenza futura
+        scadenze_future = sorted(
+            {
+                d
+                for d in scadenze
+                if data_obj(d)
+                and data_obj(d) >= OGGI
+            }
+        )
+
+        if not scadenze_future:
+
+            risultati.append(
+                {
+                    "esito": "DA_VERIFICARE",
+                    "titolo": titolo,
+                    "url": url,
+                }
+            )
+
+            print(
+                f"DA_VERIFICARE: {titolo}"
+            )
+
+            continue
+
+        scadenza = scadenze_future[0]
+
+        if chiusura_esplicita(
+            dettaglio
+        ):
+
+            risultati.append(
+                {
+                    "esito": "CHIUSO",
+                    "titolo": titolo,
+                    "url": url,
+                }
+            )
+
+            print(
+                f"CHIUSO: {titolo}"
+            )
+
+            continue
+
+        categoria = classifica_beneficiario(
+            titolo,
+            dettaglio[:7000],
+            "",
+        )
+
+        # GAL: PPP/aggregazioni sono utili a BandiAP
+        # anche se il beneficiario non è una singola impresa.
+        if (
+            categoria == "NON_DETERMINATO"
+            and any(
+                x in normalizza(dettaglio[:7000])
+                for x in (
+                    "partenariato pubblico privato",
+                    "aggregazioni",
+                    "operatori privati",
+                    "imprese",
+                )
+            )
+        ):
+            categoria = (
+                "INTERMEDIARIO_ORGANIZZAZIONE"
+            )
+
+        # Manteniamo GAL rilevanti anche come
+        # opportunità territoriale.
+        ammesso_gal = (
+            pubblicabile(categoria)
+            or categoria
+            == "INTERMEDIARIO_ORGANIZZAZIONE"
+        )
+
+        if not ammesso_gal:
+
+            risultati.append(
+                {
+                    "esito": "ESCLUSO",
+                    "titolo": titolo,
+                    "url": url,
+                }
+            )
+
+            print(
+                f"ESCLUSO: {titolo}"
+            )
+
+            continue
+
+        bando = {
+            "id": genera_id(
+                "GAL Piceno",
+                url,
+            ),
+            "nome": titolo,
+            "ente": "GAL Piceno",
+            "stato": "APERTO",
+            "scadenza": scadenza,
+            "scadenzaTesto":
+                formatta_data(scadenza),
+            "profili": (
+                profili(categoria)
+                if pubblicabile(categoria)
+                else ["altro"]
+            ),
+            "settori":
+                classifica_settori(
+                    titolo
+                    + " "
+                    + dettaglio[:7000]
+                ),
+            "beneficiarioTipo": categoria,
+            "descrizione": (
+                "Opportunità territoriale "
+                "del GAL Piceno."
+            ),
+            "requisiti": (
+                "Consultare il bando ufficiale "
+                "GAL Piceno."
+            ),
+            "dotazione":
+                "Verificare sulla fonte ufficiale",
+            "territorio": "GAL Piceno",
+            "url": url,
+            "fonteAutomatica": True,
+            "versioneMotore": VERSIONE,
+            "ultimoControllo":
+                OGGI.isoformat(),
+        }
+
+        risultati.append(
+            {
+                "esito": "PUBBLICABILE",
+                "bando": bando,
+            }
+        )
+
+        print(
+            f"PUBBLICABILE: {titolo} "
+            f"-> {scadenza}"
+        )
+
+    return risultati
+
+
+# ============================================================
+# DATABASE V10
 # ============================================================
 
 def prepara_database(database):
 
     """
-    V9 non aveva pubblicato nuovi record.
-    Manteniamo:
-    - record manuali
-    - eventuali record già V9.1
+    Prima esecuzione V10:
+    conserva i record manuali.
 
-    Eliminiamo eventuali automatici
-    delle versioni precedenti.
+    Elimina eventuali automatici prodotti
+    dalle vecchie versioni.
+
+    Dalla seconda esecuzione i record V10
+    vengono mantenuti e aggiornati.
     """
 
     risultato = []
@@ -1255,9 +1568,18 @@ def prepara_database(database):
 
     for bando in database:
 
+        automatico = (
+            bando.get("fonteAutomatica")
+            is True
+        )
+
+        versione = bando.get(
+            "versioneMotore"
+        )
+
         if (
-            bando.get("fonteAutomatica") is True
-            and bando.get("versioneMotore") != 9.1
+            automatico
+            and versione != VERSIONE
         ):
 
             eliminati += 1
@@ -1270,23 +1592,30 @@ def prepara_database(database):
     return risultato, eliminati
 
 
-# ============================================================
-# DUPLICATI / AGGIORNAMENTO
-# ============================================================
+def trova_esistente(
+    database,
+    nuovo,
+):
 
-def trova_esistente(database, nuovo):
+    nuovo_id = nuovo.get("id")
 
-    url_n = (
+    nuovo_url = (
         nuovo.get("url", "")
         .rstrip("/")
         .lower()
     )
 
-    nome_n = normalizza(
+    nuovo_nome = normalizza(
         nuovo.get("nome", "")
     )
 
     for bando in database:
+
+        if (
+            nuovo_id
+            and bando.get("id") == nuovo_id
+        ):
+            return bando
 
         url = (
             bando.get("url", "")
@@ -1294,21 +1623,21 @@ def trova_esistente(database, nuovo):
             .lower()
         )
 
+        if (
+            nuovo_url
+            and url
+            and nuovo_url == url
+        ):
+            return bando
+
         nome = normalizza(
             bando.get("nome", "")
         )
 
         if (
-            url_n
-            and url
-            and url_n == url
-        ):
-            return bando
-
-        if (
-            nome_n
+            nuovo_nome
             and nome
-            and nome_n == nome
+            and nuovo_nome == nome
         ):
             return bando
 
@@ -1327,26 +1656,32 @@ def inserisci_o_aggiorna(
 
     if esistente is None:
 
-        database.append(
-            nuovo
-        )
-
+        database.append(nuovo)
         return "NUOVO"
 
     modificato = False
 
     campi = (
+        "nome",
+        "ente",
         "stato",
         "scadenza",
         "scadenzaTesto",
         "profili",
         "settori",
         "beneficiarioTipo",
+        "beneficiari",
+        "descrizione",
+        "requisiti",
+        "dotazione",
         "territorio",
         "url",
     )
 
     for campo in campi:
+
+        if campo not in nuovo:
+            continue
 
         if (
             esistente.get(campo)
@@ -1359,147 +1694,66 @@ def inserisci_o_aggiorna(
 
             modificato = True
 
-    if esistente.get(
-        "fonteAutomatica"
-    ) is True:
+    if (
+        esistente.get("fonteAutomatica")
+        is True
+    ):
 
-        esistente["versioneMotore"] = 9.1
+        esistente["versioneMotore"] = (
+            VERSIONE
+        )
 
     esistente["ultimoControllo"] = (
-        OGGI.strftime("%Y-%m-%d")
+        OGGI.isoformat()
     )
 
-    return (
-        "AGGIORNATO"
-        if modificato
-        else "INVARIATO"
-    )
+    if modificato:
+        return "AGGIORNATO"
+
+    return "INVARIATO"
 
 
 # ============================================================
-# RICONTROLLO AUTOMATICI
+# DEDUPLICAZIONE GAL / REGIONE
 # ============================================================
 
-def ricontrolla_esistenti(database):
+def probabile_duplicato(
+    database,
+    nuovo,
+):
 
-    chiusi = 0
+    nome_n = normalizza(
+        nuovo.get("nome", "")
+    )
+
+    # Codici SRG/SRD/SRH
+    codici = re.findall(
+        r"\b(sr[gdhe]\d{2})\b",
+        nome_n,
+    )
+
+    if not codici:
+        return None
 
     for bando in database:
 
-        if not (
-            bando.get("fonteAutomatica") is True
-            and bando.get("versioneMotore") == 9.1
-        ):
-            continue
-
-        url = bando.get("url")
-
-        if not url:
-            continue
-
-        try:
-
-            html = scarica(url)
-
-        except Exception:
-            continue
-
-        contesto = estrai_contesto(
-            bando.get("nome", ""),
-            html,
+        nome = normalizza(
+            bando.get("nome", "")
         )
 
-        scadenza = estrai_scadenza(
-            contesto
-        )
-
-        stato = verifica_stato(
-            contesto,
-            scadenza,
-        )
-
-        if (
-            stato == "SCADUTO"
-            and bando.get("stato") != "SCADUTO"
+        if any(
+            codice in nome
+            for codice in codici
         ):
 
-            bando["stato"] = "SCADUTO"
+            # Regione prevale come record principale
+            if (
+                bando.get("ente")
+                == "Regione Marche"
+            ):
+                return bando
 
-            chiusi += 1
-
-            print(
-                "CHIUSO: "
-                f"{bando.get('nome')}"
-            )
-
-        elif stato == "APERTO":
-
-            bando["stato"] = "APERTO"
-
-            if scadenza:
-
-                bando["scadenza"] = scadenza
-                bando["scadenzaTesto"] = (
-                    formatta_data(scadenza)
-                )
-
-        bando["ultimoControllo"] = (
-            OGGI.strftime("%Y-%m-%d")
-        )
-
-    return chiusi
-
-
-# ============================================================
-# CONTROLLO FONTE
-# ============================================================
-
-def controlla_fonte(fonte):
-
-    print()
-    print("=" * 60)
-    print(
-        f"Controllo: {fonte['nome']}"
-    )
-    print(
-        fonte["url"]
-    )
-
-    try:
-
-        html = scarica(
-            fonte["url"]
-        )
-
-    except Exception as e:
-
-        print(
-            f"ERRORE FONTE: {e}"
-        )
-
-        return []
-
-    links = estrai_link(
-        html,
-        fonte,
-    )
-
-    print(
-        f"Candidati V9.1: {len(links)}"
-    )
-
-    risultati = []
-
-    for link in links[:50]:
-
-        risultati.append(
-            analizza(
-                link,
-                fonte,
-            )
-        )
-
-    return risultati
+    return None
 
 
 # ============================================================
@@ -1510,7 +1764,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V9.1"
+        "BandiAP - aggiornamento automatico V10"
     )
     print("=" * 60)
 
@@ -1520,12 +1774,12 @@ def main():
         f"Record iniziali: {len(database)}"
     )
 
-    database, eliminati = (
-        prepara_database(database)
+    database, eliminati = prepara_database(
+        database
     )
 
     print(
-        "Automatici precedenti eliminati: "
+        "Automatici pre-V10 eliminati: "
         f"{eliminati}"
     )
 
@@ -1534,24 +1788,40 @@ def main():
         f"{len(database)}"
     )
 
-    chiusi = ricontrolla_esistenti(
-        database
-    )
-
     risultati = []
 
-    for fonte in FONTI:
+    # ----------------------------------------
+    # TRE PARSER SEPARATI
+    # ----------------------------------------
 
-        risultati.extend(
-            controlla_fonte(fonte)
-        )
+    risultati.extend(
+        controlla_regione()
+    )
+
+    risultati.extend(
+        controlla_camera()
+    )
+
+    risultati.extend(
+        controlla_gal()
+    )
+
+    # ----------------------------------------
+    # CONTATORI
+    # ----------------------------------------
 
     nuovi = 0
     aggiornati = 0
     invariati = 0
+    chiusi = 0
+    programmati = 0
     verificare = 0
     esclusi = 0
-    scaduti = 0
+    duplicati = 0
+
+    # ----------------------------------------
+    # RISULTATI
+    # ----------------------------------------
 
     for risultato in risultati:
 
@@ -1561,9 +1831,40 @@ def main():
 
         if esito == "PUBBLICABILE":
 
+            nuovo = risultato["bando"]
+
+            # Prima deduplica normale
+            esistente = trova_esistente(
+                database,
+                nuovo,
+            )
+
+            # Poi deduplica GAL / Regione
+            if (
+                esistente is None
+                and nuovo.get("ente")
+                == "GAL Piceno"
+            ):
+
+                duplicato = probabile_duplicato(
+                    database,
+                    nuovo,
+                )
+
+                if duplicato:
+
+                    duplicati += 1
+
+                    print(
+                        "DUPLICATO GAL/REGIONE: "
+                        f"{nuovo['nome']}"
+                    )
+
+                    continue
+
             operazione = inserisci_o_aggiorna(
                 database,
-                risultato["bando"],
+                nuovo,
             )
 
             if operazione == "NUOVO":
@@ -1572,40 +1873,94 @@ def main():
 
                 print(
                     "NUOVO PUBBLICATO: "
-                    f"{risultato['bando']['nome']}"
+                    f"{nuovo['nome']}"
                 )
 
             elif operazione == "AGGIORNATO":
+
                 aggiornati += 1
 
             else:
+
                 invariati += 1
 
+        elif esito == "CHIUSO":
+
+            chiusi += 1
+
+        elif esito == "PROGRAMMATO":
+
+            programmati += 1
+
+            print(
+                "PROGRAMMATO: "
+                f"{risultato.get('titolo')} "
+                f"- prossima apertura "
+                f"{risultato.get('prossimaApertura')}"
+            )
+
         elif esito == "DA_VERIFICARE":
+
             verificare += 1
 
         elif esito == "ESCLUSO":
+
             esclusi += 1
 
-        elif esito == "SCADUTO":
-            scaduti += 1
+    # ----------------------------------------
+    # AGGIORNA STATO RECORD V10 NON PIÙ APERTI
+    # ----------------------------------------
+
+    pubblicati_ids = {
+        r["bando"]["id"]
+        for r in risultati
+        if r.get("esito") == "PUBBLICABILE"
+        and r.get("bando")
+    }
+
+    for bando in database:
+
+        if not (
+            bando.get("fonteAutomatica")
+            is True
+            and bando.get("versioneMotore")
+            == VERSIONE
+        ):
+            continue
+
+        if bando.get("id") not in pubblicati_ids:
+
+            if bando.get("stato") == "APERTO":
+
+                bando["stato"] = "SCADUTO"
+
+                print(
+                    "ARCHIVIATO: "
+                    f"{bando.get('nome')}"
+                )
+
+    # ----------------------------------------
+    # ORDINA
+    # ----------------------------------------
 
     database.sort(
         key=lambda b: (
-            b.get("stato") == "SCADUTO",
+            b.get("stato") != "APERTO",
             b.get("scadenza")
             or "9999-12-31",
             b.get("nome", "").lower(),
         )
     )
 
-    salva_database(
-        database
-    )
+    salva_database(database)
+
+    # ----------------------------------------
+    # RIEPILOGO
+    # ----------------------------------------
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V9.1")
+    print("RIEPILOGO V10")
     print("=" * 60)
 
     print(
@@ -1625,11 +1980,11 @@ def main():
     )
 
     print(
-        f"CHIUSI: {chiusi}"
+        f"CHIUSI/NON CANDIDABILI: {chiusi}"
     )
 
     print(
-        f"SCADUTI NON PUBBLICATI: {scaduti}"
+        f"PROGRAMMATI: {programmati}"
     )
 
     print(
@@ -1637,7 +1992,11 @@ def main():
     )
 
     print(
-        f"ESCLUSI: {esclusi}"
+        f"ESCLUSI PER BENEFICIARIO: {esclusi}"
+    )
+
+    print(
+        f"DUPLICATI GAL/REGIONE: {duplicati}"
     )
 
     print(
