@@ -1,1417 +1,5 @@
 [
   {
-    "id": "bfffc198afaddb12",
-    "nome": "SOTTOMISURA 19.2.7.4",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2018-03-07",
-    "scadenzaTesto": "7 marzo 2018",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-2-2/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ae3f0055a562cc56",
-    "nome": "SOTTOMISURA 19.2.16.4",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2018-05-07",
-    "scadenzaTesto": "7 maggio 2018",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-16-4-copy/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f9e4c5f941bfc5ee",
-    "nome": "I° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2018-06-20",
-    "scadenzaTesto": "20 giugno 2018",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-2-i/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "22f50505f2fa81bb",
-    "nome": "MISURA 19.4 GESTIONE E ANIMAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2019-07-16",
-    "scadenzaTesto": "16 luglio 2019",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/programmazioni-leader-psl-piceno-2014-2020-psl-piceno-misura-19-4-gestione-e-animazione/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "6989ac02845d40f5",
-    "nome": "AVVIA la tua impresa",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-01-15",
-    "scadenzaTesto": "15 gennaio 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/menu/avvia",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "87407c2bf3a11f72",
-    "nome": "FAI CRESCERE la tua impresa",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-01-15",
-    "scadenzaTesto": "15 gennaio 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/menu/fai-crescere",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "abc61ce12af623da",
-    "nome": "GESTISCI la tua impresa",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-01-15",
-    "scadenzaTesto": "15 gennaio 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/menu/gestisci",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "bf0166a563fad041",
-    "nome": "TUTELA impresa e consumatore",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-01-15",
-    "scadenzaTesto": "15 gennaio 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/menu/tutela",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f9e4c5f941bfc5ee",
-    "nome": "I° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "e213326de6984f11",
-    "nome": "SOTTOMISURA 19.2.16.3 PIL",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-16-3-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f5bd519420fb664e",
-    "nome": "SOTTOMISURA 19.2.6.2 PIL",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-2-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "8d79e4117bad3564",
-    "nome": "SOTTOMISURA 19.2.7.4 PIL",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-4-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "a9317c603b486741",
-    "nome": "SOTTOMISURA 19.2.7.5 PIL",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/sottomisura-19-2-7-5-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "9451fdf6f7cd97f9",
-    "nome": "SOTTOMISURA 19.2.7.6 PIL",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2020-04-23",
-    "scadenzaTesto": "23 aprile 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/sottomisura-19-2-7-6-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "87407c2bf3a11f72",
-    "nome": "Fai crescere la tua impresa",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-07-01",
-    "scadenzaTesto": "1 luglio 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "98c4415b32c220c7",
-    "nome": "D.G.R. n. 915/2026. D.M. n. 9093602 del 04/09/2020, fondo per le foreste italiane. Bando per la concessione di contributi ai Comuni per la fornitura e posa inopera della cartellonistica ministeriale finalizzata alla loro tutela e valorizzazione. Euro 32.103,10, capitolo 2090510125, Bilancio di Previsione 2026/2028, annualità 2026.",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2020-09-04",
-    "scadenzaTesto": "4 settembre 2020",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
-      "altro"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28728",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "b2c11252659b35b4",
-    "nome": "II° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2021-09-16",
-    "scadenzaTesto": "16 settembre 2021",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-ii-pil/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "696a9abbb6fe6d37",
-    "nome": "SOTTOMISURA 19.2.6.2",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2022-02-01",
-    "scadenzaTesto": "1 febbraio 2022",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bandi-2/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f9e4c5f941bfc5ee",
-    "nome": "I° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2022-05-09",
-    "scadenzaTesto": "9 maggio 2022",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-i/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f9e4c5f941bfc5ee",
-    "nome": "I° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2022-05-09",
-    "scadenzaTesto": "9 maggio 2022",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-6-i-2/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "d72cbea998348b4d",
-    "nome": "SOTTOMISURA 19.2.7.5",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2022-05-09",
-    "scadenzaTesto": "9 maggio 2022",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-5/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "7c9f20453836c5b6",
-    "nome": "GESTISCI CRISI impresa e insolvenza",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2022-10-19",
-    "scadenzaTesto": "19 ottobre 2022",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/menu/crisi",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ec4b64d1830d4900",
-    "nome": "III° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2023-01-31",
-    "scadenzaTesto": "31 gennaio 2023",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-6-i/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "99659f2a7378e3b3",
-    "nome": "MISURA 19.3 COOPERAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2023-05-08",
-    "scadenzaTesto": "8 maggio 2023",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/programmazioni-leader-psl-piceno-2014-2020-psl-piceno-misurazione-19-3-cooperazione-2/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "b2c11252659b35b4",
-    "nome": "II° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2023-12-28",
-    "scadenzaTesto": "28 dicembre 2023",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-ii/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "1b05b789004691b4",
-    "nome": "V° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2024-01-18",
-    "scadenzaTesto": "18 gennaio 2024",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-v/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "47461bec3cc1a7f8",
-    "nome": "PREMIO \"STORIE DI ALTERNANZA E COMPETENZE\" VII Edizione - anno 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-05-07",
-    "scadenzaTesto": "7 maggio 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/premio-storie-di-alternanza-e-competenze-vii-edizione-anno-2024",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "4e2cecf5877bee3d",
-    "nome": "BANDO IMPRONTA D'IMPRESA MARCHE 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-05-14",
-    "scadenzaTesto": "14 maggio 2024",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/pubblicazione-del-bando",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "6023b535af75e829",
-    "nome": "VI° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2024-05-20",
-    "scadenzaTesto": "20 maggio 2024",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-vi/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "c36a42cbedb20dea",
-    "nome": "BANDO DI CONCESSIONE DI CONTRIBUTI FINALIZZATI AL RIPOPOLAMENTO DELLE AREE INTERNE ATTRAVERSO L’AVVIO DI IMPRESA O DI UNITA’ LOCALE – “BANDO BORGHI 2024”.",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-06-12",
-    "scadenzaTesto": "12 giugno 2024",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-di-concessione-di-contributi-finalizzati-al-ripopolamento-delle-aree-interne-attraverso-l2019avvio-di-impresa-o-di-unita2019-locale-2013-201cbando-borghi-2024201d",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "b243049f4f4d49fc",
-    "nome": "Bando Voucher per la Transizione Ecologica delle PMI - Anno 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-06-20",
-    "scadenzaTesto": "20 giugno 2024",
-    "profili": [
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-voucher-per-la-transizione-ecologica-delle-pmi-anno-2024",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "a3f3d19f2de96501",
-    "nome": "BANDO INTERNAZIONALIZZAZIONE - SECONDO SEMESTRE 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-07-02",
-    "scadenzaTesto": "2 luglio 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-internazionalizzazione-secondo-semestre-2024",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "5f50052c55849661",
-    "nome": "Avviso pubblico per la compartecipazione della Camera di Commercio delle Marche alle iniziative sull’orientamento al lavoro e alle professioni degli ITS delle Marche nel 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-08-02",
-    "scadenzaTesto": "2 agosto 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-compartecipazione-della-camera-di-commercio-delle-marche-alle-iniziative-sull2019orientamento-al-lavoro-e-alle-professioni-degli-its-delle-marche-nel-2024",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "c3647ebb10b903d6",
-    "nome": "Manifestazione di interesse iniziative di promozione turistica e valorizzazione del patrimonio culturale – 4° trimestre 2024",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-10-31",
-    "scadenzaTesto": "31 ottobre 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "industria"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/manifestazione-di-interesse-iniziative-di-promozione-turistica-e-valorizzazione-del-patrimonio-culturale-2013-4deg-trimestre-2024",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "23b4b5b9a99bd6c7",
-    "nome": "BORSE DI STUDIO PER STUDENTI ITS ACADEMY ED. 2024/2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-11-26",
-    "scadenzaTesto": "26 novembre 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/borse-di-studio-per-studenti-its-academy-ed-2024-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ffc453f6aee10961",
-    "nome": "IV° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2024-12-17",
-    "scadenzaTesto": "17 dicembre 2024",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-iv/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "d58f99e0fce052f2",
-    "nome": "Avviso pubblico per la selezione di progetti di soggetti terzi portatori di interessi collettivi delle imprese agricole marchigiane per la valorizzazione, tracciabilità e sicurezza dei prodotti agroalimentari e della filiera corta - Anno 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-12-30",
-    "scadenzaTesto": "30 dicembre 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-agricole-marchigiane-per-la-valorizzazione-tracciabilita-e-sicurezza-dei-prodotti-agroalimentari-e-della-filiera-corta-anno-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ec341ae5d488748b",
-    "nome": "Avviso pubblico per la selezione di progetti e iniziative di soggetti terzi portatori di interessi collettivi delle imprese della regione Marche da realizzare con il contributo camerale - Anno 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-12-30",
-    "scadenzaTesto": "30 dicembre 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-e-iniziative-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-della-regione-marche-da-realizzare-con-il-contributo-camerale-anno-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "53c0768b2aca68ad",
-    "nome": "BANDO INTERNAZIONALIZZAZIONE - PRIMO SEMESTRE 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2024-12-30",
-    "scadenzaTesto": "30 dicembre 2024",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-internazionalizzazione-primo-semestre-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "200e8aa5d07a5e31",
-    "nome": "BANDO FORMAZIONE-LAVORO - Edizione 2024-2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-01-14",
-    "scadenzaTesto": "14 gennaio 2025",
-    "profili": [
-      "micro",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-formazione-lavoro-edizione-2024-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "00af8ffe7db238b4",
-    "nome": "II° PUBBLICAZIONE – SISMA",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2025-02-17",
-    "scadenzaTesto": "17 febbraio 2025",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-7-2/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ec4b64d1830d4900",
-    "nome": "III° PUBBLICAZIONE",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2025-03-25",
-    "scadenzaTesto": "25 marzo 2025",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "artigianato",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/pagina-per-bando-6-4-iii/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "93bffcb2d3a26b0d",
-    "nome": "BANDO VOUCHER IMPRESA DIGITALE 5.0 - ANNO 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-07-10",
-    "scadenzaTesto": "10 luglio 2025",
-    "profili": [
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-voucher-impresa-digitale-5-0-anno-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "26c5f396bd781da4",
-    "nome": "BANDO IMPRONTA D'IMPRESA MARCHE 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-07-14",
-    "scadenzaTesto": "14 luglio 2025",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-impronta-dimpresa-marche-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "5fbf3efb83da2ffa",
-    "nome": "Reg. (UE) 2024/3118; DGR 1365 del 11/08/2025. Approvazione terzo bando per contributo una tantum in «de minimis» agli allevatori per acquisto vaccini e repellenti per gli insetti vettori per la prevenzione dalla Febbre Catarrale degli ovini (Blue Tongue) anno 2026 nell’intero territorio della Regione Marche. Importo totale €. 130.000,00, capitoli 2160110411 e 2160110422, bilancio 2026/2028 annualità 2026.",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-08-11",
-    "scadenzaTesto": "11 agosto 2025",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
-      "altro"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=26359",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "870525d4f728a725",
-    "nome": "BANDO INTERNAZIONALIZZAZIONE - SECONDO SEMESTRE 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-10-07",
-    "scadenzaTesto": "7 ottobre 2025",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-internazionalizzazione-secondo-semestre-202",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "9bc29c55958ee8b8",
-    "nome": "Bando per la compartecipazione della Camera di Commercio delle Marche alle iniziative sull’orientamento al lavoro e alle professioni delle Fondazioni ITS-Academy delle Marche nel 2025",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2025-10-10",
-    "scadenzaTesto": "10 ottobre 2025",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-per-la-compartecipazione-della-camera-di-commercio-delle-marche-alle-iniziative-sull2019orientamento-al-lavoro-e-alle-professioni-delle-fondazioni-its-academy-delle-marche-nel-2025",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "b6f227b930352626",
-    "nome": "BANDO INTERNAZIONALIZZAZIONE ANNO 2026",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-01-20",
-    "scadenzaTesto": "20 gennaio 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-internazionalizzazione-anno-2026",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "5e3dcf84c84564a1",
-    "nome": "Avviso pubblico per la selezione di progetti di soggetti terzi portatori di interessi collettivi delle imprese agricole marchigiane per la valorizzazione, tracciabilità e sicurezza dei prodotti agroalimentari e della filiera corta - Anno 2026",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-02-02",
-    "scadenzaTesto": "2 febbraio 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-agricole-marchigiane-per-la-valorizzazione-tracciabilita-e-sicurezza-dei-prodotti-agroalimentari-e-della-filiera-corta-anno-2026",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "408a9ae474570077",
-    "nome": "Avviso pubblico per la selezione di progetti e iniziative di soggetti terzi portatori di interessi collettivi delle imprese della regione Marche da realizzare con il contributo camerale - Anno 2026",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-02-02",
-    "scadenzaTesto": "2 febbraio 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-e-iniziative-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-della-regione-marche-da-realizzare-con-il-contributo-camerale-anno-2026",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "7b50802f9c07443b",
-    "nome": "AVVISO B2B OPERATORI TURISTICI A NEW YORK",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-06-08",
-    "scadenzaTesto": "8 giugno 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/invito-a-presentare-manifestazione-di-interesse-per-b2b-new-york",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "1b48c2ba7e208178",
-    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD09 – Azione A) Sostegno ad investimenti finalizzati all’introduzione, al miglioramento o all’espansione di servizi di base a livello locale per la popolazione rurale, compresi i servizi socio-sanitari, le attività culturali e ricreative e le relative infrastrutture - Sub-azione A) Realizzazione di un centro servizi territoriale per la gestione associata e coordinata dei servizi socio-culturali e l’avvio di imprese del terzo settore. (Approvato dal CdA nella seduta dell’8/6/2026).",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-06-08",
-    "scadenzaTesto": "8 giugno 2026",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura",
-      "servizi"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28472",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "00fbdd3ff54a405e",
-    "nome": "SOTTOMISURA 19.2.6.4",
-    "ente": "GAL Piceno",
-    "stato": "APERTO",
-    "scadenza": "2026-06-08",
-    "scadenzaTesto": "8 giugno 2026",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura",
-      "artigianato"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/bandi/",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "17f8274772215039",
-    "nome": "Avviso per contributi a favore attività di promozione turistica, marketing territoriale e valorizzazione del patrimonio culturale realizzate da Comuni non capoluogo di provincia delle Marche ed altri Organismi non imprenditoriali - Anno 2026",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-06-18",
-    "scadenzaTesto": "18 giugno 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-per-contributi-a-favore-attivita-di-promozione-turistica-marketing-territoriale-e-valorizzazione-del-patrimonio-culturale-realizzate-da-comuni-non-capoluogo-di-provincia-delle-marche-ed-altri-organismi-non-imprenditoriali-anno-2026",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "48dd6a3e76ec276e",
-    "nome": "Vai al Contenuto",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-07-07",
-    "scadenzaTesto": "7 luglio 2026",
-    "profili": [
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi#content",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "f408109cf0cb1540",
-    "nome": "Vai alla navigazione del sito",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-07-07",
-    "scadenzaTesto": "7 luglio 2026",
-    "profili": [
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi#portal-mainnavigation",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "1766139fbe5680de",
-    "nome": "VOUCHER PER LA DOPPIA TRANSIZIONE 2026",
-    "ente": "Camera di Commercio delle Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-07-07",
-    "scadenzaTesto": "7 luglio 2026",
-    "profili": [
-      "piccola",
-      "media",
-      "agricola"
-    ],
-    "settori": [
-      "commercio",
-      "agricoltura",
-      "servizi",
-      "digitale"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/voucher-per-la-doppia-transizione-2026",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
     "id": 3,
     "nome": "Sostegno imprese zootecniche – Blue Tongue",
     "ente": "Regione Marche",
@@ -1479,6 +67,32 @@
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1542?idb=28510"
   },
   {
+    "id": "6f4f087db85f7544",
+    "nome": "INTERVENTO SRG07 AGGREGAZIONI SUB-GAL",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "2026-10-30",
+    "scadenzaTesto": "30 ottobre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
+      "agricoltura",
+      "artigianato"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/bandi/",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
     "id": 4,
     "nome": "FEAMPA – Acquacoltura sostenibile 2026",
     "ente": "Regione Marche",
@@ -1501,6 +115,183 @@
     "url": "https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
   },
   {
+    "id": "04900d588383a9f0",
+    "nome": "INTERVENTO SRG07 – INTERA AREA GAL",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "2026-12-22",
+    "scadenzaTesto": "22 dicembre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
+      "agricoltura",
+      "artigianato"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/intervento-srg07-intera-area-gal/",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "b6f227b930352626",
+    "nome": "BANDO INTERNAZIONALIZZAZIONE ANNO 2026",
+    "ente": "Camera di Commercio delle Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-04-21",
+    "scadenzaTesto": "21 aprile 2027",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "commercio",
+      "agricoltura",
+      "servizi",
+      "digitale"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-internazionalizzazione-anno-2026",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "5e3dcf84c84564a1",
+    "nome": "Avviso pubblico per la selezione di progetti di soggetti terzi portatori di interessi collettivi delle imprese agricole marchigiane per la valorizzazione, tracciabilità e sicurezza dei prodotti agroalimentari e della filiera corta - Anno 2026",
+    "ente": "Camera di Commercio delle Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-05-31",
+    "scadenzaTesto": "31 maggio 2027",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "commercio",
+      "agricoltura",
+      "servizi",
+      "digitale"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-agricole-marchigiane-per-la-valorizzazione-tracciabilita-e-sicurezza-dei-prodotti-agroalimentari-e-della-filiera-corta-anno-2026",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "408a9ae474570077",
+    "nome": "Avviso pubblico per la selezione di progetti e iniziative di soggetti terzi portatori di interessi collettivi delle imprese della regione Marche da realizzare con il contributo camerale - Anno 2026",
+    "ente": "Camera di Commercio delle Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-05-31",
+    "scadenzaTesto": "31 maggio 2027",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "commercio",
+      "agricoltura",
+      "servizi",
+      "digitale"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-pubblico-per-la-selezione-di-progetti-e-iniziative-di-soggetti-terzi-portatori-di-interessi-collettivi-delle-imprese-della-regione-marche-da-realizzare-con-il-contributo-camerale-anno-2026",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "91f44a6f8d7fd976",
+    "nome": "Allegato A - Bando Intervento SRG07",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "",
+    "scadenzaTesto": "Verificare sulla fonte ufficiale",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/wp-content/uploads/2026/06/ALLEGATO-A-Bando-Intervento_SRG07-AGGREGAZIONI-SUB-GAL.pdf",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "300cc4b3dab1497e",
+    "nome": "Allegato A - Bando Intervento SRG07 - Revisionato post Circolare n. 091/2026 del 13/07/2026",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "",
+    "scadenzaTesto": "Verificare sulla fonte ufficiale",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/wp-content/uploads/2026/07/ALLEGATO-A-Bando-Intervento_SRG07-revisionato.pdf",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "17f8274772215039",
+    "nome": "Avviso per contributi a favore attività di promozione turistica, marketing territoriale e valorizzazione del patrimonio culturale realizzate da Comuni non capoluogo di provincia delle Marche ed altri Organismi non imprenditoriali - Anno 2026",
+    "ente": "Camera di Commercio delle Marche",
+    "stato": "APERTO",
+    "scadenza": "",
+    "scadenzaTesto": "Verificare sulla fonte ufficiale",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "commercio",
+      "turismo",
+      "agricoltura",
+      "servizi",
+      "digitale"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/avviso-per-contributi-a-favore-attivita-di-promozione-turistica-marketing-territoriale-e-valorizzazione-del-patrimonio-culturale-realizzate-da-comuni-non-capoluogo-di-provincia-delle-marche-ed-altri-organismi-non-imprenditoriali-anno-2026",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
     "id": "180ca99586cc1424",
     "nome": "Avviso pubblico per l'Erogazione della Formazione Trasversale e di Base per l'Apprendistato Professionalizzante",
     "ente": "Regione Marche",
@@ -1516,12 +307,13 @@
     "settori": [
       "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28711",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1540,18 +332,19 @@
     "settori": [
       "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=8904",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "2969a48a61e09428",
-    "nome": "Bandi di contributo e opportunità",
-    "ente": "Regione Marche",
+    "id": "42c3978760357c69",
+    "nome": "Bando Borse di Studio ITS Academy.pdf",
+    "ente": "Camera di Commercio delle Marche",
     "stato": "APERTO",
     "scadenza": "",
     "scadenzaTesto": "Verificare sulla fonte ufficiale",
@@ -1562,22 +355,15 @@
       "altro"
     ],
     "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
       "altro"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/bando-borse-di-studio-its-academy.pdf/view",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1594,27 +380,20 @@
       "altro"
     ],
     "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
       "altro"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28764",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "caf8aa2434586448",
-    "nome": "FESR (Fondo Europeo di Sviluppo Regionale) 14-20 e 21-27",
+    "id": "98c4415b32c220c7",
+    "nome": "D.G.R. n. 915/2026. D.M. n. 9093602 del 04/09/2020, fondo per le foreste italiane. Bando per la concessione di contributi ai Comuni per la fornitura e posa inopera della cartellonistica ministeriale finalizzata alla loro tutela e valorizzazione. Euro 32.103,10, capitolo 2090510125, Bilancio di Previsione 2026/2028, annualità 2026.",
     "ente": "Regione Marche",
     "stato": "APERTO",
     "scadenza": "",
@@ -1626,22 +405,41 @@
       "altro"
     ],
     "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
       "altro"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Fondi-Europei",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28728",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "1b48c2ba7e208178",
+    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD09 – Azione A) Sostegno ad investimenti finalizzati all’introduzione, al miglioramento o all’espansione di servizi di base a livello locale per la popolazione rurale, compresi i servizi socio-sanitari, le attività culturali e ricreative e le relative infrastrutture - Sub-azione A) Realizzazione di un centro servizi territoriale per la gestione associata e coordinata dei servizi socio-culturali e l’avvio di imprese del terzo settore. (Approvato dal CdA nella seduta dell’8/6/2026).",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "",
+    "scadenzaTesto": "Verificare sulla fonte ufficiale",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
+      "agricoltura",
+      "servizi"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28472",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1661,60 +459,13 @@
       "agricoltura",
       "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28473",
     "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "1a3e119db474019a",
-    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD09 –AZIONE C - Investimenti non produttivi nelle aree rurali. Valorizzazione del patrimonio insediativo ed antropico rurale attraverso il recupero di complessi, edifici ed elementi architettonici significativi e di pregio oltre che del patrimonio architettonico minore caratterizzante il paesaggio rurale. Sub-azione B) Interventi di valorizzazione del patrimonio culturale sito nei centri storici per l’accessibilità fisica, sensoriale e cognitiva. (Approvato dal CdA nella seduta dell’8.6.2026).",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "",
-    "scadenzaTesto": "Verificare sulla fonte ufficiale",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28471",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "cf0fc6e02ec5fce9",
-    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD14 – azione a) “Aiuti alle imprese turistiche ed alle imprese di vendita di prodotti tipici per il miglioramento e l’accessibilità delle strutture”",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "",
-    "scadenzaTesto": "Verificare sulla fonte ufficiale",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28602",
-    "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1734,12 +485,13 @@
       "turismo",
       "agricoltura"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28604",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1758,12 +510,13 @@
     "settori": [
       "agricoltura"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28432",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1782,12 +535,13 @@
     "settori": [
       "agricoltura"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28693",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1807,12 +561,13 @@
       "agricoltura",
       "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28584",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1831,12 +586,13 @@
     "settori": [
       "agricoltura"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28510",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -1856,65 +612,18 @@
       "agricoltura",
       "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28488",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "a02c302ae48c0084",
-    "nome": "GAL Sibilla - Reg. (UE) 2021/2115 - Complemento regionale per lo Sviluppo Rurale 2023 - 2027 del Piano Strategico nazionale della PAC 2023 – 2027 della Regione Marche (CSR) – SRD09 - Investimenti non produttivi nelle aree rurali. Intervento SRD09 Azione c) Sostegno ad investimenti finalizzati alla valorizzazione del patrimonio insediativo ed antropico rurale attraverso il recupero di complessi, edifici ed elementi architettonici significativi e di pregio oltre che del patrimonio architettonico minore caratterizzante il paesaggio rurale del territorio del GAL Sibilla. Operazione B) Interventi finalizzati alla riqualificazione, recupero e valorizzazione del patrimonio culturale anche attraverso il miglioramento dell’accessibilità e della fruibilità per una utenza ampliata.",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "",
-    "scadenzaTesto": "Verificare sulla fonte ufficiale",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28519",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "ada3b18c4f5d2dc3",
-    "nome": "GAL Sibilla - Reg. (UE) 2021/2115 - Complemento regionale per lo Sviluppo Rurale 2023 - 2027 del Piano Strategico nazionale della PAC 2023 – 2027 della Regione Marche (CSR) – SRD09 – investimenti non produttivi nelle aree rurali. Intervento SRD09 azione c) Sostegno ad investimenti finalizzati alla valorizzazione del patrimonio insediativo ed antropico rurale attraverso il recupero di complessi, edifici ed elementi architettonici significativi e di pregio oltre che del patrimonio architettonico minore caratterizzante il paesaggio rurale del territorio del GAL Sibilla. OPERAZIONE A - Interventi finalizzati alla riqualificazione dei centri storici con il miglioramento dell’accessibilità e della fruibilità per una utenza ampliata.",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "",
-    "scadenzaTesto": "Verificare sulla fonte ufficiale",
-    "profili": [
-      "micro",
-      "piccola",
-      "media",
-      "altro"
-    ],
-    "settori": [
-      "agricoltura"
-    ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28518",
-    "fonteAutomatica": true,
-    "ultimoControllo": "2026-10-05"
-  },
-  {
-    "id": "32ed55b92d349cdf",
-    "nome": "I PROGETTI FINANZIATI",
+    "id": "f3f93a7abe43ddd9",
+    "nome": "INTERVENTO SRG05",
     "ente": "GAL Piceno",
     "stato": "APERTO",
     "scadenza": "",
@@ -1926,20 +635,22 @@
       "altro"
     ],
     "settori": [
+      "agricoltura",
       "artigianato"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/progetti/",
+    "url": "https://galpiceno.it/bando-srg05/",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "c8341cbe76cc17a1",
-    "nome": "Iscrizione al Registro regionale dei Comuni con prodotti De.Co. (Legge regionale 6 novembre 2023, n. 17; articolo 3, comma 5) - Avviso pubblico.",
-    "ente": "Regione Marche",
+    "id": "3cac9cd88583711a",
+    "nome": "INTERVENTO SRG06",
+    "ente": "GAL Piceno",
     "stato": "APERTO",
     "scadenza": "",
     "scadenzaTesto": "Verificare sulla fonte ufficiale",
@@ -1950,27 +661,48 @@
       "altro"
     ],
     "settori": [
-      "commercio",
-      "turismo",
+      "agricoltura",
+      "artigianato"
+    ],
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/intervento-srg06/",
+    "fonteAutomatica": true,
+    "versioneMotore": 7,
+    "ultimoControllo": "2026-10-05"
+  },
+  {
+    "id": "e49e31e3c6acf266",
+    "nome": "INTERVENTO SRG06 – A",
+    "ente": "GAL Piceno",
+    "stato": "APERTO",
+    "scadenza": "",
+    "scadenzaTesto": "Verificare sulla fonte ufficiale",
+    "profili": [
+      "micro",
+      "piccola",
+      "media",
+      "altro"
+    ],
+    "settori": [
       "agricoltura",
       "artigianato",
-      "industria",
-      "servizi",
-      "digitale",
-      "pesca",
-      "altro"
+      "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=21696",
+    "territorio": "GAL Piceno",
+    "url": "https://galpiceno.it/intervento-srg06-a/",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "3404f42666a16a9f",
-    "nome": "MISURA 19.1 SOSTEGNO PREPARATORIO",
+    "id": "6d4c0198850045df",
+    "nome": "INTERVENTO SRG06 – B",
     "ente": "GAL Piceno",
     "stato": "APERTO",
     "scadenza": "",
@@ -1982,19 +714,22 @@
       "altro"
     ],
     "settori": [
-      "artigianato"
+      "agricoltura",
+      "artigianato",
+      "servizi"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/programmazioni-leader-psl-piceno-2014-2020-psl-piceno-misura-19-1-sostegno-preparatorio/",
+    "url": "https://galpiceno.it/intervento-srg06-b/",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "25a4ff9ef38dd033",
-    "nome": "MISURA 19.2 SUPPORTO INTERVENTI STRATEGIA CLLD",
+    "id": "12895e3baa00f8b6",
+    "nome": "INTERVENTO SRG07",
     "ente": "GAL Piceno",
     "stato": "APERTO",
     "scadenza": "",
@@ -2006,35 +741,41 @@
       "altro"
     ],
     "settori": [
+      "agricoltura",
       "artigianato"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/programmazioni-leader-psl-piceno-2014-2020-psl-piceno-misura-19-2-supporto-interventi-strategia-clld/",
+    "url": "https://galpiceno.it/intervento-srg07/",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "df7b294300ce5e37",
-    "nome": "PSR FEASR (Programma di Sviluppo Rurale – Fondo Europeo Agricoltura) 14-22",
-    "ente": "Regione Marche",
+    "id": "6ebb4be423282f69",
+    "nome": "manuale_sportello_contributi_imprese.pdf",
+    "ente": "Camera di Commercio delle Marche",
     "stato": "APERTO",
     "scadenza": "",
     "scadenzaTesto": "Verificare sulla fonte ufficiale",
     "profili": [
-      "agricola"
+      "micro",
+      "piccola",
+      "media",
+      "altro"
     ],
     "settori": [
-      "agricoltura"
+      "altro"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Psr-Marche",
+    "url": "https://www.marche.camcom.it/fai-crescere-la-tua-impresa/bandi-e-contributi/manuale_sportello_contributi_imprese.pdf/view",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -2051,12 +792,13 @@
       "agricoltura",
       "industria"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=8397",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
@@ -2075,18 +817,19 @@
     "settori": [
       "agricoltura"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=28733",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   },
   {
-    "id": "a57b8c9dde17a6f3",
-    "nome": "SOTTOMISURA 19.2.6.4 PIL",
-    "ente": "GAL Piceno",
+    "id": "5fbf3efb83da2ffa",
+    "nome": "Reg. (UE) 2024/3118; DGR 1365 del 11/08/2025. Approvazione terzo bando per contributo una tantum in «de minimis» agli allevatori per acquisto vaccini e repellenti per gli insetti vettori per la prevenzione dalla Febbre Catarrale degli ovini (Blue Tongue) anno 2026 nell’intero territorio della Regione Marche. Importo totale €. 130.000,00, capitoli 2160110411 e 2160110422, bilancio 2026/2028 annualità 2026.",
+    "ente": "Regione Marche",
     "stato": "APERTO",
     "scadenza": "",
     "scadenzaTesto": "Verificare sulla fonte ufficiale",
@@ -2097,15 +840,15 @@
       "altro"
     ],
     "settori": [
-      "artigianato",
-      "servizi"
+      "altro"
     ],
-    "descrizione": "Opportunità individuata automaticamente da BandiAP. Verificare i dettagli sulla fonte ufficiale.",
-    "requisiti": "Verificare beneficiari, requisiti e condizioni sulla fonte ufficiale.",
+    "descrizione": "Opportunità rilevata automaticamente da BandiAP su fonte ufficiale.",
+    "requisiti": "Verificare beneficiari, requisiti, spese ammissibili e condizioni sulla fonte ufficiale.",
     "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "GAL Piceno",
-    "url": "https://galpiceno.it/sottomisura-19-2-6-4-pil/",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi?idb=26359",
     "fonteAutomatica": true,
+    "versioneMotore": 7,
     "ultimoControllo": "2026-10-05"
   }
 ]
