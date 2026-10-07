@@ -1,5 +1,30 @@
 [
   {
+    "id": "354cfcf800e446b6",
+    "idFonte": "26359",
+    "nome": "Reg. (UE) 2024/3118; DGR 1365 del 11/08/2025. Approvazione terzo bando per contributo una tantum in «de minimis» agli allevatori per acquisto vaccini e repellenti per gli insetti vettori per la prevenzione dalla Febbre Catarrale degli ovini (Blue Tongue) anno 2026 nell’intero territorio della Regione Marche. Importo totale €. 130.000,00, capitoli 2160110411 e 2160110422, bilancio 2026/2028 annualità 2026.",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-13",
+    "scadenzaTesto": "13 ottobre 2026",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "agricoltura"
+    ],
+    "beneficiarioTipo": "AGRICOLTURA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26359",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.2",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
     "id": 3,
     "nome": "Sostegno imprese zootecniche – Blue Tongue",
     "ente": "Regione Marche",
@@ -17,6 +42,33 @@
     "dotazione": "€130.000",
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1817?idb=26359"
+  },
+  {
+    "id": "be576889afc87eac",
+    "idFonte": "28602",
+    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD14 – azione a) “Aiuti alle imprese turistiche ed alle imprese di vendita di prodotti tipici per il miglioramento e l’accessibilità delle strutture”",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-16",
+    "scadenzaTesto": "16 ottobre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "agricoltura"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28602",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.2",
+    "ultimoControllo": "2026-10-07"
   },
   {
     "id": 1,
@@ -45,6 +97,62 @@
     "url": "https://www.regione.marche.it/Regione-Utile/Lavoro-e-Formazione-Professionale/Creazione-d-impresa"
   },
   {
+    "id": "4e6ffc2c514f63f8",
+    "idFonte": "28604",
+    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRG07 Cooperazione per il turismo rurale e cooperazione per l’inclusione sociale ed economica - Sub azione B) “Progetto integrato di scala territoriale dal titolo “GIOVANI, INCLUSIONE, IMPRESA, TERRITORIO (GIOINIT)”.",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-23",
+    "scadenzaTesto": "23 ottobre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "turismo",
+      "agricoltura"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28604",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.2",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "881bdc9cb41fae9f",
+    "idFonte": "28472",
+    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD09 – Azione A) Sostegno ad investimenti finalizzati all’introduzione, al miglioramento o all’espansione di servizi di base a livello locale per la popolazione rurale, compresi i servizi socio-sanitari, le attività culturali e ricreative e le relative infrastrutture - Sub-azione A) Realizzazione di un centro servizi territoriale per la gestione associata e coordinata dei servizi socio-culturali e l’avvio di imprese del terzo settore. (Approvato dal CdA nella seduta dell’8/6/2026).",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-10-30",
+    "scadenzaTesto": "30 ottobre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "agricoltura",
+      "servizi"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28472",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.2",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
     "id": 2,
     "nome": "GAL Piceno – Smart Villages e inclusione sociale ed economica",
     "ente": "GAL Piceno",
@@ -65,6 +173,32 @@
     "dotazione": "€1.530.000 complessivi",
     "territorio": "GAL Piceno",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1542?idb=28510"
+  },
+  {
+    "id": "c91bad300939068f",
+    "idFonte": "8397",
+    "nome": "Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023-2027 del Piano Strategico nazionale della PAC 2023-2027 della Regione Marche (CSR) – Intervento SRH03 – Formazione degli imprenditori agricoli, degli addetti alle imprese operanti nei settori agricoltura, zootecnia, industrie alimentari e degli altri soggetti privati e pubblici funzionali allo sviluppo delle aree rurali. Approvazione bando.",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-11-13",
+    "scadenzaTesto": "13 novembre 2026",
+    "profili": [
+      "agricola"
+    ],
+    "settori": [
+      "agricoltura",
+      "industria"
+    ],
+    "beneficiarioTipo": "AGRICOLTURA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=8397",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.2",
+    "ultimoControllo": "2026-10-07"
   },
   {
     "id": 4,
