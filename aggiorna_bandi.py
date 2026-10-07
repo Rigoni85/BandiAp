@@ -2,6 +2,7 @@ import json
 import re
 import html as html_lib
 import hashlib
+from difflib import SequenceMatcher
 from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -13,7 +14,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 # VERSIONE 10.3
 # ============================================================
 
-VERSIONE = "10.7"
+VERSIONE = "10.8"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +114,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.7)",
+                "Mozilla/5.0 (compatible; BandiAP/10.8)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -1131,7 +1132,7 @@ def controlla_regione():
                 "",
             )
 
-            # V10.7: raffinamento prudenziale per evitare falsi positivi.
+            # V10.8: raffinamento prudenziale per evitare falsi positivi.
             categoria = raffina_beneficiario_da_titolo(
                 titolo,
                 categoria,
@@ -1747,6 +1748,241 @@ def probabile_duplicato(
     return None
 
 
+
+# ============================================================
+# DEDUPLICAZIONE MANUALI / AUTOMATICI
+# ============================================================
+
+PAROLE_DEBOLI_DUPLICATO = {
+    "bando", "avviso", "pubblico", "pubblica", "regione", "marche",
+    "reg", "ue", "dgr", "anno", "annualita", "approvazione",
+    "intervento", "sostegno", "contributo", "contributi",
+    "finanziamento", "misura", "progetto", "progetti",
+    "per", "alla", "alle", "agli", "delle", "della", "degli",
+    "del", "dei", "di", "da", "in", "su", "e", "a", "con"
+}
+
+
+def token_distintivi(testo):
+
+    parole = normalizza(testo).split()
+
+    return {
+        p for p in parole
+        if len(p) >= 4
+        and p not in PAROLE_DEBOLI_DUPLICATO
+        and not p.isdigit()
+    }
+
+
+def frase_distintiva_comune(a, b):
+
+    a_n = normalizza(a)
+    b_n = normalizza(b)
+
+    # Frasi particolarmente identificative che consentono
+    # di riconoscere anche titoli manuali molto abbreviati.
+    frasi = (
+        "blue tongue",
+        "over 36",
+        "start innova",
+        "fondo nuovo credito",
+        "fondo credito nuove imprese",
+        "internazionalizzazione",
+        "imprenditorialita giovanile",
+        "linea di credito agevolata",
+    )
+
+    return any(
+        frase in a_n and frase in b_n
+        for frase in frasi
+    )
+
+
+def probabile_duplicato_manuale_automatico(manuale, automatico):
+
+    nome_m = manuale.get("nome", "")
+    nome_a = automatico.get("nome", "")
+
+    if not nome_m or not nome_a:
+        return False
+
+    # 1. Stesso URL
+    url_m = manuale.get("url", "").rstrip("/").lower()
+    url_a = automatico.get("url", "").rstrip("/").lower()
+
+    if url_m and url_a and url_m == url_a:
+        return True
+
+    # 2. Frase altamente distintiva comune
+    if frase_distintiva_comune(nome_m, nome_a):
+        return True
+
+    # 3. Similarità testuale generale
+    n_m = normalizza(nome_m)
+    n_a = normalizza(nome_a)
+
+    ratio = SequenceMatcher(
+        None,
+        n_m,
+        n_a,
+    ).ratio()
+
+    if ratio >= 0.72:
+        return True
+
+    # 4. Sovrapposizione delle parole informative.
+    tm = token_distintivi(nome_m)
+    ta = token_distintivi(nome_a)
+
+    if not tm or not ta:
+        return False
+
+    comuni = tm & ta
+
+    # Il titolo manuale è spesso molto corto:
+    # se quasi tutte le sue parole distintive compaiono nel titolo
+    # automatico, consideriamo i record duplicati.
+    copertura_manuale = len(comuni) / len(tm)
+
+    unione = tm | ta
+    jaccard = len(comuni) / len(unione) if unione else 0
+
+    if len(comuni) >= 3 and copertura_manuale >= 0.60:
+        return True
+
+    if len(comuni) >= 4 and jaccard >= 0.35:
+        return True
+
+    return False
+
+
+def valore_editoriale_manual(manuale, automatico, campo):
+
+    valore_m = manuale.get(campo)
+    valore_a = automatico.get(campo)
+
+    if valore_m in (None, "", [], {}):
+        return valore_a
+
+    # Titolo: preferiamo quello manuale se è sensibilmente più corto
+    # ma contiene comunque termini distintivi in comune.
+    if campo == "nome":
+
+        if (
+            len(str(valore_m)) < len(str(valore_a or ""))
+            and probabile_duplicato_manuale_automatico(
+                manuale,
+                automatico,
+            )
+        ):
+            return valore_m
+
+        return valore_a or valore_m
+
+    # Campi editoriali: un valore manuale specifico è preferibile
+    # ai placeholder automatici.
+    placeholder = (
+        "verificare sulla fonte ufficiale",
+        "consultare la fonte ufficiale",
+        "consultare la scheda ufficiale del bando",
+        "bando presente nell elenco ufficiale",
+    )
+
+    testo_a = normalizza(str(valore_a or ""))
+
+    if (
+        not valore_a
+        or any(x in testo_a for x in placeholder)
+    ):
+        return valore_m
+
+    # Se il manuale è molto più informativo, manteniamolo.
+    if (
+        campo in ("descrizione", "requisiti", "dotazione")
+        and len(str(valore_m)) > len(str(valore_a or "")) * 1.35
+    ):
+        return valore_m
+
+    return valore_a
+
+
+def deduplica_manuali_automatici(database):
+
+    manuali = [
+        b for b in database
+        if b.get("fonteAutomatica") is not True
+    ]
+
+    automatici = [
+        b for b in database
+        if b.get("fonteAutomatica") is True
+    ]
+
+    eliminati = 0
+
+    for automatico in automatici:
+
+        duplicati = [
+            manuale
+            for manuale in manuali
+            if probabile_duplicato_manuale_automatico(
+                manuale,
+                automatico,
+            )
+        ]
+
+        for manuale in duplicati:
+
+            print(
+                "DUPLICATO MANUALE/AUTOMATICO: "
+                f"{manuale.get('nome')} "
+                "-> "
+                f"{automatico.get('nome')}"
+            )
+
+            # Conserva la qualità editoriale del manuale.
+            for campo in (
+                "nome",
+                "descrizione",
+                "requisiti",
+                "dotazione",
+                "scadenzaTesto",
+            ):
+                automatico[campo] = valore_editoriale_manual(
+                    manuale,
+                    automatico,
+                    campo,
+                )
+
+            # Profili e settori: unione, senza duplicati.
+            for campo in ("profili", "settori"):
+
+                valori = []
+
+                for origine in (
+                    manuale.get(campo, []),
+                    automatico.get(campo, []),
+                ):
+                    if isinstance(origine, list):
+                        valori.extend(origine)
+
+                automatico[campo] = list(
+                    dict.fromkeys(
+                        x for x in valori if x
+                    )
+                )
+
+            if manuale in database:
+                database.remove(manuale)
+                eliminati += 1
+
+            if manuale in manuali:
+                manuali.remove(manuale)
+
+    return eliminati
+
+
 # ============================================================
 # MAIN
 # ============================================================
@@ -1755,7 +1991,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.7"
+        "BandiAP - aggiornamento automatico V10.8"
     )
     print("=" * 60)
 
@@ -1899,6 +2135,19 @@ def main():
             esclusi += 1
 
     # ----------------------------------------
+    # DEDUPLICA MANUALI / AUTOMATICI
+    # ----------------------------------------
+
+    duplicati_manuali = deduplica_manuali_automatici(
+        database
+    )
+
+    print(
+        "DUPLICATI MANUALI/AUTOMATICI ELIMINATI: "
+        f"{duplicati_manuali}"
+    )
+
+    # ----------------------------------------
     # AGGIORNA STATO RECORD V10 NON PIÙ APERTI
     # ----------------------------------------
 
@@ -1951,7 +2200,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.7")
+    print("RIEPILOGO V10.8")
     print("=" * 60)
 
     print(
@@ -1988,6 +2237,11 @@ def main():
 
     print(
         f"DUPLICATI GAL/REGIONE: {duplicati}"
+    )
+
+    print(
+        "DUPLICATI MANUALI/AUTOMATICI: "
+        f"{duplicati_manuali}"
     )
 
     print(
