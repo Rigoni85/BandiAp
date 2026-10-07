@@ -13,7 +13,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 # VERSIONE 10.3
 # ============================================================
 
-VERSIONE = "10.5"
+VERSIONE = "10.6"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.5)",
+                "Mozilla/5.0 (compatible; BandiAP/10.6)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -457,6 +457,15 @@ def classifica_beneficiario(
         + note[:3000]
     )
 
+    # PRIORITÀ: SRH03 / FORMAZIONE AGRICOLA
+    # Va escluso prima della regola AGRICOLTURA, perché nel titolo compaiono
+    # "imprenditori agricoli" ma i beneficiari diretti sono i soggetti erogatori.
+    if (
+        "srh03" in t
+        or "formazione degli imprenditori agricoli" in t
+    ):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
+
     # ENTI PUBBLICI
     if any(
         x in t
@@ -523,15 +532,6 @@ def classifica_beneficiario(
         )
     ):
         return "ASSOCIAZIONE_ETS"
-
-    # SRH03 / FORMAZIONE AGRICOLA
-    # Il contributo è rivolto ai soggetti/enti erogatori della formazione,
-    # mentre imprenditori agricoli e addetti sono destinatari finali.
-    if (
-        "srh03" in t
-        or "formazione degli imprenditori agricoli" in t
-    ):
-        return "INTERMEDIARIO_ORGANIZZAZIONE"
 
     # FORMAZIONE / SOGGETTI EROGATORI
     # Se il bando riguarda l'erogazione o la presentazione di progetti formativi,
@@ -1051,7 +1051,7 @@ def controlla_regione():
                 "",
             )
 
-            # V10.5: raffinamento prudenziale per evitare falsi positivi.
+            # V10.6: raffinamento prudenziale per evitare falsi positivi.
             categoria = raffina_beneficiario_da_titolo(
                 titolo,
                 categoria,
@@ -1675,7 +1675,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.5"
+        "BandiAP - aggiornamento automatico V10.6"
     )
     print("=" * 60)
 
@@ -1871,7 +1871,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.5")
+    print("RIEPILOGO V10.6")
     print("=" * 60)
 
     print(
