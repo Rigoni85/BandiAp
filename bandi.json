@@ -21,7 +21,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26359",
     "fonteAutomatica": true,
-    "versioneMotore": "10.5",
+    "versioneMotore": "10.6",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -67,7 +67,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28602",
     "fonteAutomatica": true,
-    "versioneMotore": "10.5",
+    "versioneMotore": "10.6",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -141,7 +141,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=8397",
     "fonteAutomatica": true,
-    "versioneMotore": "10.5",
+    "versioneMotore": "10.6",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -165,5 +165,132 @@
     "dotazione": "Verificare nel bando",
     "territorio": "Regione Marche",
     "url": "https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
+  },
+  {
+    "id": "0fc57e05e39a9db5",
+    "idFonte": "26327",
+    "nome": "GIOVANI IMPRENDITORI: START&INNOVA GIOVANI – “Sostegno alla creazione di Start-up innovative. La finalità dell’intervento è quella di sostenere la nascita, da parte di giovani under disoccupati laureati o diplomati ITS Accademy, di Start-up innovative, comprese quelle provenienti dal mondo della ricerca (spin-off universitari finalizzati all'utilizzazione economica dei risultati della ricerca universitaria), nei settori ad alto potenziale di crescita e innovazione riconducibili agli ambiti individuati dalla Strategia di Specializzazione intelligente 2021-2027 (S3) Marche di cui alla DGR n.42/2022.",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-03-18",
+    "scadenzaTesto": "18 marzo 2027",
+    "profili": [
+      "nuova"
+    ],
+    "settori": [
+      "digitale"
+    ],
+    "beneficiarioTipo": "NUOVA_IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26327",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.6",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "a64eedb8699b9e9f",
+    "idFonte": "26332",
+    "nome": "LR 30/2008 – PR MARCHE FESR 2021-2027 – Asse 1 – OS 1.3 – Azione 1.3.4.1 – Supporto integrato ai processi di internazionalizzazione”. Convenzione 2026 tra Regione Marche e Camera di Commercio delle Marche relativamente al sostegno di attività di internazionalizzazione delle imprese marchigiane.",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-04-30",
+    "scadenzaTesto": "30 aprile 2027",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "commercio"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26332",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.6",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "8c092ee3b2a7d551",
+    "idFonte": "8966",
+    "nome": "AVVISO Pubblico “DGR n.1557 del 07/10/2024 rimborso dei costi sostenuti per l’attivazione di fideiussioni alle imprese beneficiarie di misure regionali finanziate con fondi pubblici e alle imprese beneficiarie del Fondo Regionale di ingegneria finanziaria – Strumento finanziario Fondo Credito Nuove imprese. Euro 169.340,25 Scheda n.25 Allegato 3 di cui alla DGR n. 1917/2024",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-07-02",
+    "scadenzaTesto": "2 luglio 2027",
+    "profili": [
+      "nuova"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "NUOVA_IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=8966",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.6",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "34543aa0a342addc",
+    "idFonte": "28591",
+    "nome": "Avviso Pubblico “Marche per le imprese: Sostegno alla creazione di nuove imprese euro 6.905.000,00\" rivolto a Over 36",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-09-30",
+    "scadenzaTesto": "30 settembre 2027",
+    "profili": [
+      "nuova"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "NUOVA_IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28591",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.6",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "ac3a32e457487558",
+    "idFonte": "21770",
+    "nome": "Avviso Pubblico Fondo Credito nuove imprese (FCNI) - Piccoli prestiti agevolati a nuove imprese per l’accesso al credito a sostegno degli gli investimenti delle micro e piccole e medie imprese, nonché dei liberi professionisti. Risorse complessive euro 9.558.481,66,",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2029-04-09",
+    "scadenzaTesto": "9 aprile 2029",
+    "profili": [
+      "nuova"
+    ],
+    "settori": [
+      "servizi"
+    ],
+    "beneficiarioTipo": "NUOVA_IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=21770",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.6",
+    "ultimoControllo": "2026-10-07"
   }
 ]
