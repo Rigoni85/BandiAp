@@ -10,10 +10,10 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 # ============================================================
 # BandiAP - Motore automatico bandi
-# VERSIONE 10.1
+# VERSIONE 10.2
 # ============================================================
 
-VERSIONE = "10.1"
+VERSIONE = "10.2"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.1)",
+                "Mozilla/5.0 (compatible; BandiAP/10.2)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -857,6 +857,7 @@ def analizza_regione_id(idb):
     }
 
 
+
 def controlla_regione():
 
     print()
@@ -866,70 +867,173 @@ def controlla_regione():
 
     risultati = []
 
-    # La pagina è paginata.
-    # Controlliamo più pagine.
+    # Le schede di dettaglio Regione possono rispondere con una pagina
+    # di protezione ("We apologize..."). La pagina elenco, invece,
+    # contiene già titolo, ID e scadenza: usiamo quella come fonte.
     urls = [REGIONE_URL]
 
     for pagina in range(2, 8):
+        urls.append(f"{REGIONE_URL}/p/{pagina}")
 
-        urls.append(
-            f"{REGIONE_URL}/p/{pagina}"
-        )
+    visti = set()
+    candidati = []
 
-    ids = set()
-
-    for url in urls:
+    for url_lista in urls:
 
         try:
-
-            html = scarica(url)
-
-            ids.update(
-                estrai_id_regione(html)
-            )
+            html = scarica(url_lista)
 
         except Exception as e:
+            print(f"Errore pagina Regione {url_lista}: {e}")
+            continue
 
-            print(
-                f"Errore pagina Regione {url}: {e}"
-            )
+        testo = pulisci_html(html)
 
-    print(
-        f"ID Regione trovati: {len(ids)}"
-    )
-
-    for idb in sorted(ids):
-
-        risultato = analizza_regione_id(
-            idb
+        # Ciascun record contiene:
+        # titolo ... Identificativo bando : 12345 Scadenza: 23/10/2026
+        pattern = re.compile(
+            r"(?:Bando per la concessione di contributi|Avviso Pubblico)"
+            r"\s+(.*?)\s+"
+            r"Identificativo bando\s*:\s*(\d+)\s+"
+            r"Scadenza\s*:\s*"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+            flags=re.I | re.S,
         )
 
-        if not risultato:
-            continue
+        for titolo, idb, data_testo in pattern.findall(testo):
+
+            titolo = re.sub(r"\s+", " ", titolo).strip(" -|:")
+            scadenza = converti_data(data_testo)
+
+            if not titolo or not scadenza:
+                continue
+
+            if idb in visti:
+                continue
+
+            visti.add(idb)
+
+            candidati.append(
+                {
+                    "idb": idb,
+                    "titolo": titolo,
+                    "scadenza": scadenza,
+                }
+            )
+
+    print(f"Bandi Regione letti da elenco: {len(candidati)}")
+
+    for item in candidati:
+
+        idb = item["idb"]
+        titolo = item["titolo"]
+        scadenza = item["scadenza"]
+        d = data_obj(scadenza)
+
+        url = (
+            REGIONE_URL
+            + "/p/1/t/112?idb="
+            + str(idb)
+        )
+
+        if not d:
+            risultato = {
+                "esito": "DA_VERIFICARE",
+                "titolo": titolo,
+                "url": url,
+            }
+
+        elif d < OGGI:
+            risultato = {
+                "esito": "CHIUSO",
+                "titolo": titolo,
+                "url": url,
+            }
+
+        else:
+            # Classificazione basata sul titolo dell'elenco.
+            categoria = classifica_beneficiario(
+                titolo,
+                "",
+                "",
+            )
+
+            # Alcuni titoli sono chiaramente bandi per imprese ma
+            # non contengono la formula "PMI".
+            titolo_n = normalizza(titolo)
+
+            if categoria == "NON_DETERMINATO":
+
+                if any(
+                    x in titolo_n
+                    for x in (
+                        "imprese",
+                        "impresa",
+                        "imprenditori",
+                        "allevatori",
+                        "aziende agricole",
+                        "operatori economici",
+                        "turistiche",
+                        "prodotti tipici",
+                    )
+                ):
+                    categoria = "IMPRESA"
+
+            if not pubblicabile(categoria):
+
+                risultato = {
+                    "esito": "ESCLUSO",
+                    "titolo": titolo,
+                    "categoria": categoria,
+                    "url": url,
+                }
+
+            else:
+
+                risultato = {
+                    "esito": "PUBBLICABILE",
+                    "bando": {
+                        "id": genera_id("Regione Marche", idb),
+                        "idFonte": str(idb),
+                        "nome": titolo,
+                        "ente": "Regione Marche",
+                        "stato": "APERTO",
+                        "scadenza": scadenza,
+                        "scadenzaTesto": formatta_data(scadenza),
+                        "profili": profili(categoria),
+                        "settori": classifica_settori(titolo),
+                        "beneficiarioTipo": categoria,
+                        "beneficiari": "",
+                        "descrizione": (
+                            "Bando presente nell'elenco ufficiale "
+                            "dei bandi attivi della Regione Marche."
+                        ),
+                        "requisiti": (
+                            "Consultare la scheda ufficiale del bando."
+                        ),
+                        "dotazione": (
+                            "Verificare sulla fonte ufficiale"
+                        ),
+                        "territorio": "Regione Marche",
+                        "url": url,
+                        "fonteAutomatica": True,
+                        "versioneMotore": VERSIONE,
+                        "ultimoControllo": OGGI.isoformat(),
+                    },
+                }
 
         esito = risultato["esito"]
 
-        titolo = (
+        nome_log = (
             risultato.get("titolo")
-            or risultato.get(
-                "bando", {}
-            ).get("nome", "")
+            or risultato.get("bando", {}).get("nome", "")
         )
 
-        print(
-            f"[{idb}] {esito}: {titolo}"
-        )
-
-        risultati.append(
-            risultato
-        )
+        print(f"[{idb}] {esito}: {nome_log}")
+        risultati.append(risultato)
 
     return risultati
 
-
-# ============================================================
-# CAMERA DI COMMERCIO
-# ============================================================
 
 def estrai_link_camera(html):
 
@@ -1086,6 +1190,7 @@ def controlla_camera():
 # GAL PICENO
 # ============================================================
 
+
 def controlla_gal():
 
     print()
@@ -1097,261 +1202,166 @@ def controlla_gal():
         html = scarica(GAL_URL)
 
     except Exception as e:
-
         print(f"Errore GAL: {e}")
         return []
 
     testo = pulisci_html(html)
-
     risultati = []
+    visti = set()
 
-    # Cerchiamo blocchi SRG/SRD attuali.
-    pattern_link = re.compile(
-        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>'
-        r'(.*?)</a>',
+    # La pagina bandi GAL contiene direttamente i bandi operativi,
+    # con la formula "Scadenza per la presentazione delle domande".
+    # Evitiamo i link di menu SRG05/SRG06/SRG07, che non sono
+    # necessariamente bandi aperti.
+    pattern = re.compile(
+        r"((?:Bando|Avviso)[^§]{0,1800}?)"
+        r"Scadenza\s+per\s+la\s+presentazione\s+delle\s+domande\s*:?\s*"
+        r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
         flags=re.I | re.S,
     )
 
-    visti = set()
+    matches = pattern.findall(testo)
 
-    for href, contenuto in pattern_link.findall(
-        html
-    ):
+    # Fallback specifico per le pagine che iniziano direttamente con
+    # "Intervento SRGxx ..." prima della parola Bando.
+    if not matches:
+        pattern = re.compile(
+            r"((?:Intervento\s+SR[GDH]\d{2}).{0,2200}?)"
+            r"Scadenza\s+per\s+la\s+presentazione\s+delle\s+domande\s*:?\s*"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+            flags=re.I | re.S,
+        )
+        matches = pattern.findall(testo)
 
-        titolo = pulisci_html(
-            contenuto
+    print(f"Bandi GAL con scadenza esplicita: {len(matches)}")
+
+    for blocco, data_testo in matches:
+
+        blocco = re.sub(r"\s+", " ", blocco).strip()
+        scadenza = converti_data(data_testo)
+
+        if not scadenza:
+            continue
+
+        # Ricava un titolo compatto dal blocco.
+        titolo = blocco
+
+        # Se nel blocco compare "Bando SRGxx..." usiamo quella porzione.
+        m = re.search(
+            r"(Bando\s+SR[GDH]\d{2}.*?)(?:Reg\.|Scadenza|Dotazione|Circolare)",
+            blocco,
+            flags=re.I | re.S,
         )
 
-        t = normalizza(titolo)
+        if m:
+            titolo = m.group(1).strip()
 
-        href_dec = html_lib.unescape(href).strip()
+        else:
+            # Altrimenti limita la lunghezza senza troncare troppo.
+            titolo = titolo[:700].strip()
 
-        if re.search(r"\.(?:pdf|docx?|xlsx?)(?:$|[?#])", href_dec, flags=re.I):
-            continue
+        titolo = re.sub(r"\s+", " ", titolo).strip(" -|:")
 
-        if re.search(r"\.(?:pdf|docx?|xlsx?)\b", titolo, flags=re.I):
-            continue
-
-        if any(parola in t for parola in ("allegato", "modello", "modulistica", "determina")):
-            continue
-
-        if not any(
-            codice in t
-            for codice in (
-                "srg",
-                "srd",
-                "srh",
-            )
-        ):
-            continue
-
-        if not any(
-            parola in t
-            for parola in (
-                "bando",
-                "intervento",
-            )
-        ):
-            continue
-
-        url = urljoin(
-            GAL_URL,
-            html_lib.unescape(href),
+        # Chiave stabile: codice SRG/SRD/SRH + scadenza + titolo.
+        codici = re.findall(
+            r"\b(SR[GDH]\d{2})\b",
+            titolo,
+            flags=re.I,
         )
 
-        if "galpiceno.it" not in urlparse(
-            url
-        ).netloc.lower():
-            continue
-
-        chiave = url.rstrip("/")
+        codice = codici[0].upper() if codici else "GAL"
+        chiave = codice + "|" + scadenza + "|" + normalizza(titolo)[:120]
 
         if chiave in visti:
             continue
 
         visti.add(chiave)
 
-        try:
-            dettaglio_html = scarica(url)
+        d = data_obj(scadenza)
 
-        except Exception:
+        if not d:
             continue
 
-        dettaglio = pulisci_html(
-            dettaglio_html
-        )
-
-        # Cerca scadenze nel contesto
-        scadenze = []
-
-        patterns = (
-            r"scadenza.{0,100}?"
-            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
-
-            r"scadenza.{0,100}?"
-            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
-
-            r"entro.{0,100}?"
-            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
-
-            r"entro.{0,100}?"
-            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
-
-            r"presentazione.{0,140}?"
-            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
-
-            r"presentazione.{0,140}?"
-            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
-        )
-
-        for pattern in patterns:
-
-            for valore in re.findall(
-                pattern,
-                dettaglio,
-                flags=re.I,
-            ):
-
-                data = converti_data(
-                    valore
-                )
-
-                if data:
-                    scadenze.append(data)
-
-        # Preferiamo la prima scadenza futura
-        scadenze_future = sorted(
-            {
-                d
-                for d in scadenze
-                if data_obj(d)
-                and data_obj(d) >= OGGI
-            }
-        )
-
-        if not scadenze_future:
-
-            risultati.append(
-                {
-                    "esito": "DA_VERIFICARE",
-                    "titolo": titolo,
-                    "url": url,
-                }
-            )
-
-            print(
-                f"DA_VERIFICARE: {titolo}"
-            )
-
-            continue
-
-        scadenza = scadenze_future[0]
-
-        if chiusura_esplicita(
-            dettaglio
-        ):
-
+        if d < OGGI:
             risultati.append(
                 {
                     "esito": "CHIUSO",
                     "titolo": titolo,
-                    "url": url,
+                    "url": GAL_URL,
                 }
             )
-
-            print(
-                f"CHIUSO: {titolo}"
-            )
-
+            print(f"CHIUSO: {titolo}")
             continue
 
         categoria = classifica_beneficiario(
             titolo,
-            dettaglio[:7000],
+            blocco,
             "",
         )
 
-        # GAL: PPP/aggregazioni sono utili a BandiAP
-        # anche se il beneficiario non è una singola impresa.
+        # PPP / aggregazioni GAL sono mantenuti come opportunità
+        # territoriale anche se non classificabili come impresa singola.
         if (
             categoria == "NON_DETERMINATO"
             and any(
-                x in normalizza(dettaglio[:7000])
+                x in normalizza(blocco)
                 for x in (
                     "partenariato pubblico privato",
-                    "aggregazioni",
                     "operatori privati",
                     "imprese",
+                    "aggregazioni",
                 )
             )
         ):
-            categoria = (
-                "INTERMEDIARIO_ORGANIZZAZIONE"
-            )
+            categoria = "INTERMEDIARIO_ORGANIZZAZIONE"
 
-        # Manteniamo GAL rilevanti anche come
-        # opportunità territoriale.
         ammesso_gal = (
             pubblicabile(categoria)
-            or categoria
-            == "INTERMEDIARIO_ORGANIZZAZIONE"
+            or categoria == "INTERMEDIARIO_ORGANIZZAZIONE"
         )
 
         if not ammesso_gal:
-
             risultati.append(
                 {
                     "esito": "ESCLUSO",
                     "titolo": titolo,
-                    "url": url,
+                    "url": GAL_URL,
                 }
             )
-
-            print(
-                f"ESCLUSO: {titolo}"
-            )
-
+            print(f"ESCLUSO: {titolo}")
             continue
 
         bando = {
-            "id": genera_id(
-                "GAL Piceno",
-                url,
-            ),
+            "id": genera_id("GAL Piceno", chiave),
             "nome": titolo,
             "ente": "GAL Piceno",
             "stato": "APERTO",
             "scadenza": scadenza,
-            "scadenzaTesto":
-                formatta_data(scadenza),
+            "scadenzaTesto": formatta_data(scadenza),
             "profili": (
                 profili(categoria)
                 if pubblicabile(categoria)
                 else ["altro"]
             ),
-            "settori":
-                classifica_settori(
-                    titolo
-                    + " "
-                    + dettaglio[:7000]
-                ),
+            "settori": classifica_settori(
+                titolo + " " + blocco
+            ),
             "beneficiarioTipo": categoria,
             "descrizione": (
-                "Opportunità territoriale "
-                "del GAL Piceno."
+                "Opportunità territoriale presente "
+                "nella pagina bandi del GAL Piceno."
             ),
             "requisiti": (
-                "Consultare il bando ufficiale "
-                "GAL Piceno."
+                "Consultare il bando ufficiale GAL Piceno."
             ),
-            "dotazione":
-                "Verificare sulla fonte ufficiale",
+            "dotazione": (
+                "Verificare sulla fonte ufficiale"
+            ),
             "territorio": "GAL Piceno",
-            "url": url,
+            "url": GAL_URL,
             "fonteAutomatica": True,
             "versioneMotore": VERSIONE,
-            "ultimoControllo":
-                OGGI.isoformat(),
+            "ultimoControllo": OGGI.isoformat(),
         }
 
         risultati.append(
@@ -1362,16 +1372,11 @@ def controlla_gal():
         )
 
         print(
-            f"PUBBLICABILE: {titolo} "
-            f"-> {scadenza}"
+            f"PUBBLICABILE: {titolo} -> {scadenza}"
         )
 
     return risultati
 
-
-# ============================================================
-# DATABASE V10
-# ============================================================
 
 def prepara_database(database):
 
@@ -1587,7 +1592,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.1"
+        "BandiAP - aggiornamento automatico V10.2"
     )
     print("=" * 60)
 
@@ -1783,7 +1788,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.1")
+    print("RIEPILOGO V10.2")
     print("=" * 60)
 
     print(
