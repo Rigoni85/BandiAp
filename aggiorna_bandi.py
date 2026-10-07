@@ -10,10 +10,10 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 # ============================================================
 # BandiAP - Motore automatico bandi
-# VERSIONE 10.2
+# VERSIONE 10.3
 # ============================================================
 
-VERSIONE = "10.2"
+VERSIONE = "10.3"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.2)",
+                "Mozilla/5.0 (compatible; BandiAP/10.3)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -568,6 +568,72 @@ def classifica_beneficiario(
 # PUBBLICABILITÀ
 # ============================================================
 
+
+def raffina_beneficiario_da_titolo(titolo, categoria):
+
+    """
+    Raffina la classificazione quando la Regione viene letta solo dalla
+    pagina elenco e non abbiamo il dettaglio completo dei beneficiari.
+
+    Obiettivo: evitare che una semplice parola "impresa" nel titolo
+    renda pubblicabile un bando rivolto in realtà a Comuni, partenariati,
+    enti formativi o altri soggetti intermediari.
+    """
+
+    t = normalizza(titolo)
+
+    # Esclusioni forti: il destinatario diretto non è la singola impresa.
+    esclusioni = (
+        "contributi ai comuni",
+        "contributo ai comuni",
+        "comuni per",
+        "registro regionale dei comuni",
+        "partenariato pubblico privato",
+        "partenariati pubblico privati",
+        "aggregazioni su territorio sub gal",
+        "centro servizi territoriale",
+        "sistema di centri servizi",
+        "formazione trasversale e di base",
+        "formazione continua",
+        "azioni di formazione continua",
+        "erogazione della formazione",
+        "infrastrutture irrigue",
+        "infrastrutture di bonifica",
+    )
+
+    if any(x in t for x in esclusioni):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
+
+    # Casi in cui il titolo indica chiaramente un beneficiario economico diretto.
+    if any(
+        x in t
+        for x in (
+            "aiuti alle imprese turistiche",
+            "imprese di vendita di prodotti tipici",
+            "allevatori",
+            "imprese agricole",
+            "aziende agricole",
+            "imprenditori agricoli",
+            "micro piccole e medie imprese",
+            "pmi",
+            "mpmi",
+            "nuove imprese",
+            "nuova impresa",
+            "avvio di impresa",
+            "startup",
+            "start up",
+        )
+    ):
+        if any(x in t for x in ("agricol", "allevator", "zootec")):
+            return "AGRICOLTURA"
+        if any(x in t for x in ("nuove imprese", "nuova impresa", "avvio di impresa", "startup", "start up")):
+            return "NUOVA_IMPRESA"
+        return "IMPRESA"
+
+    # Se la classificazione originaria è già affidabile, la manteniamo.
+    return categoria
+
+
 def pubblicabile(tipo):
 
     return tipo in (
@@ -958,26 +1024,11 @@ def controlla_regione():
                 "",
             )
 
-            # Alcuni titoli sono chiaramente bandi per imprese ma
-            # non contengono la formula "PMI".
-            titolo_n = normalizza(titolo)
-
-            if categoria == "NON_DETERMINATO":
-
-                if any(
-                    x in titolo_n
-                    for x in (
-                        "imprese",
-                        "impresa",
-                        "imprenditori",
-                        "allevatori",
-                        "aziende agricole",
-                        "operatori economici",
-                        "turistiche",
-                        "prodotti tipici",
-                    )
-                ):
-                    categoria = "IMPRESA"
+            # V10.3: raffinamento prudenziale per evitare falsi positivi.
+            categoria = raffina_beneficiario_da_titolo(
+                titolo,
+                categoria,
+            )
 
             if not pubblicabile(categoria):
 
@@ -1029,7 +1080,13 @@ def controlla_regione():
             or risultato.get("bando", {}).get("nome", "")
         )
 
-        print(f"[{idb}] {esito}: {nome_log}")
+        if esito == "ESCLUSO" and risultato.get("categoria"):
+            print(
+                f"[{idb}] {esito} ({risultato.get('categoria')}): "
+                f"{nome_log}"
+            )
+        else:
+            print(f"[{idb}] {esito}: {nome_log}")
         risultati.append(risultato)
 
     return risultati
@@ -1592,7 +1649,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.2"
+        "BandiAP - aggiornamento automatico V10.3"
     )
     print("=" * 60)
 
@@ -1788,7 +1845,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.2")
+    print("RIEPILOGO V10.3")
     print("=" * 60)
 
     print(
