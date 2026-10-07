@@ -21,7 +21,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26359",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -67,7 +67,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28602",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -119,32 +119,6 @@
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi/id_7590/1542?idb=28510"
   },
   {
-    "id": "c91bad300939068f",
-    "idFonte": "8397",
-    "nome": "Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023-2027 del Piano Strategico nazionale della PAC 2023-2027 della Regione Marche (CSR) – Intervento SRH03 – Formazione degli imprenditori agricoli, degli addetti alle imprese operanti nei settori agricoltura, zootecnia, industrie alimentari e degli altri soggetti privati e pubblici funzionali allo sviluppo delle aree rurali. Approvazione bando.",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-11-13",
-    "scadenzaTesto": "13 novembre 2026",
-    "profili": [
-      "agricola"
-    ],
-    "settori": [
-      "agricoltura",
-      "industria"
-    ],
-    "beneficiarioTipo": "AGRICOLTURA",
-    "beneficiari": "",
-    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
-    "requisiti": "Consultare la scheda ufficiale del bando.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=8397",
-    "fonteAutomatica": true,
-    "versioneMotore": "10.6",
-    "ultimoControllo": "2026-10-07"
-  },
-  {
     "id": 4,
     "nome": "FEAMPA – Acquacoltura sostenibile 2026",
     "ente": "Regione Marche",
@@ -165,6 +139,64 @@
     "dotazione": "Verificare nel bando",
     "territorio": "Regione Marche",
     "url": "https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
+  },
+  {
+    "id": "aaeadfb87efc2970",
+    "idFonte": "28749",
+    "nome": "GAL Montefeltro Sviluppo - CSR MARCHE 2023 – 2027 – Intervento SRD14 “Investimenti produttivi non agricoli in aree rurali” – azione a) “Attività commerciali tese al miglioramento della fruibilità e dell’attrattività dei territori rurali, anche mediante l’ampliamento della gamma dei servizi turistici offerti, compresa l’ospitalità diffusa, la ristorazione e la vendita di prodotti locali”",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-12-18",
+    "scadenzaTesto": "18 dicembre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "commercio",
+      "turismo",
+      "agricoltura",
+      "servizi"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28749",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.7",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "b7ea2c85a0ab6008",
+    "idFonte": "28757",
+    "nome": "GAL Fermano Leader S.C. a R.L. - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023/2027 del Piano Strategico nazionale della PAC 2023/2027 della Regione Marche – Intervento SSL. SRD14.c “Servizi alle persone, strumentali al miglioramento delle condizioni di vita nei territori rurali, e servizi alle imprese”",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-01-15",
+    "scadenzaTesto": "15 gennaio 2027",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "agricoltura",
+      "servizi"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28757",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.7",
+    "ultimoControllo": "2026-10-07"
   },
   {
     "id": "0fc57e05e39a9db5",
@@ -188,7 +220,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26327",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -215,7 +247,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=26332",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -240,7 +272,7 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=8966",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -265,7 +297,59 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28591",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "347a4fcfcc442173",
+    "idFonte": "28754",
+    "nome": "Le Marche per i giovani: sostegno all'imprenditorialità giovanile",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-11-30",
+    "scadenzaTesto": "30 novembre 2027",
+    "profili": [
+      "nuova"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "NUOVA_IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28754",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.7",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "777353f0de4cea59",
+    "idFonte": "22910",
+    "nome": "Regione Marche - Linea di credito agevolata Bei EU Blending",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2029-01-15",
+    "scadenzaTesto": "15 gennaio 2029",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=22910",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   },
   {
@@ -290,7 +374,34 @@
     "territorio": "Regione Marche",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=21770",
     "fonteAutomatica": true,
-    "versioneMotore": "10.6",
+    "versioneMotore": "10.7",
+    "ultimoControllo": "2026-10-07"
+  },
+  {
+    "id": "682a18a423053d71",
+    "idFonte": "28598",
+    "nome": "FONDO NUOVO CREDITO - INVESTIMENTI E LIQUIDITA' 2026",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2030-08-04",
+    "scadenzaTesto": "4 agosto 2030",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28598",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.7",
     "ultimoControllo": "2026-10-07"
   }
 ]
