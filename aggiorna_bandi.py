@@ -13,7 +13,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 # VERSIONE 10.3
 # ============================================================
 
-VERSIONE = "10.3"
+VERSIONE = "10.4"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.3)",
+                "Mozilla/5.0 (compatible; BandiAP/10.4)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -523,6 +523,24 @@ def classifica_beneficiario(
         )
     ):
         return "ASSOCIAZIONE_ETS"
+
+    # FORMAZIONE / SOGGETTI EROGATORI
+    # Se il bando riguarda l'erogazione o la presentazione di progetti formativi,
+    # il beneficiario diretto è normalmente il soggetto attuatore/formatore,
+    # non l'impresa o il lavoratore destinatario finale.
+    if any(
+        x in t
+        for x in (
+            "erogazione della formazione",
+            "presentazione dei progetti relativi ad azioni di formazione",
+            "azioni di formazione continua",
+            "soggetti attuatori",
+            "organismi di formazione",
+            "enti di formazione",
+            "agenzie formative",
+        )
+    ):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
 
     # INTERMEDIARI
     if any(
@@ -1024,7 +1042,7 @@ def controlla_regione():
                 "",
             )
 
-            # V10.3: raffinamento prudenziale per evitare falsi positivi.
+            # V10.4: raffinamento prudenziale per evitare falsi positivi.
             categoria = raffina_beneficiario_da_titolo(
                 titolo,
                 categoria,
@@ -1372,10 +1390,9 @@ def controlla_gal():
         ):
             categoria = "INTERMEDIARIO_ORGANIZZAZIONE"
 
-        ammesso_gal = (
-            pubblicabile(categoria)
-            or categoria == "INTERMEDIARIO_ORGANIZZAZIONE"
-        )
+        # Pubblica solo beneficiari effettivamente ammessi a BandiAP.
+        # PPP, aggregazioni e soggetti intermediari non vengono pubblicati.
+        ammesso_gal = pubblicabile(categoria)
 
         if not ammesso_gal:
             risultati.append(
@@ -1649,7 +1666,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.3"
+        "BandiAP - aggiornamento automatico V10.4"
     )
     print("=" * 60)
 
@@ -1845,7 +1862,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.3")
+    print("RIEPILOGO V10.4")
     print("=" * 60)
 
     print(
