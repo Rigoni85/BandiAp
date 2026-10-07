@@ -10,10 +10,10 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 # ============================================================
 # BandiAP - Motore automatico bandi
-# VERSIONE 10
+# VERSIONE 10.1
 # ============================================================
 
-VERSIONE = 10
+VERSIONE = "10.1"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.0)",
+                "Mozilla/5.0 (compatible; BandiAP/10.1)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -305,38 +305,61 @@ def formatta_data(data):
 
 def estrai_finestre(testo):
 
-    """
-    Cerca intervalli tipo:
-
-    dal 16/09/2026 al 16/10/2026
-    dal 01/09/2027 al 30/09/2027
-    """
-
     risultati = []
+    visti = set()
 
-    pattern = re.compile(
-        r"(?:dal|d\s*al)\s*"
+    def aggiungi(inizio, fine):
+        if not inizio or not fine:
+            return
+        chiave = (inizio, fine)
+        if chiave not in visti:
+            visti.add(chiave)
+            risultati.append(chiave)
+
+    pattern_num = re.compile(
+        r"(?:dal|dall['’]?)\s*"
         r"([0-3]?\d[/-][01]?\d[/-]20\d{2})"
-        r".{0,80}?"
+        r".{0,100}?"
         r"(?:al|fino al)\s*"
         r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
         flags=re.I,
     )
 
-    for inizio, fine in pattern.findall(testo):
+    for inizio, fine in pattern_num.findall(testo):
+        aggiungi(converti_data(inizio), converti_data(fine))
 
-        data_inizio = converti_data(inizio)
-        data_fine = converti_data(fine)
+    mesi_re = "|".join(MESI.keys())
 
-        if data_inizio and data_fine:
+    pattern_testo_anno_finale = re.compile(
+        rf"(?:dal|dall['’]?)\s*"
+        rf"([0-3]?\d)\s+({mesi_re})\s*"
+        rf"(?:al|fino al)\s*"
+        rf"([0-3]?\d)\s+({mesi_re})\s+(20\d{{2}})",
+        flags=re.I,
+    )
 
-            risultati.append(
-                (
-                    data_inizio,
-                    data_fine,
-                )
-            )
+    for g1, m1, g2, m2, anno in pattern_testo_anno_finale.findall(testo):
+        aggiungi(
+            converti_data(f"{g1} {m1} {anno}"),
+            converti_data(f"{g2} {m2} {anno}"),
+        )
 
+    pattern_testo_completo = re.compile(
+        rf"(?:dal|dall['’]?)\s*"
+        rf"([0-3]?\d)\s+({mesi_re})\s+(20\d{{2}})"
+        rf".{{0,40}}?"
+        rf"(?:al|fino al)\s*"
+        rf"([0-3]?\d)\s+({mesi_re})\s+(20\d{{2}})",
+        flags=re.I,
+    )
+
+    for g1, m1, a1, g2, m2, a2 in pattern_testo_completo.findall(testo):
+        aggiungi(
+            converti_data(f"{g1} {m1} {a1}"),
+            converti_data(f"{g2} {m2} {a2}"),
+        )
+
+    risultati.sort()
     return risultati
 
 
@@ -716,202 +739,120 @@ def campo_regione(testo, nome, prossimo=None):
 
 def analizza_regione_id(idb):
 
-    url = (
-        REGIONE_URL
-        + "?idb="
-        + str(idb)
-    )
+    url = REGIONE_URL + "/p/1/t/112?idb=" + str(idb)
 
     try:
         html = scarica(url)
-
     except Exception as e:
-
-        print(
-            f"  ERRORE Regione ID {idb}: {e}"
-        )
-        return None
+        print(f"  ERRORE Regione ID {idb}: {e}")
+        return {"esito": "DA_VERIFICARE", "titolo": f"Regione Marche ID {idb}", "url": url}
 
     testo = pulisci_html(html)
+    titolo = ""
 
-    # Titolo: prendiamo il primo heading utile dopo Titolo
-    match_titolo = re.search(
-        r"Titolo\s*:\s*(.*?)"
-        r"(?:Area organizzativa|Struttura)\s*:",
-        testo,
-        flags=re.I | re.S,
+    patterns_titolo = (
+        r"Titolo\s*:?\s*(.*?)\s+(?:Area organizzativa|Struttura|Data di pubblicazione|Scadenza)\s*: ?",
+        r"(?:^|\s)Titolo\s*:?\s*(.{20,500}?)(?=\s{2,}|Area organizzativa|Struttura|Scadenza)",
     )
 
-    if not match_titolo:
-        return None
-
-    titolo = match_titolo.group(1).strip()
-
-    # Elimina eventuali rumori
-    titolo = re.sub(
-        r"^[-|:\s]+",
-        "",
-        titolo,
-    ).strip()
+    for pattern in patterns_titolo:
+        m = re.search(pattern, testo, flags=re.I | re.S)
+        if m:
+            candidato = re.sub(r"\s+", " ", m.group(1)).strip(" -|:")
+            if len(candidato) >= 10:
+                titolo = candidato
+                break
 
     if not titolo:
-        return None
+        headings = re.findall(r"<h[1-4][^>]*>(.*?)</h[1-4]>", html, flags=re.I | re.S)
+        for h in headings:
+            candidato = pulisci_html(h).strip()
+            n = normalizza(candidato)
+            if len(candidato) >= 15 and "bandi e opportunita" not in n and "bandi attivi" not in n and "regione marche" not in n:
+                titolo = candidato
+                break
 
-    beneficiari = campo_regione(
-        testo,
-        "Soggetti ammessi beneficiari",
-        "Note",
-    )
+    if not titolo:
+        m = re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.I | re.S)
+        if m:
+            titolo = pulisci_html(m.group(1))
+            titolo = re.sub(r"\s*[-|]\s*Regione Marche.*$", "", titolo, flags=re.I).strip()
 
-    note = campo_regione(
-        testo,
-        "Note",
-        "Allegati",
-    )
+    if not titolo:
+        titolo = f"Regione Marche ID {idb}"
 
-    # Scadenza nominale
-    match_scadenza = re.search(
-        r"Scadenza\s*:\s*(.*?)"
-        r"(?:Contatto|Email contatto)\s*:",
-        testo,
-        flags=re.I | re.S,
-    )
+    beneficiari = ""
+    for pattern in (
+        r"Soggetti ammessi beneficiari\s*:?\s*(.*?)\s+(?:Note|Scadenza|Allegati|Contatto)\s*: ?",
+        r"(?:Beneficiari|Destinatari)\s*:?\s*(.*?)\s+(?:Note|Scadenza|Allegati|Contatto)\s*: ?",
+    ):
+        m = re.search(pattern, testo, flags=re.I | re.S)
+        if m:
+            beneficiari = re.sub(r"\s+", " ", m.group(1)).strip()
+            if beneficiari:
+                break
 
-    scadenza_nominale = ""
-
-    if match_scadenza:
-
-        scadenza_nominale = converti_data(
-            match_scadenza.group(1)
-        )
-
-    # ----------------------------------------
-    # 1. CHIUSURA / SOSPENSIONE
-    # ----------------------------------------
+    note = testo[:20000]
 
     if chiusura_esplicita(note):
-
-        return {
-            "esito": "CHIUSO",
-            "titolo": titolo,
-            "url": url,
-        }
-
-    # ----------------------------------------
-    # 2. FINESTRE SPECIFICHE
-    # ----------------------------------------
+        return {"esito": "CHIUSO", "titolo": titolo, "url": url}
 
     finestra = finestra_attuale(note)
-
     if finestra:
-
         if finestra["stato"] == "PROGRAMMATO":
-
             return {
                 "esito": "PROGRAMMATO",
                 "titolo": titolo,
                 "url": url,
-                "prossimaApertura":
-                    finestra["prossimaApertura"],
+                "prossimaApertura": finestra["prossimaApertura"],
             }
-
-        scadenza_effettiva = (
-            finestra["scadenza"]
-        )
-
+        scadenza_effettiva = finestra["scadenza"]
     else:
+        scadenza_effettiva = ""
+        for pattern in (
+            r"Scadenza\s*:?\s*([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+            r"Scadenza\s*:?\s*([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+            r"Scadenza.{0,80}?([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+            r"Scadenza.{0,80}?([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+        ):
+            m = re.search(pattern, testo, flags=re.I)
+            if m:
+                scadenza_effettiva = converti_data(m.group(1))
+                if scadenza_effettiva:
+                    break
 
-        scadenza_effettiva = (
-            scadenza_nominale
-        )
-
-    # ----------------------------------------
-    # 3. SCADENZA
-    # ----------------------------------------
-
-    d = data_obj(
-        scadenza_effettiva
-    )
-
+    d = data_obj(scadenza_effettiva)
     if not d:
-
-        return {
-            "esito": "DA_VERIFICARE",
-            "titolo": titolo,
-            "url": url,
-        }
-
+        return {"esito": "DA_VERIFICARE", "titolo": titolo, "url": url}
     if d < OGGI:
+        return {"esito": "CHIUSO", "titolo": titolo, "url": url}
 
-        return {
-            "esito": "CHIUSO",
-            "titolo": titolo,
-            "url": url,
-        }
-
-    # ----------------------------------------
-    # 4. BENEFICIARIO
-    # ----------------------------------------
-
-    categoria = classifica_beneficiario(
-        titolo,
-        beneficiari,
-        note,
-    )
-
+    categoria = classifica_beneficiario(titolo, beneficiari, note)
     if not pubblicabile(categoria):
-
-        return {
-            "esito": "ESCLUSO",
-            "titolo": titolo,
-            "categoria": categoria,
-            "url": url,
-        }
-
-    # ----------------------------------------
-    # PUBBLICABILE
-    # ----------------------------------------
+        return {"esito": "ESCLUSO", "titolo": titolo, "categoria": categoria, "url": url}
 
     return {
         "esito": "PUBBLICABILE",
         "bando": {
-            "id": genera_id(
-                "Regione Marche",
-                idb,
-            ),
+            "id": genera_id("Regione Marche", idb),
             "idFonte": str(idb),
             "nome": titolo,
             "ente": "Regione Marche",
             "stato": "APERTO",
             "scadenza": scadenza_effettiva,
-            "scadenzaTesto": formatta_data(
-                scadenza_effettiva
-            ),
+            "scadenzaTesto": formatta_data(scadenza_effettiva),
             "profili": profili(categoria),
-            "settori": classifica_settori(
-                titolo
-                + " "
-                + beneficiari
-                + " "
-                + note
-            ),
+            "settori": classifica_settori(titolo + " " + beneficiari + " " + note),
             "beneficiarioTipo": categoria,
             "beneficiari": beneficiari,
-            "descrizione": (
-                "Bando presente nella fonte "
-                "ufficiale Regione Marche."
-            ),
-            "requisiti": beneficiari or (
-                "Consultare la fonte ufficiale."
-            ),
-            "dotazione":
-                "Verificare sulla fonte ufficiale",
+            "descrizione": "Bando presente nella fonte ufficiale Regione Marche.",
+            "requisiti": beneficiari or "Consultare la fonte ufficiale.",
+            "dotazione": "Verificare sulla fonte ufficiale",
             "territorio": "Regione Marche",
             "url": url,
             "fonteAutomatica": True,
             "versioneMotore": VERSIONE,
-            "ultimoControllo":
-                OGGI.isoformat(),
+            "ultimoControllo": OGGI.isoformat(),
         },
     }
 
@@ -994,91 +935,39 @@ def estrai_link_camera(html):
 
     risultati = []
     visti = set()
-
-    pattern = re.compile(
-        r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>'
-        r'(.*?)</a>',
-        flags=re.I | re.S,
-    )
+    pattern = re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', flags=re.I | re.S)
 
     for href, contenuto in pattern.findall(html):
-
-        titolo = pulisci_html(
-            contenuto
-        )
-
+        titolo = pulisci_html(contenuto)
         t = normalizza(titolo)
+        href_dec = html_lib.unescape(href).strip()
 
         if len(t) < 10:
             continue
-
-        if not any(
-            parola in t
-            for parola in (
-                "bando",
-                "avviso",
-                "voucher",
-            )
-        ):
+        if re.search(r"\.(?:pdf|docx?|xlsx?)(?:$|[?#])", href_dec, flags=re.I):
+            continue
+        if re.search(r"\.(?:pdf|docx?|xlsx?)\b", titolo, flags=re.I):
+            continue
+        if any(parola in t for parola in ("allegato", "modello", "modulistica", "determina", "graduatoria", "elenco")):
+            continue
+        if not any(parola in t for parola in ("bando", "avviso", "voucher")):
             continue
 
-        # vecchie annualità
-        anni = re.findall(
-            r"\b20\d{2}\b",
-            t,
-        )
-
+        anni = re.findall(r"\b20\d{2}\b", t)
         if anni:
-
-            anni_recenti = [
-                int(x)
-                for x in anni
-                if int(x) >= 2022
-            ]
-
-            if (
-                anni_recenti
-                and max(anni_recenti) < ANNO
-            ):
+            anni_recenti = [int(x) for x in anni if int(x) >= 2022]
+            if anni_recenti and max(anni_recenti) < ANNO:
                 continue
 
-        url = urljoin(
-            CAMERA_URL,
-            html_lib.unescape(href),
-        )
-
-        dominio = urlparse(
-            url
-        ).netloc.lower()
-
-        if "marche.camcom.it" not in dominio:
-            continue
-
-        # niente documenti
-        if url.lower().split("?")[0].endswith(
-            (
-                ".pdf",
-                ".doc",
-                ".docx",
-                ".xls",
-                ".xlsx",
-            )
-        ):
+        url = urljoin(CAMERA_URL, href_dec)
+        if "marche.camcom.it" not in urlparse(url).netloc.lower():
             continue
 
         chiave = url.rstrip("/")
-
         if chiave in visti:
             continue
-
         visti.add(chiave)
-
-        risultati.append(
-            {
-                "titolo": titolo,
-                "url": url,
-            }
-        )
+        risultati.append({"titolo": titolo, "url": url})
 
     return risultati
 
@@ -1090,141 +979,58 @@ def analizza_camera(link):
 
     try:
         html = scarica(url)
-
     except Exception:
-
-        return {
-            "esito": "DA_VERIFICARE",
-            "titolo": titolo,
-            "url": url,
-        }
+        return {"esito": "DA_VERIFICARE", "titolo": titolo, "url": url}
 
     testo = pulisci_html(html)
 
-    # Chiusura anticipata prevale su tutto
     if chiusura_esplicita(testo):
-
-        return {
-            "esito": "CHIUSO",
-            "titolo": titolo,
-            "url": url,
-        }
-
-    # Campo Camera:
-    # Scadenza termini partecipazione
-    match = re.search(
-        r"Scadenza termini partecipazione\s*:\s*"
-        r"(.{0,100})",
-        testo,
-        flags=re.I,
-    )
+        return {"esito": "CHIUSO", "titolo": titolo, "url": url}
 
     scadenza = ""
-
-    if match:
-        scadenza = converti_data(
-            match.group(1)
-        )
-
-    # Altre formulazioni
-    if not scadenza:
-
-        patterns = (
-            r"entro il\s+"
-            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
-
-            r"entro il\s+"
-            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
-
-            r"fino al\s+"
-            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
-        )
-
-        for pattern in patterns:
-
-            m = re.search(
-                pattern,
-                testo,
-                flags=re.I,
-            )
-
-            if m:
-
-                scadenza = converti_data(
-                    m.group(1)
-                )
-
-                if scadenza:
-                    break
+    for pattern in (
+        r"Scadenza\s+termini\s+partecipazione\s*(?:[:|–—-]\s*)?([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+        r"Scadenza\s+termini\s+partecipazione\s*(?:[:|–—-]\s*)?([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+        r"entro il\s+([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+        r"entro il\s+([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+        r"fino al\s+([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+    ):
+        m = re.search(pattern, testo, flags=re.I)
+        if m:
+            scadenza = converti_data(m.group(1))
+            if scadenza:
+                break
 
     d = data_obj(scadenza)
-
     if not d:
-
-        return {
-            "esito": "DA_VERIFICARE",
-            "titolo": titolo,
-            "url": url,
-        }
-
+        return {"esito": "DA_VERIFICARE", "titolo": titolo, "url": url}
     if d < OGGI:
+        return {"esito": "CHIUSO", "titolo": titolo, "url": url}
 
-        return {
-            "esito": "CHIUSO",
-            "titolo": titolo,
-            "url": url,
-        }
-
-    categoria = classifica_beneficiario(
-        titolo,
-        testo[:5000],
-        "",
-    )
-
+    categoria = classifica_beneficiario(titolo, testo[:7000], "")
     if not pubblicabile(categoria):
-
-        return {
-            "esito": "ESCLUSO",
-            "titolo": titolo,
-            "categoria": categoria,
-            "url": url,
-        }
+        return {"esito": "ESCLUSO", "titolo": titolo, "categoria": categoria, "url": url}
 
     return {
         "esito": "PUBBLICABILE",
         "bando": {
-            "id": genera_id(
-                "Camera Marche",
-                url,
-            ),
+            "id": genera_id("Camera Marche", url),
             "nome": titolo,
-            "ente":
-                "Camera di Commercio delle Marche",
+            "ente": "Camera di Commercio delle Marche",
             "stato": "APERTO",
             "scadenza": scadenza,
-            "scadenzaTesto":
-                formatta_data(scadenza),
+            "scadenzaTesto": formatta_data(scadenza),
             "profili": profili(categoria),
-            "settori":
-                classifica_settori(
-                    titolo + " " + testo[:5000]
-                ),
+            "settori": classifica_settori(titolo + " " + testo[:7000]),
             "beneficiarioTipo": categoria,
-            "descrizione": (
-                "Opportunità verificata sulla "
-                "fonte ufficiale della Camera "
-                "di Commercio delle Marche."
-            ),
-            "requisiti":
-                "Consultare la fonte ufficiale.",
-            "dotazione":
-                "Verificare sulla fonte ufficiale",
+            "descrizione": "Opportunità verificata sulla fonte ufficiale della Camera di Commercio delle Marche.",
+            "requisiti": "Consultare la fonte ufficiale.",
+            "dotazione": "Verificare sulla fonte ufficiale",
             "territorio": "Regione Marche",
             "url": url,
             "fonteAutomatica": True,
             "versioneMotore": VERSIONE,
-            "ultimoControllo":
-                OGGI.isoformat(),
+            "ultimoControllo": OGGI.isoformat(),
         },
     }
 
@@ -1318,6 +1124,17 @@ def controlla_gal():
 
         t = normalizza(titolo)
 
+        href_dec = html_lib.unescape(href).strip()
+
+        if re.search(r"\.(?:pdf|docx?|xlsx?)(?:$|[?#])", href_dec, flags=re.I):
+            continue
+
+        if re.search(r"\.(?:pdf|docx?|xlsx?)\b", titolo, flags=re.I):
+            continue
+
+        if any(parola in t for parola in ("allegato", "modello", "modulistica", "determina")):
+            continue
+
         if not any(
             codice in t
             for codice in (
@@ -1378,6 +1195,12 @@ def controlla_gal():
             r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
 
             r"entro.{0,100}?"
+            r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
+
+            r"presentazione.{0,140}?"
+            r"([0-3]?\d[/-][01]?\d[/-]20\d{2})",
+
+            r"presentazione.{0,140}?"
             r"([0-3]?\d\s+[a-zàèéìòù]+\s+20\d{2})",
         )
 
@@ -1764,7 +1587,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10"
+        "BandiAP - aggiornamento automatico V10.1"
     )
     print("=" * 60)
 
@@ -1960,7 +1783,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10")
+    print("RIEPILOGO V10.1")
     print("=" * 60)
 
     print(
