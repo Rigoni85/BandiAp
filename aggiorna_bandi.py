@@ -13,7 +13,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 # VERSIONE 10.3
 # ============================================================
 
-VERSIONE = "10.6"
+VERSIONE = "10.7"
 
 BASE_DIR = Path(__file__).resolve().parent
 BANDI_FILE = BASE_DIR / "bandi.json"
@@ -113,7 +113,7 @@ def scarica(url):
         url,
         headers={
             "User-Agent":
-                "Mozilla/5.0 (compatible; BandiAP/10.6)",
+                "Mozilla/5.0 (compatible; BandiAP/10.7)",
             "Accept-Language":
                 "it-IT,it;q=0.9",
         },
@@ -609,6 +609,16 @@ def raffina_beneficiario_da_titolo(titolo, categoria):
 
     t = normalizza(titolo)
 
+    # PRIORITÀ ASSOLUTA: SRH03 / FORMAZIONE
+    # I destinatari finali possono essere imprese/agricoltori, ma il bando
+    # finanzia i soggetti erogatori della formazione.
+    if (
+        "srh03" in t
+        or "formazione degli imprenditori agricoli" in t
+        or "erogazione della formazione" in t
+    ):
+        return "INTERMEDIARIO_ORGANIZZAZIONE"
+
     # Esclusioni forti: il destinatario diretto non è la singola impresa.
     esclusioni = (
         "contributi ai comuni",
@@ -658,6 +668,76 @@ def raffina_beneficiario_da_titolo(titolo, categoria):
         return "IMPRESA"
 
     # Se la classificazione originaria è già affidabile, la manteniamo.
+
+    # MISURE ECONOMICHE CHIARAMENTE COERENTI CON BandiAP
+    # Vengono recuperate solo se non già classificate da regole più specifiche.
+    if categoria == "NON_DETERMINATO":
+
+        # Imprenditorialità / nuove imprese / startup / professionisti
+        if any(
+            x in t
+            for x in (
+                "imprenditorialita giovanile",
+                "sostegno alla creazione di nuove imprese",
+                "creazione di nuove imprese",
+                "nuove imprese",
+                "start up",
+                "startup",
+                "spin off",
+                "liberi professionisti",
+                "attivita professionali",
+                "studi professionali",
+            )
+        ):
+            return "NUOVA_IMPRESA"
+
+        # SRD14: investimenti produttivi non agricoli / servizi alle imprese
+        if (
+            "srd14" in t
+            and any(
+                x in t
+                for x in (
+                    "investimenti produttivi non agricoli",
+                    "attivita commerciali",
+                    "imprese turistiche",
+                    "servizi alle imprese",
+                    "microimprese",
+                    "ristorazione",
+                    "vendita di prodotti",
+                )
+            )
+        ):
+            return "IMPRESA"
+
+        # Credito / liquidità / finanziamenti per imprese
+        if any(
+            x in t
+            for x in (
+                "fondo nuovo credito",
+                "fondo credito nuove imprese",
+                "credito nuove imprese",
+                "investimenti e liquidita",
+                "linea di credito agevolata",
+                "rimborso dei costi sostenuti per l attivazione di fideiussioni",
+                "sostegno di attivita di internazionalizzazione delle imprese",
+            )
+        ):
+            return "IMPRESA"
+
+        # Internazionalizzazione
+        if (
+            "internazionalizzazione" in t
+            and any(
+                x in t
+                for x in (
+                    "imprese",
+                    "pmi",
+                    "microimprese",
+                )
+            )
+        ):
+            return "IMPRESA"
+
     return categoria
 
 
@@ -1051,7 +1131,7 @@ def controlla_regione():
                 "",
             )
 
-            # V10.6: raffinamento prudenziale per evitare falsi positivi.
+            # V10.7: raffinamento prudenziale per evitare falsi positivi.
             categoria = raffina_beneficiario_da_titolo(
                 titolo,
                 categoria,
@@ -1675,7 +1755,7 @@ def main():
 
     print("=" * 60)
     print(
-        "BandiAP - aggiornamento automatico V10.6"
+        "BandiAP - aggiornamento automatico V10.7"
     )
     print("=" * 60)
 
@@ -1871,7 +1951,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("RIEPILOGO V10.6")
+    print("RIEPILOGO V10.7")
     print("=" * 60)
 
     print(
