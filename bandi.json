@@ -1,32 +1,5 @@
 [
   {
-    "id": "be576889afc87eac",
-    "idFonte": "28602",
-    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD14 – azione a) “Aiuti alle imprese turistiche ed alle imprese di vendita di prodotti tipici per il miglioramento e l’accessibilità delle strutture”",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-10-16",
-    "scadenzaTesto": "16 ottobre 2026",
-    "profili": [
-      "micro",
-      "piccola",
-      "media"
-    ],
-    "settori": [
-      "agricoltura"
-    ],
-    "beneficiarioTipo": "IMPRESA",
-    "beneficiari": "",
-    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
-    "requisiti": "Consultare la scheda ufficiale del bando.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28602",
-    "fonteAutomatica": true,
-    "versioneMotore": "10.8",
-    "ultimoControllo": "2026-10-16"
-  },
-  {
     "id": 1,
     "nome": "Marche per le imprese – Creazione nuove imprese Over 36",
     "ente": "Regione Marche",
@@ -120,6 +93,33 @@
     "fonteAutomatica": true,
     "versioneMotore": "10.8",
     "ultimoControllo": "2026-10-13"
+  },
+  {
+    "id": "be576889afc87eac",
+    "idFonte": "28602",
+    "nome": "GAL Colli Esini San Vicino - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023–2027 del Piano Strategico nazionale della PAC 2023–2027 della Regione Marche (CSR) – Intervento SRD14 – azione a) “Aiuti alle imprese turistiche ed alle imprese di vendita di prodotti tipici per il miglioramento e l’accessibilità delle strutture”",
+    "ente": "Regione Marche",
+    "stato": "SCADUTO",
+    "scadenza": "2026-10-16",
+    "scadenzaTesto": "16 ottobre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "agricoltura"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28602",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.8",
+    "ultimoControllo": "2026-10-16"
   },
   {
     "id": "aaeadfb87efc2970",
