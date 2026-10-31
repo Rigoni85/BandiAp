@@ -94,7 +94,37 @@
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28696",
     "fonteAutomatica": true,
     "versioneMotore": "10.8",
-    "ultimoControllo": "2026-10-30"
+    "ultimoControllo": "2026-10-31"
+  },
+  {
+    "id": "aaeadfb87efc2970",
+    "idFonte": "28749",
+    "nome": "GAL Montefeltro Sviluppo - CSR MARCHE 2023 – 2027 – Intervento SRD14 “Investimenti produttivi non agricoli in aree rurali” – azione a) “Attività commerciali tese al miglioramento della fruibilità e dell’attrattività dei territori rurali, anche mediante l’ampliamento della gamma dei servizi turistici offerti, compresa l’ospitalità diffusa, la ristorazione e la vendita di prodotti locali”",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2026-12-18",
+    "scadenzaTesto": "18 dicembre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "commercio",
+      "turismo",
+      "agricoltura",
+      "servizi"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28749",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.8",
+    "ultimoControllo": "2026-10-31"
   },
   {
     "id": "354cfcf800e446b6",
@@ -147,35 +177,5 @@
     "fonteAutomatica": true,
     "versioneMotore": "10.8",
     "ultimoControllo": "2026-10-16"
-  },
-  {
-    "id": "aaeadfb87efc2970",
-    "idFonte": "28749",
-    "nome": "GAL Montefeltro Sviluppo - CSR MARCHE 2023 – 2027 – Intervento SRD14 “Investimenti produttivi non agricoli in aree rurali” – azione a) “Attività commerciali tese al miglioramento della fruibilità e dell’attrattività dei territori rurali, anche mediante l’ampliamento della gamma dei servizi turistici offerti, compresa l’ospitalità diffusa, la ristorazione e la vendita di prodotti locali”",
-    "ente": "Regione Marche",
-    "stato": "SCADUTO",
-    "scadenza": "2026-12-18",
-    "scadenzaTesto": "18 dicembre 2026",
-    "profili": [
-      "micro",
-      "piccola",
-      "media"
-    ],
-    "settori": [
-      "commercio",
-      "turismo",
-      "agricoltura",
-      "servizi"
-    ],
-    "beneficiarioTipo": "IMPRESA",
-    "beneficiari": "",
-    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
-    "requisiti": "Consultare la scheda ufficiale del bando.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28749",
-    "fonteAutomatica": true,
-    "versioneMotore": "10.8",
-    "ultimoControllo": "2026-10-14"
   }
 ]
