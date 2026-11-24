@@ -70,33 +70,6 @@
     "url": "https://static.regione.marche.it/entra-in-regione/bandi?idb=28639"
   },
   {
-    "id": "4a8872491b21869d",
-    "idFonte": "28696",
-    "nome": "Intervento Multileva 3.1 sostegno alle famiglie - Programma Nazionale “Giovani, Donne e Lavoro” (PN GDL) FSE+ 2021-2027- Priorità 2 – Obiettivo specifico ESO 4.3 - Attuazione D.G.R. n. 888 del 13/07/2026 - Progetto “Voucher di cura residenzialità per la conciliazione tempi di vita, cura e lavoro - Donne in equilibrio: tempi di vita, di cura e di lavoro” - anno 2026 - Approvazione avviso pubblico",
-    "ente": "Regione Marche",
-    "stato": "APERTO",
-    "scadenza": "2026-11-23",
-    "scadenzaTesto": "23 novembre 2026",
-    "profili": [
-      "micro",
-      "piccola",
-      "media"
-    ],
-    "settori": [
-      "altro"
-    ],
-    "beneficiarioTipo": "IMPRESA",
-    "beneficiari": "",
-    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
-    "requisiti": "Consultare la scheda ufficiale del bando.",
-    "dotazione": "Verificare sulla fonte ufficiale",
-    "territorio": "Regione Marche",
-    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28696",
-    "fonteAutomatica": true,
-    "versioneMotore": "10.8",
-    "ultimoControllo": "2026-11-23"
-  },
-  {
     "id": "aaeadfb87efc2970",
     "idFonte": "28749",
     "nome": "GAL Montefeltro Sviluppo - CSR MARCHE 2023 – 2027 – Intervento SRD14 “Investimenti produttivi non agricoli in aree rurali” – azione a) “Attività commerciali tese al miglioramento della fruibilità e dell’attrattività dei territori rurali, anche mediante l’ampliamento della gamma dei servizi turistici offerti, compresa l’ospitalità diffusa, la ristorazione e la vendita di prodotti locali”",
@@ -124,7 +97,35 @@
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28749",
     "fonteAutomatica": true,
     "versioneMotore": "10.8",
-    "ultimoControllo": "2026-11-23"
+    "ultimoControllo": "2026-11-24"
+  },
+  {
+    "id": "b7ea2c85a0ab6008",
+    "idFonte": "28757",
+    "nome": "GAL Fermano Leader S.C. a R.L. - Reg. (UE) 2021/2115 – Complemento regionale per lo Sviluppo Rurale 2023/2027 del Piano Strategico nazionale della PAC 2023/2027 della Regione Marche – Intervento SSL. SRD14.c “Servizi alle persone, strumentali al miglioramento delle condizioni di vita nei territori rurali, e servizi alle imprese”",
+    "ente": "Regione Marche",
+    "stato": "APERTO",
+    "scadenza": "2027-01-15",
+    "scadenzaTesto": "15 gennaio 2027",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "agricoltura",
+      "servizi"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28757",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.8",
+    "ultimoControllo": "2026-11-24"
   },
   {
     "id": "354cfcf800e446b6",
@@ -177,5 +178,32 @@
     "fonteAutomatica": true,
     "versioneMotore": "10.8",
     "ultimoControllo": "2026-10-16"
+  },
+  {
+    "id": "4a8872491b21869d",
+    "idFonte": "28696",
+    "nome": "Intervento Multileva 3.1 sostegno alle famiglie - Programma Nazionale “Giovani, Donne e Lavoro” (PN GDL) FSE+ 2021-2027- Priorità 2 – Obiettivo specifico ESO 4.3 - Attuazione D.G.R. n. 888 del 13/07/2026 - Progetto “Voucher di cura residenzialità per la conciliazione tempi di vita, cura e lavoro - Donne in equilibrio: tempi di vita, di cura e di lavoro” - anno 2026 - Approvazione avviso pubblico",
+    "ente": "Regione Marche",
+    "stato": "SCADUTO",
+    "scadenza": "2026-11-23",
+    "scadenzaTesto": "23 novembre 2026",
+    "profili": [
+      "micro",
+      "piccola",
+      "media"
+    ],
+    "settori": [
+      "altro"
+    ],
+    "beneficiarioTipo": "IMPRESA",
+    "beneficiari": "",
+    "descrizione": "Bando presente nell'elenco ufficiale dei bandi attivi della Regione Marche.",
+    "requisiti": "Consultare la scheda ufficiale del bando.",
+    "dotazione": "Verificare sulla fonte ufficiale",
+    "territorio": "Regione Marche",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi-e-opportunita/Bandi-attivi/p/1/t/112?idb=28696",
+    "fonteAutomatica": true,
+    "versioneMotore": "10.8",
+    "ultimoControllo": "2026-11-23"
   }
 ]
